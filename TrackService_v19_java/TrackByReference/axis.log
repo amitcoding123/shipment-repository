@@ -1,0 +1,111 @@
+=======================================================
+= Elapsed: 663 milliseconds
+= In message: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <TrackRequest xmlns="http://fedex.com/ws/track/v16">
+   <WebAuthenticationDetail>
+    <UserCredential>
+     <Key>daBB9GNlTPUizhjI</Key>
+     <Password>072nNZ0WUi7i2sP0ICddH7PQh</Password>
+    </UserCredential>
+   </WebAuthenticationDetail>
+   <ClientDetail>
+    <AccountNumber>150067600</AccountNumber>
+    <MeterNumber>4004310</MeterNumber>
+   </ClientDetail>
+   <TransactionDetail>
+    <CustomerTransactionId>java sample - Tracking by Reference Request</CustomerTransactionId>
+   </TransactionDetail>
+   <Version>
+    <ServiceId>trck</ServiceId>
+    <Major>16</Major>
+    <Intermediate>0</Intermediate>
+    <Minor>0</Minor>
+   </Version>
+   <SelectionDetails>
+    <PackageIdentifier>
+     <Type>CUSTOMER_REFERENCE</Type>
+     <Value>XXX</Value>
+    </PackageIdentifier>
+    <ShipmentAccountNumber>XXX</ShipmentAccountNumber>
+   </SelectionDetails>
+   <ProcessingOptions>INCLUDE_DETAILED_SCANS</ProcessingOptions>
+  </TrackRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+= Out message: <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><v16:TrackReply xmlns:v16="http://fedex.com/ws/track/v16"> <v16:HighestSeverity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:HighestSeverity>  <v16:Notifications xmlns:v16="http://fedex.com/ws/track/v16">     <v16:Severity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:Severity>     <v16:Source xmlns:v16="http://fedex.com/ws/track/v16">prof</v16:Source>     <v16:Code xmlns:v16="http://fedex.com/ws/track/v16">1000</v16:Code>     <v16:Message xmlns:v16="http://fedex.com/ws/track/v16">Authentication Failed</v16:Message>  </v16:Notifications> <v16:TransactionDetail xmlns:v16="http://fedex.com/ws/track/v16"><v16:CustomerTransactionId xmlns:v16="http://fedex.com/ws/track/v16">java sample - Tracking by Reference Request</v16:CustomerTransactionId> </v16:TransactionDetail>  <v16:Version xmlns:v16="http://fedex.com/ws/track/v16">     <v16:ServiceId xmlns:v16="http://fedex.com/ws/track/v16">trck</v16:ServiceId>     <v16:Major xmlns:v16="http://fedex.com/ws/track/v16">16</v16:Major>     <v16:Intermediate xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Intermediate>     <v16:Minor xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Minor>  </v16:Version> </v16:TrackReply></SOAP-ENV:Body></SOAP-ENV:Envelope>
+=======================================================
+=======================================================
+= Elapsed: 712 milliseconds
+= In message: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <TrackRequest xmlns="http://fedex.com/ws/track/v16">
+   <WebAuthenticationDetail>
+    <UserCredential>
+     <Key>daBB9GNlTPUizhjI</Key>
+     <Password>072nNZ0WUi7i2sP0ICddH7PQh</Password>
+    </UserCredential>
+   </WebAuthenticationDetail>
+   <ClientDetail>
+    <AccountNumber>150067600</AccountNumber>
+    <MeterNumber>4004310</MeterNumber>
+   </ClientDetail>
+   <TransactionDetail>
+    <CustomerTransactionId>java sample - Tracking by Reference Request</CustomerTransactionId>
+   </TransactionDetail>
+   <Version>
+    <ServiceId>trck</ServiceId>
+    <Major>16</Major>
+    <Intermediate>0</Intermediate>
+    <Minor>0</Minor>
+   </Version>
+   <SelectionDetails>
+    <PackageIdentifier>
+     <Type>CUSTOMER_REFERENCE</Type>
+     <Value>XXX</Value>
+    </PackageIdentifier>
+    <ShipmentAccountNumber>XXX</ShipmentAccountNumber>
+   </SelectionDetails>
+   <ProcessingOptions>INCLUDE_DETAILED_SCANS</ProcessingOptions>
+  </TrackRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+= Out message: <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><v16:TrackReply xmlns:v16="http://fedex.com/ws/track/v16"> <v16:HighestSeverity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:HighestSeverity>  <v16:Notifications xmlns:v16="http://fedex.com/ws/track/v16">     <v16:Severity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:Severity>     <v16:Source xmlns:v16="http://fedex.com/ws/track/v16">prof</v16:Source>     <v16:Code xmlns:v16="http://fedex.com/ws/track/v16">1000</v16:Code>     <v16:Message xmlns:v16="http://fedex.com/ws/track/v16">Authentication Failed</v16:Message>  </v16:Notifications> <v16:TransactionDetail xmlns:v16="http://fedex.com/ws/track/v16"><v16:CustomerTransactionId xmlns:v16="http://fedex.com/ws/track/v16">java sample - Tracking by Reference Request</v16:CustomerTransactionId> </v16:TransactionDetail>  <v16:Version xmlns:v16="http://fedex.com/ws/track/v16">     <v16:ServiceId xmlns:v16="http://fedex.com/ws/track/v16">trck</v16:ServiceId>     <v16:Major xmlns:v16="http://fedex.com/ws/track/v16">16</v16:Major>     <v16:Intermediate xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Intermediate>     <v16:Minor xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Minor>  </v16:Version> </v16:TrackReply></SOAP-ENV:Body></SOAP-ENV:Envelope>
+=======================================================
+=======================================================
+= Elapsed: 790 milliseconds
+= In message: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <TrackRequest xmlns="http://fedex.com/ws/track/v16">
+   <WebAuthenticationDetail>
+    <UserCredential>
+     <Key>daBB9GNlTPUizhjI</Key>
+     <Password>072nNZ0WUi7i2sP0ICddH7PQh</Password>
+    </UserCredential>
+   </WebAuthenticationDetail>
+   <ClientDetail>
+    <AccountNumber>150067600</AccountNumber>
+    <MeterNumber>4004310</MeterNumber>
+   </ClientDetail>
+   <TransactionDetail>
+    <CustomerTransactionId>java sample - Tracking by Reference Request</CustomerTransactionId>
+   </TransactionDetail>
+   <Version>
+    <ServiceId>trck</ServiceId>
+    <Major>16</Major>
+    <Intermediate>0</Intermediate>
+    <Minor>0</Minor>
+   </Version>
+   <SelectionDetails>
+    <PackageIdentifier>
+     <Type>CUSTOMER_REFERENCE</Type>
+     <Value>XXX</Value>
+    </PackageIdentifier>
+    <ShipmentAccountNumber>XXX</ShipmentAccountNumber>
+   </SelectionDetails>
+   <ProcessingOptions>INCLUDE_DETAILED_SCANS</ProcessingOptions>
+  </TrackRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+= Out message: <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><v16:TrackReply xmlns:v16="http://fedex.com/ws/track/v16"> <v16:HighestSeverity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:HighestSeverity>  <v16:Notifications xmlns:v16="http://fedex.com/ws/track/v16">     <v16:Severity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:Severity>     <v16:Source xmlns:v16="http://fedex.com/ws/track/v16">prof</v16:Source>     <v16:Code xmlns:v16="http://fedex.com/ws/track/v16">1000</v16:Code>     <v16:Message xmlns:v16="http://fedex.com/ws/track/v16">Authentication Failed</v16:Message>  </v16:Notifications> <v16:TransactionDetail xmlns:v16="http://fedex.com/ws/track/v16"><v16:CustomerTransactionId xmlns:v16="http://fedex.com/ws/track/v16">java sample - Tracking by Reference Request</v16:CustomerTransactionId> </v16:TransactionDetail>  <v16:Version xmlns:v16="http://fedex.com/ws/track/v16">     <v16:ServiceId xmlns:v16="http://fedex.com/ws/track/v16">trck</v16:ServiceId>     <v16:Major xmlns:v16="http://fedex.com/ws/track/v16">16</v16:Major>     <v16:Intermediate xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Intermediate>     <v16:Minor xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Minor>  </v16:Version> </v16:TrackReply></SOAP-ENV:Body></SOAP-ENV:Envelope>
+=======================================================

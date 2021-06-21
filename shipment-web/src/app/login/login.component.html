@@ -1,0 +1,74 @@
+<!-- Material form login -->
+<div class="container" align="center">
+  <BR>
+  <BR>
+  <BR>
+  <BR>
+  <BR>
+  <mdb-card class="login-card">
+
+    <mdb-card-header class="info-color white-text text-center py-4">
+      <h3>
+        <strong>Login to Shipment Management Application</strong>
+      </h3>
+    </mdb-card-header>
+
+
+    <!--Card content-->
+    <mdb-card-body class="px-lg-5 pt-0">
+
+      <!-- Form -->
+      <mat-progress-spinner mode="indeterminate" *ngIf="showSpinner">
+      </mat-progress-spinner>
+      <form [formGroup]="loginForm" class="text-center loginForm" style="color: #757575;">
+        <div class="alert alert-warning" *ngIf='invalidLogin && !showSpinner'>{{errorMessage}}</div>
+        <div class="alert alert-success" *ngIf='loginSuccess && !showSpinner'>{{successMessage}}</div>
+        <div class="form-group" [class.disabled]="showSpinner">
+          <BR>
+          <div class="input-group">
+        <!-- Email -->
+<!--          <div class="md-form">-->
+            <div class="alert alert-success" role="alert" *ngIf='loginSuccess'>
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              <strong>Success!</strong> You have been signed in successfully!
+            </div>
+
+            <mat-form-field>
+              <mat-label>User Name</mat-label>
+              <input type="text" matInput id="username" formControlName="username">
+              <mat-error *ngIf="username.hasError('required')">
+                The User Name is mandatory.
+              </mat-error>
+              <mat-error *ngIf="username.hasError('minlength')">
+                User Name should be minimum 5 characters.
+              </mat-error>
+            </mat-form-field>
+<!--            <label for="materialLoginFormEmail">E-mail</label>-->
+<!--          </div>-->
+          </div>
+          <BR>
+          <div class="input-group">
+            <mat-form-field>
+              <mat-label>Password</mat-label>
+              <input [type]="hide ? 'password' : 'text'" matInput id="password" formControlName="password">
+              <mat-icon matSuffix (click)="hide = !hide">{{!hide ? 'visibility' : 'visibility_off'}}</mat-icon>
+              <mat-error *ngIf="password.hasError('required')">
+                The Password is mandatory.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <BR>
+
+        <!-- Sign in button -->
+          <button class="btn-outline-primary" color="primary" [disabled]="!loginForm.valid" (click)="handleLogin()">Log In</button>
+          <button type="button" class="btn btn-link" (click)="openForgotPassword()">Forgot Password</button>
+
+        </div>
+      </form>
+      <!-- Form -->
+
+    </mdb-card-body>
+
+  </mdb-card>
+</div>
+<!-- Material form login -->

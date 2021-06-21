@@ -1,0 +1,72 @@
+=======================================================
+= Elapsed: 707 milliseconds
+= In message: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <TrackRequest xmlns="http://fedex.com/ws/track/v16">
+   <WebAuthenticationDetail>
+    <UserCredential>
+     <Key>daBB9GNlTPUizhjI</Key>
+     <Password>072nNZ0WUi7i2sP0ICddH7PQh</Password>
+    </UserCredential>
+   </WebAuthenticationDetail>
+   <ClientDetail>
+    <AccountNumber>150067600</AccountNumber>
+    <MeterNumber>4004310</MeterNumber>
+   </ClientDetail>
+   <TransactionDetail>
+    <CustomerTransactionId>java sample - Tracking Request</CustomerTransactionId>
+   </TransactionDetail>
+   <Version>
+    <ServiceId>trck</ServiceId>
+    <Major>16</Major>
+    <Intermediate>0</Intermediate>
+    <Minor>0</Minor>
+   </Version>
+   <SelectionDetails>
+    <PackageIdentifier>
+     <Type>TRACKING_NUMBER_OR_DOORTAG</Type>
+     <Value>XXX</Value>
+    </PackageIdentifier>
+   </SelectionDetails>
+   <ProcessingOptions>INCLUDE_DETAILED_SCANS</ProcessingOptions>
+  </TrackRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+= Out message: <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><v16:TrackReply xmlns:v16="http://fedex.com/ws/track/v16"> <v16:HighestSeverity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:HighestSeverity>  <v16:Notifications xmlns:v16="http://fedex.com/ws/track/v16">     <v16:Severity xmlns:v16="http://fedex.com/ws/track/v16">ERROR</v16:Severity>     <v16:Source xmlns:v16="http://fedex.com/ws/track/v16">prof</v16:Source>     <v16:Code xmlns:v16="http://fedex.com/ws/track/v16">1000</v16:Code>     <v16:Message xmlns:v16="http://fedex.com/ws/track/v16">Authentication Failed</v16:Message>  </v16:Notifications> <v16:TransactionDetail xmlns:v16="http://fedex.com/ws/track/v16"><v16:CustomerTransactionId xmlns:v16="http://fedex.com/ws/track/v16">java sample - Tracking Request</v16:CustomerTransactionId> </v16:TransactionDetail>  <v16:Version xmlns:v16="http://fedex.com/ws/track/v16">     <v16:ServiceId xmlns:v16="http://fedex.com/ws/track/v16">trck</v16:ServiceId>     <v16:Major xmlns:v16="http://fedex.com/ws/track/v16">16</v16:Major>     <v16:Intermediate xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Intermediate>     <v16:Minor xmlns:v16="http://fedex.com/ws/track/v16">0</v16:Minor>  </v16:Version> </v16:TrackReply></SOAP-ENV:Body></SOAP-ENV:Envelope>
+=======================================================
+=======================================================
+= Elapsed: 904 milliseconds
+= In message: <?xml version="1.0" encoding="UTF-8"?><soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+ <soapenv:Body>
+  <TrackRequest xmlns="http://fedex.com/ws/track/v18">
+   <WebAuthenticationDetail>
+    <UserCredential>
+     <Key>XXX</Key>
+     <Password>XXX</Password>
+    </UserCredential>
+   </WebAuthenticationDetail>
+   <ClientDetail>
+    <AccountNumber>XXX</AccountNumber>
+    <MeterNumber>XXX</MeterNumber>
+   </ClientDetail>
+   <TransactionDetail>
+    <CustomerTransactionId>java sample - Tracking Request</CustomerTransactionId>
+   </TransactionDetail>
+   <Version>
+    <ServiceId>trck</ServiceId>
+    <Major>18</Major>
+    <Intermediate>0</Intermediate>
+    <Minor>0</Minor>
+   </Version>
+   <SelectionDetails>
+    <PackageIdentifier>
+     <Type>TRACKING_NUMBER_OR_DOORTAG</Type>
+     <Value>XXX</Value>
+    </PackageIdentifier>
+   </SelectionDetails>
+   <ProcessingOptions>INCLUDE_DETAILED_SCANS</ProcessingOptions>
+  </TrackRequest>
+ </soapenv:Body>
+</soapenv:Envelope>
+= Out message: <SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/"><SOAP-ENV:Header/><SOAP-ENV:Body><v18:TrackReply xmlns:v18="http://fedex.com/ws/track/v18"> <v18:HighestSeverity xmlns:v18="http://fedex.com/ws/track/v18">ERROR</v18:HighestSeverity>  <v18:Notifications xmlns:v18="http://fedex.com/ws/track/v18">     <v18:Severity xmlns:v18="http://fedex.com/ws/track/v18">ERROR</v18:Severity>     <v18:Source xmlns:v18="http://fedex.com/ws/track/v18">prof</v18:Source>     <v18:Code xmlns:v18="http://fedex.com/ws/track/v18">1000</v18:Code>     <v18:Message xmlns:v18="http://fedex.com/ws/track/v18">Authentication Failed</v18:Message>  </v18:Notifications> <v18:TransactionDetail xmlns:v18="http://fedex.com/ws/track/v18"><v18:CustomerTransactionId xmlns:v18="http://fedex.com/ws/track/v18">java sample - Tracking Request</v18:CustomerTransactionId> </v18:TransactionDetail>  <v18:Version xmlns:v18="http://fedex.com/ws/track/v18">     <v18:ServiceId xmlns:v18="http://fedex.com/ws/track/v18">trck</v18:ServiceId>     <v18:Major xmlns:v18="http://fedex.com/ws/track/v18">18</v18:Major>     <v18:Intermediate xmlns:v18="http://fedex.com/ws/track/v18">0</v18:Intermediate>     <v18:Minor xmlns:v18="http://fedex.com/ws/track/v18">0</v18:Minor>  </v18:Version> </v18:TrackReply></SOAP-ENV:Body></SOAP-ENV:Envelope>
+=======================================================

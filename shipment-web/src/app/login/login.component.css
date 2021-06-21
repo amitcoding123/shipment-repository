@@ -1,0 +1,54 @@
+.login-title
+{
+  color: #555;
+  font-size: 18px;
+  font-weight: 400;
+  display: block;
+}
+
+.text-center {
+  color: red;
+}
+
+.profile-img
+{
+  width: 96px;
+  height: 96px;
+  margin: 0 auto 10px;
+  display: block;
+  -moz-border-radius: 50%;
+  -webkit-border-radius: 50%;
+  border-radius: 50%;
+}
+.need-help
+{
+  margin-top: 10px;
+}
+.new-account
+{
+  display: block;
+  margin-top: 10px;
+}
+
+.loginForm {
+  /*min-width: 150px;*/
+  /*max-width: 800px;*/
+  width: 80%;
+}
+
+.loginForm-full-width {
+  width: 100%;
+}
+
+.login-card {
+  max-width: 400px;
+  alignment: center;
+}
+
+.field-icon {
+  float: right;
+  margin-left: -25px;
+  margin-top: 5px;
+  position: relative;
+  z-index: 2;
+}
