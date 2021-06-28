@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   hide = true;
   fieldTextType = false;
 
+
   loginForm = this.formBuilder.group({
       username: ['', [Validators.required, Validators.minLength(5)]],
       password: ['', [Validators.required]]
@@ -46,7 +47,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: FormBuilder,
     private dialog: MatDialog
   ) {
-    console.log('Sow Spinner = ' + this.showSpinner);
+
   }
 
   ngOnInit(): void {
@@ -54,20 +55,19 @@ export class LoginComponent implements OnInit {
 
   handleLogin(): void {
     this.showSpinner = true;
+    this.invalidLogin = false;
     let user: User;
     user = new User();
     user.userId = this.loginForm.get('username').value;
     user.passLocal = this.loginForm.get('password').value;
-    this.authService.authService(user).subscribe((result): void => {
-      this.invalidLogin = false;
+    if(this.authService.authService(user)) {
       this.loginSuccess = true;
       this.successMessage = 'Login Successful.';
-      this.router.navigate(['/dashboard']);
-    }, () => {
+    } else {
       this.invalidLogin = true;
       this.loginSuccess = false;
       this.showSpinner = false;
-    });
+    }
   }
 
   openForgotPassword(): void {

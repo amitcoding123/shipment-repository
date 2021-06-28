@@ -54,6 +54,7 @@ export class ShipmentCreateComponent implements OnInit {
     frieghtCharge: [''],
     selectedItemTypeId: [''],
     sellingCost: [''],
+    paymentMode: ['', [Validators.required]],
     shipper: this.formBuilder.group({
       id: [''],
       name: ['', [Validators.required, Validators.minLength(6)]],
@@ -64,6 +65,8 @@ export class ShipmentCreateComponent implements OnInit {
       createdOn: [''],
       modifiedBy: [''],
       modifiedOn: [''],
+      panNumber: [''],
+      gstin: [''],
       address: this.formBuilder.group ({
           id: [''],
           addressLine1: ['', [Validators.required]],
@@ -130,10 +133,7 @@ export class ShipmentCreateComponent implements OnInit {
         this.create = false;
       } else
         this.create = true;
-      console.log(params.get("create"));
       this.shipmentId = params.get("shipmentId");
-      console.log(this.create);
-      console.log(this.shipmentId);
       if(!this.create) {
         this.shipmentService.getShipment(this.shipmentId).subscribe(res => {
           this.shipment = res;
@@ -151,7 +151,6 @@ export class ShipmentCreateComponent implements OnInit {
     this.itemTypeService
       .getItemTypes()
       .subscribe((data: any) => {
-          console.log(data);
           this.itemTypes = data;
         }
       );
@@ -159,6 +158,18 @@ export class ShipmentCreateComponent implements OnInit {
 
   get provider(): any {
     return this.createShipmentForm.get('provider');
+  }
+
+  get panNumber(): any {
+    return this.createShipmentForm.get('panNumber');
+  }
+
+  get gstin(): any {
+    return this.createShipmentForm.get('gstin');
+  }
+
+  get paymentMode(): any {
+    return this.createShipmentForm.get('paymentMode');
   }
 
   get invoiceNumber(): any {
@@ -285,12 +296,8 @@ export class ShipmentCreateComponent implements OnInit {
   }
 
   addItem() {
-    console.log(this.selectedItemTypeId);
-    console.log(this.itemTypes);
     const description = this.itemTypes.find(itemType => itemType.id == this.selectedItemTypeId).description;
-    console.log(description);
     this.items.push(this.newItem());
-    console.log(this.items);
     this.items.at(this.items.length - 1).patchValue({
       description: description,
       itemTypeId: this.selectedItemTypeId
@@ -301,9 +308,6 @@ export class ShipmentCreateComponent implements OnInit {
     const w = this.items.at(index).get('quantity').value;
     const price = this.items.at(index).get('price').value;
     const amount = w * price;
-    console.log('w = ' + w);
-    console.log('price = ' + price);
-    console.log('amount = ' + amount);
     this.items.at(index).patchValue({
       amount: amount
     });
@@ -343,7 +347,6 @@ export class ShipmentCreateComponent implements OnInit {
 
   createShipment() {
     this.populateShipmentFromFormData();
-    console.log('Converted to data to be sent');
     this.shipmentService.createShipment(this.shipment).subscribe((data: any) => {
         console.log(data);
         this.shipment = data;
@@ -362,11 +365,14 @@ export class ShipmentCreateComponent implements OnInit {
     this.createShipmentForm.get('createdOn').setValue(this.shipment.createdOn);
     this.createShipmentForm.get('modifiedBy').setValue(this.shipment.modifiedBy);
     this.createShipmentForm.get('modifiedOn').setValue(this.shipment.modifiedOn);
+    this.createShipmentForm.get('paymentMode').setValue(this.shipment.paymentMode);
     this.createShipmentForm.get('shipper.id').setValue(this.shipment.shipper.id);
     this.createShipmentForm.get('shipper.name').setValue(this.shipment.shipper.name);
     this.createShipmentForm.get('shipper.phoneNumber').setValue(this.shipment.shipper.phoneNumber);
     this.createShipmentForm.get('shipper.email').setValue(this.shipment.shipper.email);
     this.createShipmentForm.get('shipper.aadharNumber').setValue(this.shipment.shipper.aadharNumber);
+    this.createShipmentForm.get('shipper.panNumber').setValue(this.shipment.shipper.panNumber);
+    this.createShipmentForm.get('shipper.gstin').setValue(this.shipment.shipper.gstin);
     this.createShipmentForm.get('shipper.createdBy').setValue(this.shipment.shipper.createdBy);
     this.createShipmentForm.get('shipper.createdOn').setValue(this.shipment.shipper.createdOn);
     this.createShipmentForm.get('shipper.modifiedBy').setValue(this.shipment.shipper.modifiedBy);
@@ -441,6 +447,7 @@ export class ShipmentCreateComponent implements OnInit {
     this.shipment.category = this.createShipmentForm.get('category').value;
     this.shipment.frieghtCharge = this.createShipmentForm.get('frieghtCharge').value;
     this.shipment.sellingCost = this.createShipmentForm.get('sellingCost').value;
+    this.shipment.paymentMode = this.createShipmentForm.get('paymentMode').value;
 
     let shipper: Shipper;
     shipper = new Shipper();
@@ -449,6 +456,8 @@ export class ShipmentCreateComponent implements OnInit {
     shipper.phoneNumber = this.createShipmentForm.get('shipper.phoneNumber').value;
     shipper.email = this.createShipmentForm.get('shipper.email').value;
     shipper.aadharNumber = this.createShipmentForm.get('shipper.aadharNumber').value;
+    shipper.panNumber = this.createShipmentForm.get('shipper.panNumber').value;
+    shipper.gstin = this.createShipmentForm.get('shipper.gstin').value;
     shipper.createdBy = this.createShipmentForm.get('shipper.createdBy').value;
     shipper.createdOn = this.createShipmentForm.get('shipper.createdOn').value;
     let shipperAddress: Address;
@@ -508,15 +517,12 @@ export class ShipmentCreateComponent implements OnInit {
       items.push(itemL);
     }
     this.shipment.items = items;
-    this.shipment.userId = this.authService.getLoggedInUserName();
+    this.shipment.userId = this.authService.getUser().userId;
   }
 
   updateShipment() {
-    console.log('Updating shipment');
     this.populateShipmentFromFormData();
-    console.log('Sending object: ' + this.shipment);
     this.shipmentService.updateShipment(this.shipment).subscribe((data: any) => {
-        console.log(data);
         this.shipment = data;
         this.submitted = true;
       }
@@ -530,8 +536,6 @@ export class ShipmentCreateComponent implements OnInit {
     let aWeight: number;
     bWeight = parseFloat(this.createShipmentForm.get('boxWeight').value);
     aWeight = parseFloat(this.createShipmentForm.get('actualWeight').value);
-    console.log(this.createShipmentForm.get('boxWeight').value);
-    console.log(this.createShipmentForm.get('actualWeight').value);
     if(bWeight >= aWeight) {
       weight = this.createShipmentForm.get('boxWeight').value
     } else {

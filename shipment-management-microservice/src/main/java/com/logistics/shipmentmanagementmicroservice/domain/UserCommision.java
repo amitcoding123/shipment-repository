@@ -1,4 +1,4 @@
-package com.logistics.usermanagementmicroservice.domain;
+package com.logistics.shipmentmanagementmicroservice.domain;
 
 import javax.persistence.Entity;
 

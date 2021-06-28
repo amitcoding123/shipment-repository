@@ -1,8 +1,50 @@
-.mat-label {
+  .h3 {
   color: blue;
-  font-weight: bold;
 }
 
-.h3 {
+mat-card-title {
+  font-weight: bold;
   color: blue;
+  display: flexbox;
+}
+
+mat-panel-title {
+  color: blue;
+  font-weight: 500;
+}
+
+mat-card-content {
+  margin-top: 2rem;
+}
+
+mat-panel-description {
+  font-style: italic;
+  color: black;
+}
+
+
+mat-expansion-panel-header {
+  display: flex;
+  outline: blue;
+}
+
+mat-select {
+  font-size: smaller;
+  outline: blue;
+}
+
+mat-form-field.mat-form-field {
+  font-size: 16px;
+}
+
+mat-hint {
+  font-style: italic;
+}
+
+mat-divider {
+  border-color: blue;
+}
+
+mat-expansion-panel {
+  margin-top: 1rem;
 }

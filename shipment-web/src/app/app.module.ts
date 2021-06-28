@@ -33,8 +33,12 @@ import {MatPaginatorModule} from "@angular/material/paginator";
 import { MatSortModule } from "@angular/material/sort";
 import { MatToolbarModule } from "@angular/material/toolbar";
 import { MatSidenavModule } from "@angular/material/sidenav";
+import { MatListModule } from "@angular/material/list";
 import { MatDividerModule } from "@angular/material/divider";
 import { MatIconModule } from "@angular/material/icon";
+import { HomePageComponent } from './home-page/home-page.component';
+import { ShipmentContentComponent } from './shipment-content/shipment-content.component';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -48,7 +52,9 @@ import { MatIconModule } from "@angular/material/icon";
     LogoutComponent,
     ForgotPasswordComponent,
     CreateNewPasswordComponent,
-    DsrComponent
+    DsrComponent,
+    HomePageComponent,
+    ShipmentContentComponent
   ],
   imports: [
     BrowserModule,
@@ -70,9 +76,11 @@ import { MatIconModule } from "@angular/material/icon";
     MatToolbarModule,
     MatSidenavModule,
     MatIconModule,
+    MatListModule,
+    MatExpansionModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
-      {path: '', component: LoginComponent},
+      {path: '', component: HomePageComponent},
       {path: 'login', component: LoginComponent},
       {path: 'dashboard', component: DashboardComponent},
       {path: 'shipment', component: ShipmentComponent},
@@ -81,7 +89,8 @@ import { MatIconModule } from "@angular/material/icon";
       {path: 'forgotPassword', component: ForgotPasswordComponent},
       {path: 'createnewpassword/:user', component: CreateNewPasswordComponent},
       {path: 'shipment-create/:create/:shipmentId', component: ShipmentCreateComponent},
-      {path: 'dsr', component: DsrComponent}
+      {path: 'dsr', component: DsrComponent},
+      {path: 'shipment-content', component: ShipmentContentComponent}
     ]),
     ReactiveFormsModule,
     MatSelectModule,

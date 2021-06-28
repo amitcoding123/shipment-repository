@@ -7,6 +7,8 @@ import java.util.List;
 public interface ShipmentService {
 
     public List<Shipment> findUserShipments(String userId);
+    
+    public Integer findUserShipmentsCount(String userId);
 
     public Shipment findShipmentById(Long id);
 

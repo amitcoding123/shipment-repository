@@ -1,0 +1,39 @@
+.vertical-center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+
+.container-horizontal{
+  height: 200px;
+  position: auto;
+  border: none;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  /* background-image: url('img/courier-checks-parcels-list-boxes-for-sending-vector-13222385.jpg'); */
+  background-size: cover;
+}
+
+mat-card img {
+  object-fit: cover;
+  height: 350px;
+}
+
+mat-card-title {
+  font-weight: bold;
+}
+
+mat-card-content p {
+  font-style: italic;
+}

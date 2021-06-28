@@ -16,7 +16,7 @@ export class DsrComponent implements OnInit {
 
   constructor(private authService: AuthService,
               private invoiceService: InvoiceService) {
-    this.userId = authService.getLoggedInUserName();
+    this.userId = authService.getUser().userId;
   }
 
   ngOnInit(): void {

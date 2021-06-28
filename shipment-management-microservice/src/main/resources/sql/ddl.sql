@@ -24,3 +24,5 @@ alter table shipment_log.shipment add constraint fk_shipment_consignee foreign k
 alter table shipment_log.shipment add constraint fk_shipment_shipper foreign key (shipper_id) references shipper (id);
 alter table shipment_log.shipper add constraint fk_shipper_address foreign key (shipper_address_id) references address (id);
 alter table shipment_log.tracking_comment add constraint fk_tc_th foreign key (history_id) references tracking_history (id);
+
+create table shipment_log.user_commision (id bigint not null, created_by varchar(255), created_on datetime, modified_by varchar(255), modified_on datetime, cocourier_user_id varchar(255), parent_user_id varchar(255), percentage double precision not null, primary key (id)) engine=MyISAM

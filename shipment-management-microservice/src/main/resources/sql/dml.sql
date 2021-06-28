@@ -1530,3 +1530,6 @@ insert into shipment_log.covid_surcharge (id, country_id, provider, amount, char
 insert into shipment_log.covid_surcharge (id, country_id, provider, amount, charge_type, static_weight) values (118,59, 0, 10, 'D', null);
 insert into shipment_log.covid_surcharge (id, country_id, provider, amount, charge_type, static_weight) values (59,59, 0, 10, 'S', 3.5);
 insert into shipment_log.covid_surcharge (id, country_id, provider, amount, charge_type, static_weight) values (119,59, 0, 10, 'D', null);
+
+insert into shipment_log.user_commision(id, created_by, created_on, modified_by, modified_on, cocourier_user_id, parent_user_id, percentage)
+values (1000, 'batch', sysdate(), 'batch', sysdate(), 'vaibhavn', 'amitg', 15);

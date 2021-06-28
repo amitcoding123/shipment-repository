@@ -41,6 +41,7 @@ public class ShipmentConvertor {
         dto.setStatus(shipment.getStatus());
         dto.setTrackingNumber(shipment.getTrackingNumber());
         dto.setUserId(shipment.getUserId());
+        dto.setPaymentMode(shipment.getPaymentMode());
         //Set shipper
         ShipperDto shipperDto = new ShipperDto();
         shipperDto.setId(shipment.getShipper().getId());
@@ -52,6 +53,8 @@ public class ShipmentConvertor {
         shipperDto.setEmail(shipment.getShipper().getEmail());
         shipperDto.setName(shipment.getShipper().getName());
         shipperDto.setPhoneNumber(shipment.getShipper().getPhoneNumber());
+        shipperDto.setPanNumber(shipment.getShipper().getPanNumber());
+        shipperDto.setGstin(shipment.getShipper().getGstin());
         shipperDto.setPlace(shipment.getShipper().getPlace());
         AddressDto shipperAddress = new AddressDto();
         shipperAddress.setId(shipment.getShipper().getAddress().getId());
@@ -155,6 +158,7 @@ public class ShipmentConvertor {
         dto.setStatus(shipment.getStatus());
         dto.setTrackingNumber(shipment.getTrackingNumber());
         dto.setUserId(shipment.getUserId());
+        dto.setPaymentMode(shipment.getPaymentMode());
         //Set shipper
         Shipper shipperDto = new Shipper();
         shipperDto.setId(shipment.getShipper().getId());
@@ -163,6 +167,8 @@ public class ShipmentConvertor {
         shipperDto.setModifiedBy(shipment.getShipper().getModifiedBy());
         shipperDto.setModifiedOn(shipment.getShipper().getModifiedOn());
         shipperDto.setAadharNumber(shipment.getShipper().getAadharNumber());
+        shipperDto.setPanNumber(shipment.getShipper().getPanNumber());
+        shipperDto.setGstin(shipment.getShipper().getGstin());
         shipperDto.setEmail(shipment.getShipper().getEmail());
         shipperDto.setName(shipment.getShipper().getName());
         shipperDto.setPhoneNumber(shipment.getShipper().getPhoneNumber());

@@ -53,7 +53,6 @@ public class WebServiceConsumer implements WebServiceInterface {
         URI uri = new URI(shipmentEndPoint + "shipments/user/" + userId);
         ResponseEntity<ShipmentDto[]> response = restTemplate.getForEntity(uri, ShipmentDto[].class);
         ShipmentDto[] shipments = response.getBody();
-        System.out.println(shipments);
         return Arrays.asList(shipments);
     }
 

@@ -39,7 +39,7 @@ export class InvoiceService {
   }
 
   getDsrs(): Observable<Dsr[]> {
-    return this.http.get(this.apiUrl+ this.dsrUrl + this.authService.getLoggedInUserName()).pipe(
+    return this.http.get(this.apiUrl+ this.dsrUrl + this.authService.getUser().userId).pipe(
       map((data: Shipment[]) => {
         return data;
       }), catchError(error => {

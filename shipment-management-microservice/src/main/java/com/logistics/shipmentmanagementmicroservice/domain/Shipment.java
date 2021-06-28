@@ -35,6 +35,7 @@ public class Shipment extends BaseEntity implements Serializable, Comparable<Shi
     private ShipementCategory category;
     private BigDecimal frieghtCharge;
     private Double sellingCost;
+    private String paymentMode;
 
     public ShipmentStatus getStatus() {
         return status;
@@ -188,4 +189,14 @@ public class Shipment extends BaseEntity implements Serializable, Comparable<Shi
     public void setSellingCost(Double sellingCost) {
         this.sellingCost = sellingCost;
     }
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+    
+    
 }

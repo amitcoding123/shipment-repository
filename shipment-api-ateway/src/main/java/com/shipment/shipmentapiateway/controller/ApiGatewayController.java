@@ -34,6 +34,7 @@ public class ApiGatewayController {
     public UserDto authenticateUser(@RequestBody UserDto user) throws URISyntaxException {
         System.out.println("In the user controller. UserId = " + user.getUserId());
         UserDto user1 = webServiceInterface.authenticate(user);
+        System.out.println("API Gateway: Returning user = " + user1.getUserId());
         return user1;
     }
 

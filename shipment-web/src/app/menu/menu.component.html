@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-white">
+<!-- <nav class="navbar navbar-expand-lg navbar-light bg-white">
   <a class="navbar-brand" href="#">
     <img src="assets/img/logo.png">
   </a>
@@ -23,4 +23,30 @@
       </li>
     </ul>
   </div>
-</nav>
+</nav> -->
+<mat-toolbar>
+  <a mat-button (click)="openLogin()"  routerLink="/"><img src="assets/img/logo.png"></a>
+  <ul>
+    <li *ngIf="isLoggedIn">
+      <a mat-button routerLink="/shipment" routerLinkActive="mat-accent">Shipments</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a mat-button routerLink="/dsr" routerLinkActive="mat-accent">DSR</a>
+    </li>
+  </ul>
+  <span class="spacer"></span>
+  <ul>
+    <li *ngIf="!isLoggedIn">
+      <a mat-button (click)="openLogin()" routerLinkActive="mat-accent">Login</a>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <i class="fa fa-user" aria-hidden="true"></i>
+    </li>
+    <li *ngIf="isLoggedIn">
+      <a mat-button (click)="handleLogout()" routerLinkActive="mat-accent">Logout</a>
+    </li>
+  </ul>
+</mat-toolbar>
+
+
+

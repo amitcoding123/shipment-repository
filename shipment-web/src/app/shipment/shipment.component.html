@@ -1,69 +1,79 @@
-<div class="container-fluid">
-  <mat-card>
-    <mat-card-title>
-      List of Shipments for user <strong>{{userId}}</strong>.
-    </mat-card-title>
-    <mat-card-content>
-      <BR>
-      <div fxLayout="row">
-        <div fxLayout="column" fxFlex="100%" class="mat-elevation-z8">
-          <table #table mat-table matSort [dataSource]="dataSource">
+<mat-card>
+  <mat-card-title>
+    List of Shipments for user <strong>{{userId}}</strong>.
+  </mat-card-title>
+  <mat-card-content>
+    <BR>
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="100%" class="mat-elevation-z8">
+        <div class="d-flex flex-row-reverse mb-2">
+          <!-- <div class="p-2"> -->
+          <div>
+            <select (change)="onTableSizeChange($event)" class="custom-select">
+              <option *ngFor="let size of tableSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+            <!-- <div class="md-form">
+              <mdb-select-2 placeholder="Choose your option" label="Example label">
+                <mdb-select-option *ngFor="let option of options" [value]="option.value">{{ option.label }}</mdb-select-option>
+              </mdb-select-2>
+            </div>-->
+          </div>
+        </div>
+        <div>
+          <table *ngIf="shipments$ | async as shipments" id="shipmentList" mdbTable
+                  class="table table-striped table-bordered table-sm z-depth-1">
+            <thead aria-controls="shipmentList" class="thead-dark">
+            <tr>
+              <th *ngFor="let head of headers; let i = index" aria-controls="shipmentList" scope="col">{{head}}
+              </th>
+              <th>Invoice</th>
+              <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let shipment of shipments | paginate: {
+                  itemsPerPage: tableSize,
+                  currentPage: page,
+                  totalItems: count };
+                let i = index">
 
-            <ng-container matColumnDef="provider">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Provider </th>
-              <td mat-cell *matCellDef="let element"> {{element.provider}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="trackingNumber">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> AWB Number </th>
-              <td mat-cell *matCellDef="let element"> {{element.trackingNumber}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="shipper-name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipper Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.shipper.name}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="consignee-name">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Consignee Name </th>
-              <td mat-cell *matCellDef="let element"> {{element.consignee.name}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="status">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-              <td mat-cell *matCellDef="let element"> {{element.status}} </td>
-            </ng-container>
-
-            <ng-container matColumnDef="invoice">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Invoice </th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-button class="btn btn-primary" (click)="getInvoiceFile(element.id)">Invoice</button>
+              <td>{{shipment.provider}}</td>
+              <td>{{shipment.trackingNumber}}</td>
+              <td>{{shipment.shipper.name}}</td>
+              <td>{{shipment.consignee.name}}</td>
+              <td>{{shipment.status}}</td>
+              <td>
+                <button type="button" mat-raised-button color="primary" (click)="getInvoiceFile(shipment.id)">Invoice</button>
               </td>
-            </ng-container>
-
-            <ng-container matColumnDef="actions">
-              <th mat-header-cell *matHeaderCellDef mat-sort-header> Actions </th>
-              <td mat-cell *matCellDef="let element">
-                <button mat-button class="btn btn-primary" *ngIf="isNew(element.status)" (click)="modifyShipment(element)">Modify</button>
-                <button mat-button class="btn btn-danger" *ngIf="isNew(element.status)" (click)="deleteShipment(element)">Delete</button>
+              <td>
+                <button type="button" mat-raised-button color="primary" *ngIf="isNew(shipment.status)" (click)="modifyShipment(shipment)">Modify</button>
+                <button type="button" mat-raised-button color="warn" *ngIf="isNew(shipment.status)" (click)="deleteShipment(shipment)">Delete</button>
               </td>
-            </ng-container>
-
-            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="onRowClicked(row)"></tr>
+            </tr>
+            </tbody>
           </table>
-          <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        <div class="d-flex justify-content-center">
+          <pagination-controls
+            responsive="true"
+            previousLabel="Prev"
+            nextLabel="Next"
+            (pageChange)="onTableDataChange($event)">
+          </pagination-controls>
         </div>
       </div>
-      <BR>
-      <div fxLayout="row">
-        <div fxLayout="column" fxFlex="20%">
-          <button mat-button class="btn btn-primary" (click)="bookShipment()">Book Shipment</button>
-        </div>
-        <div fxLayout="column" fxFlex="80%">
-          <mat-label></mat-label>
-        </div>
+    </div>
+    <BR>
+    <div fxLayout="row">
+      <div fxLayout="column" fxFlex="20%">
+        <button mat-button class="btn btn-primary" (click)="bookShipment()">Book Shipment</button>
       </div>
-    </mat-card-content>
-  </mat-card>
-</div>
+      <div fxLayout="column" fxFlex="80%">
+        <mat-label></mat-label>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+

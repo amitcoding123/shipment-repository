@@ -34,19 +34,20 @@ public class ShipmentManagementController {
     }
 
     @GetMapping("/shipments/user/{userId}")
-    public List<com.logistics.domain.ShipmentDto> getShipmentsForUser(@PathVariable String userId) {
-        return ShipmentConvertor.getInstance().convertList(shipmentService.findUserShipments(userId));
+    public List<ShipmentDto> getShipmentsForUser(@PathVariable String userId) {
+    	return ShipmentConvertor.getInstance().convertList(shipmentService.findUserShipments(userId));
     }
 
     @GetMapping("/shipments/{id}")
     public com.logistics.domain.ShipmentDto getShipmentDetails(@PathVariable Long id) {
         return ShipmentConvertor.getInstance().convert(shipmentService.findShipmentById(id));
     }
-
+    
     @PostMapping("/shipments")
     public com.logistics.domain.ShipmentDto saveShipment(@RequestBody com.logistics.domain.ShipmentDto shipment) {
         shipment.setTrackingNumber(trackingNumberGenerator.generateTrackingNumber(12));
         setAuditDetails(shipment, true);
+        System.out.println("Payment Mode : " + shipment.getPaymentMode());
         shipment = ShipmentConvertor.getInstance().convert(shipmentService.saveShipment(ShipmentConvertor.getInstance().reverseConvert(shipment)));
 //        ShipmentDto dto = shipmentDtoConvertor.fromShipment(shipment);
         try {

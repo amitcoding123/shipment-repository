@@ -14,6 +14,8 @@ public class Shipper extends BaseEntity {
     private String phoneNumber;
     private String email;
     private String aadharNumber;
+    private String panNumber;
+    private String gstin;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "shipper_address_id")
@@ -67,4 +69,22 @@ public class Shipper extends BaseEntity {
     public void setAadharNumber(String aadharNumber) {
         this.aadharNumber = aadharNumber;
     }
+
+	public String getPanNumber() {
+		return panNumber;
+	}
+
+	public void setPanNumber(String panNumber) {
+		this.panNumber = panNumber;
+	}
+
+	public String getGstin() {
+		return gstin;
+	}
+
+	public void setGstin(String gstin) {
+		this.gstin = gstin;
+	}
+    
+    
 }

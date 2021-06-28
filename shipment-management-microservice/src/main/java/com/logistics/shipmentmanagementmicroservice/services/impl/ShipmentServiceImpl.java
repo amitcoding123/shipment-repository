@@ -26,8 +26,10 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public List<Shipment> findUserShipments(String userId) {
         List<Shipment> shipments;
+        System.out.println("User ID = " + userId);        
         shipments = shipmentRepository.findByUserId(userId);
         Collections.sort(shipments);
+        System.out.println("Shipments size = " + shipments.size());        
         return shipments;
     }
 
@@ -85,5 +87,10 @@ public class ShipmentServiceImpl implements ShipmentService {
             }
         }
         return filtered;
+    }
+    
+    @Override
+    public Integer findUserShipmentsCount(String userId) {
+    	return shipmentRepository.findByUserId(userId) != null ? shipmentRepository.findByUserId(userId).size() : 0;
     }
 }

@@ -1,4 +1,4 @@
-<div class="container-fluid">
+<form [formGroup]="createShipmentForm">
   <mat-card>
     <mat-card-header>
       <mat-card-title *ngIf="create">Book a new Shipment</mat-card-title>
@@ -7,13 +7,16 @@
     <mat-card-content>
       <div class="alert alert-success" *ngIf='submitted && create'>Shipment creatd successfully.</div>
       <div class="form-group" *ngIf="!submitted">
-        <form [formGroup]="createShipmentForm">
-          <BR>
-          <mat-card>
-            <h3>Service Provider</h3>
-            <mat-card-content>
-              <div>
-                <mat-form-field>
+        <mat-accordion multi>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>General Details</mat-panel-title>
+              <mat-panel-description>Choose shipment general details.</mat-panel-description>
+              <mat-icon color="accent">dashboard</mat-icon>
+            </mat-expansion-panel-header>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field appearance="outline" color="primary">
                   <mat-label>Service Provider</mat-label>
                   <mat-select formControlName="provider">
                     <mat-option value="FEDEX">FEDEX</mat-option>
@@ -25,438 +28,489 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-            </mat-card-content>
-          </mat-card>
-          <BR>
-          <mat-card>
-            <h3>Invoice Number</h3>
-            <mat-card-content>
-              <div>
-                <mat-form-field>
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field appearance="outline" color="primary">
                   <mat-label>Invoice Number</mat-label>
                   <input type="text" matInput formControlName="invoiceNumber">
+                  <mat-icon matSuffix>mode_edit</mat-icon>
                   <mat-hint>Enter invoice number.</mat-hint>
-                  <mat-error *ngIf="provider.hasError('required')">
+                  <mat-error *ngIf="invoiceNumber.hasError('required')">
                     Invoice Number is mandatory.
                   </mat-error>
                 </mat-form-field>
               </div>
-            </mat-card-content>
-          </mat-card>
-          <BR>
-          <div formGroupName="shipper">
-            <mat-card>
-              <h3>Shipper Details</h3>
-              <mat-card-content>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Name</mat-label>
-                      <input type="text" matInput formControlName="name">
-                      <mat-hint>Enter Shipper's Name</mat-hint>
-                      <mat-error *ngIf="shipperName.hasError('required')">
-                        Shipper's Name is mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Mobile Number</mat-label>
-                      <input type="text" matInput formControlName="phoneNumber">
-                      <mat-hint>Enter Shipper's Mobile Number</mat-hint>
-                      <mat-error *ngIf="shipperMobile.hasError('required')">
-                        Shipper's Mobile number is mandatory.
-                      </mat-error>
-                      <mat-error *ngIf="shipperMobile.hasError('pattern')">
-                        Shipper's Mobile number is incorrect.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+            </div>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Payment Mode</mat-label>
+                  <mat-select formControlName="paymentMode">
+                    <mat-option value="CARD">Card</mat-option>
+                    <mat-option value="CHEQUE">Cheque</mat-option>
+                    <mat-option value="CASH">Cash</mat-option>
+                  </mat-select>
+                  <mat-hint>Select payment mode.</mat-hint>
+                  <mat-error *ngIf="paymentMode.hasError('required')">
+                    Payment Mode is mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxFlex="50%">
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Shipper and Address Details</mat-panel-title>
+              <mat-panel-description>Select shipper and address details.</mat-panel-description>
+              <mat-icon color="accent">person</mat-icon>
+            </mat-expansion-panel-header>
+            <div formGroupName="shipper">
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput formControlName="name">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Shipper's Name</mat-hint>
+                    <mat-error *ngIf="shipperName.hasError('required')">
+                      Shipper's Name is mandatory.
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-                <BR>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Email Address</mat-label>
-                      <input type="text" matInput formControlName="email">
-                      <mat-hint>Enter Shipper's Email Address</mat-hint>
-                      <mat-error *ngIf="shipperEmail.hasError('required')">
-                        Shipper's Email is mandatory.
-                      </mat-error>
-                      <mat-error *ngIf="shipperEmail.hasError('email')">
-                        Shipper's Email is incorrect.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Aadhar Number</mat-label>
-                      <input type="text" matInput formControlName="aadharNumber">
-                      <mat-hint>Enter Shipper's Aadhar Number</mat-hint>
-                      <mat-error *ngIf="aadharNumber.hasError('required')">
-                        Shipper's Aadhar Number is mandatory.
-                      </mat-error>
-                      <mat-error *ngIf="aadharNumber.hasError('pattern')">
-                        Shipper's Aadhar Number is incorrect.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Mobile Number</mat-label>
+                    <span matPrefix>+91 &nbsp;</span>
+                    <input type="tel" matInput formControlName="phoneNumber">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Shipper's Mobile Number</mat-hint>
+                    <mat-error *ngIf="shipperMobile.hasError('required')">
+                      Shipper's Mobile number is mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="shipperMobile.hasError('pattern')">
+                      Shipper's Mobile number is incorrect.
+                    </mat-error>
+                  </mat-form-field>
                 </div>
-                <BR>
-                <div formGroupName="address">
-                  <mat-card>
-                    <h4>Shipper's Address</h4>
-                    <mat-card-content>
-                      <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxLayout="column" fxFlex="50%">
-                          <mat-form-field>
-                            <mat-label>Address Line 1</mat-label>
-                            <input type="text" matInput formControlName="addressLine1">
-                            <mat-hint>Enter Shipper's Address Line 1</mat-hint>
-                            <mat-error *ngIf="sAddressLine1.hasError('required')">
-                              Address Line 1 is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="50%">
-                          <mat-form-field>
-                            <mat-label>Address Line 2</mat-label>
-                            <input type="text" matInput formControlName="addressLine2">
-                            <mat-hint>Enter Shipper's Address Line 2</mat-hint>
-                          </mat-form-field>
-                        </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Email Address</mat-label>
+                    <mat-icon matPrefix>email</mat-icon>
+                    <input type="text" matInput formControlName="email">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Shipper's Email Address</mat-hint>
+                    <mat-error *ngIf="shipperEmail.hasError('required')">
+                      Shipper's Email is mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="shipperEmail.hasError('email')">
+                      Shipper's Email is incorrect.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Aadhar Number</mat-label>
+                    <input type="text" matInput formControlName="aadharNumber">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Shipper's Aadhar Number</mat-hint>
+                    <mat-error *ngIf="aadharNumber.hasError('required')">
+                      Shipper's Aadhar Number is mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="aadharNumber.hasError('pattern')">
+                      Shipper's Aadhar Number is incorrect.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>PAN</mat-label>
+                    <mat-icon matPrefix>add_comment</mat-icon>
+                    <input type="text" matInput formControlName="panNumber">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Shipper's Permanent Account Number</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>GSTIN</mat-label>
+                    <input type="text" matInput formControlName="gstin">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Shipper's GSTIN</mat-hint>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div formGroupName="address">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>Shipper Address</mat-panel-title>
+                    <mat-panel-description>Enter shipper's address details.</mat-panel-description>
+                    <mat-icon color="accent">local_post_office</mat-icon>
+                  </mat-expansion-panel-header>
+                  <div fxLayout="row" fxLayoutGap="20px">
+                    <div fxLayout="column" fxFlex="50%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Address Line 1</mat-label>
+                        <input type="text" matInput formControlName="addressLine1">
+                        <mat-icon matSuffix>mode_edit</mat-icon>
+                        <mat-hint>Enter Shipper's Address Line 1</mat-hint>
+                        <mat-error *ngIf="sAddressLine1.hasError('required')">
+                          Address Line 1 is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="50%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Address Line 2</mat-label>
+                        <input type="text" matInput formControlName="addressLine2">
+                        <mat-icon matSuffix>mode_edit</mat-icon>
+                        <mat-hint>Enter Shipper's Address Line 2</mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <BR>
+                  <div fxLayout="row" fxLayoutGap="20px">
+                    <div fxLayout="column" fxFlex="40%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country" (ngModelChange)="getStatesForCountry()">
+                          <mat-option *ngFor="let country of sCountries" value="{{country.isoCode}}">{{country.name}}</mat-option>
+                        </mat-select>
+                        <mat-hint>Select Shipper's country</mat-hint>
+                        <mat-error *ngIf="sCountry.hasError('required')">
+                          Country is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="30%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="state" (ngModelChange)="getCitiesForState()">
+                          <mat-option *ngFor="let state of sStates" value="{{state.isoCode}}">{{state.name}}</mat-option>
+                        </mat-select>
+                        <mat-hint>Enter Shipper's State</mat-hint>
+                        <mat-error *ngIf="sState.hasError('required')">
+                          State is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="30%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city">
+                          <mat-option *ngFor="let city of sCities" value="{{city.name}}">{{city.name}}</mat-option>
+                        </mat-select>
+                        <mat-hint>Enter Shipper's City</mat-hint>
+                        <mat-error *ngIf="sCity.hasError('required')">
+                          City is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <BR>
+                  <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="100%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Zip Code</mat-label>
+                        <input type="text" matInput formControlName="zipCode">
+                        <mat-icon matSuffix>mode_edit</mat-icon>
+                        <mat-hint>Enter Shipper's Zipcode</mat-hint>
+                        <mat-error *ngIf="sZipCode.hasError('required')">
+                          Zipcode is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Consignee and Address Details</mat-panel-title>
+              <mat-panel-description>Select consignee and address details.</mat-panel-description>
+              <mat-icon color="accent">person</mat-icon>
+            </mat-expansion-panel-header>
+            <div formGroupName="consignee">
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Name</mat-label>
+                    <input type="text" matInput formControlName="name">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Consignee's Name</mat-hint>
+                    <mat-error *ngIf="consigneeName.hasError('required')">
+                      Consignee's Name is mandatory.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Mobile Number</mat-label>
+                    <span matPrefix>+91 &nbsp;</span>
+                    <input type="tel" matInput formControlName="phoneNumber">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Consignee's Mobile Number</mat-hint>
+                    <mat-error *ngIf="consigneeMobile.hasError('required')">
+                      Consignee's Mobile number is mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="consigneeMobile.hasError('pattern')">
+                      Consignee's Mobile number is incorrect.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutGap="20px">
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Email Address</mat-label>
+                    <mat-icon matPrefix>email</mat-icon>
+                    <input type="text" matInput formControlName="email">
+                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-hint>Enter Consignee's Email Address</mat-hint>
+                    <mat-error *ngIf="consigneeEmail.hasError('required')">
+                      Consignee's Email is mandatory.
+                    </mat-error>
+                    <mat-error *ngIf="consigneeEmail.hasError('email')">
+                      Consignee's Email is incorrect.
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex="50%">
+                </div>
+              </div>
+              <div formGroupName="address">
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>Consignee Address</mat-panel-title>
+                    <mat-panel-description>Enter consignee's address details.</mat-panel-description>
+                    <mat-icon color="accent">local_post_office</mat-icon>
+                  </mat-expansion-panel-header>
+                  <div fxLayout="row" fxLayoutGap="20px">
+                    <div fxLayout="column" fxFlex="50%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Address Line 1</mat-label>
+                        <input type="text" matInput formControlName="addressLine1">
+                        <mat-hint>Enter Consignee's Address Line 1</mat-hint>
+                        <mat-error *ngIf="cAddressLine1.hasError('required')">
+                          Address Line 1 is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="50%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Address Line 2</mat-label>
+                        <input type="text" matInput formControlName="addressLine2">
+                        <mat-hint>Enter Consignee's Address Line 2</mat-hint>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <BR>
+                  <div fxLayout="row" fxLayoutGap="20px">
+                    <div fxLayout="column" fxFlex="40%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Country</mat-label>
+                        <mat-select formControlName="country" (ngModelChange)="getCStatesForCountry()">
+                          <mat-option *ngFor="let country of cCountries" value="{{country.isoCode}}">{{country.name}}</mat-option>
+                        </mat-select>
+                        <mat-hint>Select Consignee's country</mat-hint>
+                        <mat-error *ngIf="cCountry.hasError('required')">
+                          Country is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="30%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>State</mat-label>
+                        <mat-select formControlName="state" (ngModelChange)="getCCitiesForState()">
+                          <mat-option *ngFor="let state of cStates" value="{{state.isoCode}}">{{state.name}}</mat-option>
+                        </mat-select>
+                        <mat-hint>Enter Consignee's State</mat-hint>
+                        <mat-error *ngIf="cState.hasError('required')">
+                          State is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                    <div fxLayout="column" fxFlex="30%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>City</mat-label>
+                        <mat-select formControlName="city">
+                          <mat-option *ngFor="let city of cCities" value="{{city.name}}">{{city.name}}</mat-option>
+                        </mat-select>
+                        <mat-hint>Enter Consignee's City</mat-hint>
+                        <mat-error *ngIf="cCity.hasError('required')">
+                          City is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                  <BR>
+                  <div fxLayout="row">
+                    <div fxLayout="column" fxFlex="100%">
+                      <mat-form-field appearance="outline" color="primary">
+                        <mat-label>Zip Code</mat-label>
+                        <input type="text" matInput formControlName="zipCode">
+                        <mat-hint>Enter Consignee's Zipcode</mat-hint>
+                        <mat-error *ngIf="cZipCode.hasError('required')">
+                          Zipcode is mandatory.
+                        </mat-error>
+                      </mat-form-field>
+                    </div>
+                  </div>
+                </mat-expansion-panel>
+              </div>
+            </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Box Details</mat-panel-title>
+              <mat-panel-description>Select box details and the contents.</mat-panel-description>
+              <mat-icon color="accent">storage</mat-icon>
+            </mat-expansion-panel-header>
+            <div fxLayout="row" fxLayoutGap="15px">
+              <div fxLayout="column" fxFlex="30%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Box Length</mat-label>
+                  <input type="text" matInput formControlName="boxLength">
+                  <span matSuffix>Cm</span>
+                  <mat-hint>Enter Length of the Box</mat-hint>
+                  <mat-error *ngIf="boxLength.hasError('required')">
+                    Box Length is Mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxFlex="30%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Box Height</mat-label>
+                  <input type="text" matInput formControlName="boxHeight">
+                  <span matSuffix>Cm</span>
+                  <mat-hint>Enter Height of the Box</mat-hint>
+                  <mat-error *ngIf="boxHeight.hasError('required')">
+                    Box Height is Mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxFlex="30%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Box Width</mat-label>
+                  <input type="text" matInput formControlName="boxWidth">
+                  <span matSuffix>Cm</span>
+                  <mat-hint>Enter Width of the Box</mat-hint>
+                  <mat-error *ngIf="boxWidth.hasError('required')">
+                    Box Width is Mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <BR>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Box Standard Weight</mat-label>
+                  <input type="text" matInput formControlName="boxWeight">
+                  <span matSuffix>Kg</span>
+                  <mat-hint>Enter Weight of the Box</mat-hint>
+                  <mat-error *ngIf="boxWeight.hasError('required')">
+                    Box Weight is Mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Box Actual Weight</mat-label>
+                  <input type="text" matInput formControlName="actualWeight">
+                  <span matSuffix>Kg</span>
+                  <mat-hint>Enter Actual Weight of the Box</mat-hint>
+                  <mat-error *ngIf="actualWeight.hasError('required')">
+                    Box Actual Weight is Mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <BR>
+            <div fxLayout="row" fxLayoutGap="20px">
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field>
+                  <mat-label>Content Type</mat-label>
+                  <mat-select formControlName="category" (ngModelChange)="calculateCharge()">
+                    <mat-option value="DOC">Document</mat-option>
+                    <mat-option value="NON_DOC">Non Document</mat-option>
+                  </mat-select>
+                  <mat-hint>Select box content type.</mat-hint>
+                  <mat-error *ngIf="category.hasError('required')">
+                    Content Type is mandatory.
+                  </mat-error>
+                </mat-form-field>
+              </div>
+              <div fxLayout="column" fxFlex="50%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Selling Cost</mat-label>
+                  <span matPrefix>₹ &nbsp;</span>
+                  <input matInput type="text" readonly formControlName="sellingCost">
+                </mat-form-field>
+              </div>
+            </div>
+            <BR>
+              <div>
+                <mat-card>
+                  <h3>Content Details</h3>
+                  <mat-card-content>
+                    <div fxLayout="row" fxLayoutGap="20px">
+                      <div fxLayout="column" fxFlex="80%">
+                        <mat-form-field appearance="outline" color="primary">
+                          <mat-label>Box Content Type</mat-label>
+                          <mat-select [(value)]="selectedItemTypeId">
+                            <mat-option *ngFor="let itemType of itemTypes" value="{{itemType.id}}">{{itemType.description}}</mat-option>
+                          </mat-select>
+                        </mat-form-field>
                       </div>
-                      <BR>
-                      <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxLayout="column" fxFlex="40%">
-                          <mat-form-field>
-                            <mat-label>Country</mat-label>
-                            <mat-select formControlName="country" (ngModelChange)="getStatesForCountry()">
-                              <mat-option *ngFor="let country of sCountries" value="{{country.isoCode}}">{{country.name}}</mat-option>
-                            </mat-select>
-                            <mat-hint>Select Shipper's country</mat-hint>
-                            <mat-error *ngIf="sCountry.hasError('required')">
-                              Country is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="30%">
-                          <mat-form-field>
-                            <mat-label>State</mat-label>
-                            <mat-select formControlName="state" (ngModelChange)="getCitiesForState()">
-                              <mat-option *ngFor="let state of sStates" value="{{state.isoCode}}">{{state.name}}</mat-option>
-                            </mat-select>
-                            <mat-hint>Enter Shipper's State</mat-hint>
-                            <mat-error *ngIf="sState.hasError('required')">
-                              State is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="30%">
-                          <mat-form-field>
-                            <mat-label>City</mat-label>
-                            <mat-select formControlName="city">
-                              <mat-option *ngFor="let city of sCities" value="{{city.name}}">{{city.name}}</mat-option>
-                            </mat-select>
-                            <mat-hint>Enter Shipper's City</mat-hint>
-                            <mat-error *ngIf="sCity.hasError('required')">
-                              City is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
+                      <div fxLayout="column" fxFlex="20%">
+                        <button type="button" mat-raised-button color="primary" (click)="addItem()">Add Item</button>
                       </div>
-                      <BR>
-                      <div fxLayout="row">
-                        <div fxLayout="column" fxFlex="100%">
-                          <mat-form-field>
-                            <mat-label>Zip Code</mat-label>
-                            <input type="text" matInput formControlName="zipCode">
-                            <mat-hint>Enter Shipper's Zipcode</mat-hint>
-                            <mat-error *ngIf="sZipCode.hasError('required')">
-                              Zipcode is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <BR>
-          <div formGroupName="consignee">
-            <mat-card>
-              <h3>Consignee Details</h3>
-              <mat-card-content>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Name</mat-label>
-                      <input type="text" matInput formControlName="name">
-                      <mat-hint>Enter Consignee's Name</mat-hint>
-                      <mat-error *ngIf="consigneeName.hasError('required')">
-                        Consignee's Name is mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Mobile Number</mat-label>
-                      <input type="text" matInput formControlName="phoneNumber">
-                      <mat-hint>Enter Consignee's Mobile Number</mat-hint>
-                      <mat-error *ngIf="consigneeMobile.hasError('required')">
-                        Consignee's Mobile number is mandatory.
-                      </mat-error>
-                      <mat-error *ngIf="consigneeMobile.hasError('pattern')">
-                        Consignee's Mobile number is incorrect.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <BR>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Email Address</mat-label>
-                      <input type="text" matInput formControlName="email">
-                      <mat-hint>Enter Consignee's Email Address</mat-hint>
-                      <mat-error *ngIf="consigneeEmail.hasError('required')">
-                        Consignee's Email is mandatory.
-                      </mat-error>
-                      <mat-error *ngIf="consigneeEmail.hasError('email')">
-                        Consignee's Email is incorrect.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <BR>
-                <div formGroupName="address">
-                  <mat-card>
-                    <h4>Consignee's Address</h4>
-                    <mat-card-content>
-                      <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxLayout="column" fxFlex="50%">
-                          <mat-form-field>
-                            <mat-label>Address Line 1</mat-label>
-                            <input type="text" matInput formControlName="addressLine1">
-                            <mat-hint>Enter Consignee's Address Line 1</mat-hint>
-                            <mat-error *ngIf="cAddressLine1.hasError('required')">
-                              Address Line 1 is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="50%">
-                          <mat-form-field>
-                            <mat-label>Address Line 2</mat-label>
-                            <input type="text" matInput formControlName="addressLine2">
-                            <mat-hint>Enter Consignee's Address Line 2</mat-hint>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                      <BR>
-                      <div fxLayout="row" fxLayoutGap="20px">
-                        <div fxLayout="column" fxFlex="40%">
-                          <mat-form-field>
-                            <mat-label>Country</mat-label>
-                            <mat-select formControlName="country" (ngModelChange)="getCStatesForCountry()">
-                              <mat-option *ngFor="let country of cCountries" value="{{country.isoCode}}">{{country.name}}</mat-option>
-                            </mat-select>
-                            <mat-hint>Select Consignee's country</mat-hint>
-                            <mat-error *ngIf="cCountry.hasError('required')">
-                              Country is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="30%">
-                          <mat-form-field>
-                            <mat-label>State</mat-label>
-                            <mat-select formControlName="state" (ngModelChange)="getCCitiesForState()">
-                              <mat-option *ngFor="let state of cStates" value="{{state.isoCode}}">{{state.name}}</mat-option>
-                            </mat-select>
-                            <mat-hint>Enter Consignee's State</mat-hint>
-                            <mat-error *ngIf="cState.hasError('required')">
-                              State is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="30%">
-                          <mat-form-field>
-                            <mat-label>City</mat-label>
-                            <mat-select formControlName="city">
-                              <mat-option *ngFor="let city of cCities" value="{{city.name}}">{{city.name}}</mat-option>
-                            </mat-select>
-                            <mat-hint>Enter Consignee's City</mat-hint>
-                            <mat-error *ngIf="cCity.hasError('required')">
-                              City is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                      <BR>
-                      <div fxLayout="row">
-                        <div fxLayout="column" fxFlex="100%">
-                          <mat-form-field>
-                            <mat-label>Zip Code</mat-label>
-                            <input type="text" matInput formControlName="zipCode">
-                            <mat-hint>Enter Consignee's Zipcode</mat-hint>
-                            <mat-error *ngIf="cZipCode.hasError('required')">
-                              Zipcode is mandatory.
-                            </mat-error>
-                          </mat-form-field>
-                        </div>
-                      </div>
-                    </mat-card-content>
-                  </mat-card>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <div>
-            <mat-card>
-              <h3>Box Details</h3>
-              <mat-card-content>
-                <div fxLayout="row" fxLayoutGap="15px">
-                  <div fxLayout="column" fxFlex="30%">
-                    <mat-form-field>
-                      <mat-label>Box Length (Cm)</mat-label>
-                      <input type="text" matInput formControlName="boxLength">
-                      <mat-hint>Enter Length of the Box</mat-hint>
-                      <mat-error *ngIf="boxLength.hasError('required')">
-                        Box Length is Mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="30%">
-                    <mat-form-field>
-                      <mat-label>Box Height (Cm)</mat-label>
-                      <input type="text" matInput formControlName="boxHeight">
-                      <mat-hint>Enter Height of the Box</mat-hint>
-                      <mat-error *ngIf="boxHeight.hasError('required')">
-                        Box Height is Mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="30%">
-                    <mat-form-field>
-                      <mat-label>Box Width (Cm)</mat-label>
-                      <input type="text" matInput formControlName="boxWidth">
-                      <mat-hint>Enter Width of the Box</mat-hint>
-                      <mat-error *ngIf="boxWidth.hasError('required')">
-                        Box Width is Mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <BR>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Box Standard Weight (Kg)</mat-label>
-                      <input type="text" matInput formControlName="boxWeight">
-                      <mat-hint>Enter Weight of the Box</mat-hint>
-                      <mat-error *ngIf="boxWeight.hasError('required')">
-                        Box Weight is Mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Box Actual Weight (Kg)</mat-label>
-                      <input type="text" matInput formControlName="actualWeight">
-                      <mat-hint>Enter Actual Weight of the Box</mat-hint>
-                      <mat-error *ngIf="actualWeight.hasError('required')">
-                        Box Actual Weight is Mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <BR>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Content Type</mat-label>
-                      <mat-select formControlName="category" (ngModelChange)="calculateCharge()">
-                        <mat-option value="DOC">Document</mat-option>
-                        <mat-option value="NON_DOC">Non Document</mat-option>
-                      </mat-select>
-                      <mat-hint>Select box content type.</mat-hint>
-                      <mat-error *ngIf="category.hasError('required')">
-                        Content Type is mandatory.
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="50%">
-                    <mat-form-field>
-                      <mat-label>Frieght Charge (INR):</mat-label>
-                      <input matInput type="text" readonly formControlName="sellingCost">
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <BR>
-          <div>
-            <mat-card>
-              <h3>Content Details</h3>
-              <mat-card-content>
-                <div fxLayout="row" fxLayoutGap="20px">
-                  <div fxLayout="column" fxFlex="80%">
-                    <mat-form-field>
-                      <mat-label>Box Content Type</mat-label>
-                      <mat-select [(value)]="selectedItemTypeId">
-                        <mat-option *ngFor="let itemType of itemTypes" value="{{itemType.id}}">{{itemType.description}}</mat-option>
-                      </mat-select>
-                    </mat-form-field>
-                  </div>
-                  <div fxLayout="column" fxFlex="20%">
-                    <button type="button" class="btn btn-primary" (click)="addItem()">Add Item</button>
-                  </div>
-                </div>
-                <BR>
-                <div formArrayName="items">
-                  <div *ngFor="let item of items.controls; let i=index">
-                    <div [formGroupName]="i">
-                      <div fxLayout="row" fxLayoutGap="10px">
-                        <div fxLayout="column" fxFlex="20%">
-                          <mat-form-field>
-                            <mat-label>Item Name</mat-label>
-                            <input type="text" matInput formControlName="description" disabled>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="20%">
-                          <mat-form-field>
-                            <mat-label>Quantity</mat-label>
-                            <input type="text" matInput formControlName="quantity" (ngModelChange)="calculateAmount(i)">
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="20%">
-                          <mat-form-field>
-                            <mat-label>Price</mat-label>
-                            <input type="text" matInput formControlName="price" (ngModelChange)="calculateAmount(i)">
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="20%">
-                          <mat-form-field>
-                            <mat-label>Amount (INR)</mat-label>
-                            <input type="text" matInput formControlName="amount" disabled>
-                          </mat-form-field>
-                        </div>
-                        <div fxLayout="column" fxFlex="20%">
-                          <button mat-button color="warn" (click)="removeItem(i)">Remove</button>
+                    </div>
+                    <BR>
+                    <div formArrayName="items">
+                      <div *ngFor="let item of items.controls; let i=index">
+                        <div [formGroupName]="i">
+                          <div fxLayout="row" fxLayoutGap="10px">
+                            <div fxLayout="column" fxFlex="20%">
+                              <mat-form-field appearance="outline" color="primary">
+                                <mat-label>Item Name</mat-label>
+                                <input type="text" matInput formControlName="description" disabled>
+                              </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxFlex="20%">
+                              <mat-form-field appearance="outline" color="primary">
+                                <mat-label>Quantity</mat-label>
+                                <input type="text" matInput formControlName="quantity" (ngModelChange)="calculateAmount(i)">
+                              </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxFlex="20%">
+                              <mat-form-field appearance="outline" color="primary">
+                                <mat-label>Price</mat-label>
+                                <input type="text" matInput formControlName="price" (ngModelChange)="calculateAmount(i)">
+                              </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxFlex="20%">
+                              <mat-form-field appearance="outline" color="primary">
+                                <mat-label>Amount</mat-label>
+                                <span matPrefix>₹</span>
+                                <input type="text" matInput formControlName="amount" disabled>
+                              </mat-form-field>
+                            </div>
+                            <div fxLayout="column" fxFlex="20%">
+                              <button mat-raised-button color="warn" (click)="removeItem(i)">Remove</button>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <BR>
-          <div>
-            <mat-card>
-              <mat-card-content>
+                  </mat-card-content>
+                </mat-card>
                 <div fxLayout="row" fxLayoutGap="20px">
                   <div fxLayout="column" fxFlex="80%" align="right">
                     <mat-label style="font-weight: bold">Total Amount incl of Taxes: {{totalAmount}} INR</mat-label>
@@ -465,34 +519,33 @@
                     <mat-label></mat-label>
                   </div>
                 </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-          <BR>
-          <div>
-            <mat-card>
-              <h3>Additional Information</h3>
-              <mat-card-content>
-                <div fxLayout="row">
-                  <div fxLayout="column" fxFlex="100%">
-                    <mat-form-field>
-                      <mat-label>Comments</mat-label>
-                      <textarea matInput matTextareaAutosize="true" formControlName="comments"></textarea>
-                    </mat-form-field>
-                  </div>
-                </div>
-                <div fxLayout="row">
-                  <div fxLayout="column" fxFlex="100%">
-                    <mat-form-field>
-                      <mat-label>Special Instructions</mat-label>
-                      <textarea matInput matTextareaAutosize="true" formControlName="specialInstruction"></textarea>
-                    </mat-form-field>
-                  </div>
-                </div>
-              </mat-card-content>
-            </mat-card>
-          </div>
-        </form>
+              </div>
+          </mat-expansion-panel>
+          <mat-expansion-panel>
+            <mat-expansion-panel-header>
+              <mat-panel-title>Remarks</mat-panel-title>
+              <mat-panel-description>Additional Details</mat-panel-description>
+              <mat-icon color="accent">notes</mat-icon>
+            </mat-expansion-panel-header>
+            <div fxLayout="row">
+              <div fxLayout="column" fxFlex="100%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Comments</mat-label>
+                  <mat-icon matPrefix>insert_comment</mat-icon>
+                  <textarea matInput matTextareaAutosize="true" formControlName="comments"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+            <div fxLayout="row">
+              <div fxLayout="column" fxFlex="100%">
+                <mat-form-field appearance="outline" color="primary">
+                  <mat-label>Special Instructions</mat-label>
+                  <textarea matInput matTextareaAutosize="true" formControlName="specialInstruction"></textarea>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-expansion-panel>
+        </mat-accordion>
       </div>
     </mat-card-content>
     <mat-card-actions>
@@ -522,4 +575,4 @@
       </div>
     </mat-card-actions>
   </mat-card>
-</div>
+</form>

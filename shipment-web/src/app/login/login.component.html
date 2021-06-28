@@ -1,13 +1,7 @@
 <!-- Material form login -->
 <div class="container" align="center">
-  <BR>
-  <BR>
-  <BR>
-  <BR>
-  <BR>
   <mdb-card class="login-card">
-
-    <mdb-card-header class="info-color white-text text-center py-4">
+    <mdb-card-header class="info-color1 white-text text-center py-4">
       <h3>
         <strong>Login to Shipment Management Application</strong>
       </h3>
@@ -21,18 +15,10 @@
       <mat-progress-spinner mode="indeterminate" *ngIf="showSpinner">
       </mat-progress-spinner>
       <form [formGroup]="loginForm" class="text-center loginForm" style="color: #757575;">
-        <div class="alert alert-warning" *ngIf='invalidLogin && !showSpinner'>{{errorMessage}}</div>
-        <div class="alert alert-success" *ngIf='loginSuccess && !showSpinner'>{{successMessage}}</div>
+        <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
         <div class="form-group" [class.disabled]="showSpinner">
           <BR>
           <div class="input-group">
-        <!-- Email -->
-<!--          <div class="md-form">-->
-            <div class="alert alert-success" role="alert" *ngIf='loginSuccess'>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-              <strong>Success!</strong> You have been signed in successfully!
-            </div>
-
             <mat-form-field>
               <mat-label>User Name</mat-label>
               <input type="text" matInput id="username" formControlName="username">
@@ -68,7 +54,13 @@
       <!-- Form -->
 
     </mdb-card-body>
-
+    <mdb-card-footer>
+      <div fxLayout="row">
+        <div fxLayout="column" fxFlex="100%">
+          <button class="btn btn-outline-danger" mat-button mat-dialog-close>Close</button>
+        </div>
+      </div>
+    </mdb-card-footer>
   </mdb-card>
 </div>
 <!-- Material form login -->

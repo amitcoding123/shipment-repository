@@ -1,6 +1,6 @@
-package com.logistics.usermanagementmicroservice.repositories;
+package com.logistics.shipmentmanagementmicroservice.repositories;
 
-import com.logistics.usermanagementmicroservice.domain.UserCommision;
+import com.logistics.shipmentmanagementmicroservice.domain.UserCommision;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

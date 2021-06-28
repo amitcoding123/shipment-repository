@@ -35,7 +35,7 @@ public class ChargeServiceImpl implements ChargeService {
         //Admin will charge different amount and co-courier will charge different amount.
         //Parent child relationship and %extra will be between a parent and child.
         //Persist amount to be given to parent.
-        Charge charge = chargeRepository.findChargeByZoneAndCategoryAndWeight(zone, category, weight);
+        Charge charge = chargeRepository.findChargeByZoneAndCategoryAndWeight(zone, category, weight); //Purchase rate
         //Add Covid Surcharge
         List<CovidSurcharge> covidSurcharge = covidSurchargeRepository.findCovidSurchargeByCountryAndProvider(country, provider);
         //Double totalSurcharge = covidSurcharge.getAmount() * weight;
@@ -46,11 +46,11 @@ public class ChargeServiceImpl implements ChargeService {
         //Make it configurable
         totalCharge = totalCharge + (totalCharge * 15)/100;
         //Add GST
-        totalCharge = totalCharge + (totalCharge * 18)/100;
+        totalCharge = totalCharge + (totalCharge * 18)/100;//Purchase rate
         charge.setFrieghtCharge(totalCharge);
         //Add 25% more charge
         //Make it user configurable
-        totalCharge = totalCharge + (totalCharge * 25) / 100;
+        totalCharge = totalCharge + (totalCharge * 25) / 100;//Selling rate
         charge.setFinalCharge(Math.round(totalCharge));
         return charge;
     }

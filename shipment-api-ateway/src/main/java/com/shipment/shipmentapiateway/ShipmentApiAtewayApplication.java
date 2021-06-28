@@ -36,7 +36,7 @@ public class ShipmentApiAtewayApplication {
                 registry.addMapping("/otp/generate/{userId}").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/otp/validate/{userId}/{otp}").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/saveNewPassword").allowedOrigins("http://localhost:4200");
-                registry.addMapping("/shipments/user/{userId}").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/shipments/user/{userId}/{currentPage}/{pageSize}").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/shipments/itemtypes").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/shipments").allowedOrigins("http://localhost:4200").allowedMethods("POST", "PUT");
                 registry.addMapping("/shipments/{id}").allowedOrigins("http://localhost:4200").allowedMethods("GET", "DELETE");

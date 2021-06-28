@@ -5,6 +5,7 @@ com\logistics\domain\CurrencyDto.class
 com\logistics\domain\ZoneDto.class
 com\logistics\domain\ItemDto.class
 com\logistics\domain\CountryDto.class
+com\logistics\domain\ShipmentListDto.class
 com\logistics\domain\CovidSurchargeDto.class
 com\logistics\domain\ConsigneeDto.class
 com\logistics\domain\InvoiceDto.class

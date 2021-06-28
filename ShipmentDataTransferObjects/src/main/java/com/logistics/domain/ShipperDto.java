@@ -7,6 +7,8 @@ public class ShipperDto extends BaseDto {
     private String phoneNumber;
     private String email;
     private String aadharNumber;
+    private String panNumber;
+    private String gstin;
     private AddressDto address;
 
 
@@ -58,4 +60,21 @@ public class ShipperDto extends BaseDto {
         this.aadharNumber = aadharNumber;
     }
 
+	public String getPanNumber() {
+		return panNumber;
+	}
+
+	public void setPanNumber(String panNumber) {
+		this.panNumber = panNumber;
+	}
+
+	public String getGstin() {
+		return gstin;
+	}
+
+	public void setGstin(String gstin) {
+		this.gstin = gstin;
+	}
+    
+    
 }

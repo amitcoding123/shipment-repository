@@ -22,6 +22,8 @@ export class ShipmentService {
   private deleteShipmentUrl = '/shipments/';
   private calculateChargeUrl = '/shipments/charge/';
   private shipmentId: string;
+  public shipments: Shipment[];
+  public maxPosts: string;
 
   constructor(private http: HttpClient,
               private authService: AuthService
@@ -30,10 +32,7 @@ export class ShipmentService {
   }
 
   getShipments(): Observable<Shipment[]> {
-    console.log('Inside shipment service');
-    console.log('Inside shipment service: shipment url = ' + this.shipmentUrl);
-    console.log('Inside shipment service: user name = ' + this.authService.getLoggedInUserName());
-    return this.http.get(this.apiUrl + this.shipmentUrl + this.authService.getLoggedInUserName()).pipe(
+    return this.http.get(this.shipmentUrl + this.authService.getUser().userId).pipe(
       map((data: Shipment[]) => {
         return data;
       }), catchError(error => {

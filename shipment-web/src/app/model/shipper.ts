@@ -12,4 +12,6 @@ export class Shipper {
   createdOn: any;
   modifiedBy: string;
   modifiedOn: any;
+  panNumber: string;
+  gstin: string;
 }

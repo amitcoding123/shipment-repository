@@ -23,6 +23,9 @@ public class ShipmentDto extends BaseDto {
     private ShipementCategory category;
     private BigDecimal frieghtCharge;
     private Double sellingCost;
+    private String paymentMode;
+    
+    private Integer totalShipments;
 
     public ShipmentStatus getStatus() {
         return status;
@@ -167,5 +170,23 @@ public class ShipmentDto extends BaseDto {
     public void setSellingCost(Double sellingCost) {
         this.sellingCost = sellingCost;
     }
+
+	public String getPaymentMode() {
+		return paymentMode;
+	}
+
+	public void setPaymentMode(String paymentMode) {
+		this.paymentMode = paymentMode;
+	}
+
+	public Integer getTotalShipments() {
+		return totalShipments;
+	}
+
+	public void setTotalShipments(Integer totalShipments) {
+		this.totalShipments = totalShipments;
+	}
+    
+	
 
 }

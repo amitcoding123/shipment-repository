@@ -52,3 +52,11 @@
   position: relative;
   z-index: 2;
 }
+
+.info-color1 {
+  background-color: blue !important;
+}
+
+.red-text {
+  color: red !important;
+}

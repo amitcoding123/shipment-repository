@@ -26,4 +26,5 @@ export class Shipment {
   category: string;
   frieghtCharge: number;
   sellingCost: number;
+  paymentMode: string;
 }

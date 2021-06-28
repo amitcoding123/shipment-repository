@@ -1,24 +1,31 @@
 package com.logistics.usermanagementmicroservice.controllers;
 
+import java.util.List;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.logistics.domain.UserDto;
 import com.logistics.usermanagementmicroservice.convertors.UserConvertor;
 import com.logistics.usermanagementmicroservice.domain.User;
-import com.logistics.usermanagementmicroservice.domain.UserList;
 import com.logistics.usermanagementmicroservice.exception.PasswordIncorrectException;
 import com.logistics.usermanagementmicroservice.exception.UserNotFoundException;
 import com.logistics.usermanagementmicroservice.services.UserService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import com.logistics.usermanagementmicroservice.util.PasswordManager;
 
 @RestController
 public class UserController {
 
     private UserService userService;
+    private PasswordManager passwordManager;
 
 
     public UserController(UserService userService) {
         this.userService = userService;
+        this.passwordManager = new PasswordManager();
     }
 
 //    @PostMapping("/user/authenticate")
@@ -40,8 +47,10 @@ public class UserController {
         System.out.println("In the user controller. Retrieved User = " + user);
         if(user1 == null)
             throw new UserNotFoundException("User ID = " + user.getUserId());
-        if(!user1.getPassword().equals(user.getPassLocal()))
+        System.out.println("Password Manager = " + passwordManager);
+        if(!passwordManager.comparePassword(user1.getPassword(), user.getPassLocal()))
             throw new PasswordIncorrectException("Incorrect Password!!!");
+        System.out.println("Authenticated the user");        
         return UserConvertor.getInstance().convert(user1);
     }
 

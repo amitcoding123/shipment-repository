@@ -5,10 +5,11 @@ import {ShipmentService} from "./shipment.service";
 import {Router} from "@angular/router";
 import {ItemType} from "../model/item-type";
 import {InvoiceService} from "./invoice.service";
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {AuthService} from "../login/auth.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-shipment',
@@ -24,12 +25,15 @@ export class ShipmentComponent implements OnInit {
   blob: Blob;
   page = 1;
   count = 0;
+  pageSize = 3;
   tableSize = 3;
   tableSizes = [3, 6, 9, 12];
+  totalShipments = 10;
   headers = ['Service Provider', 'Tracking Number', 'Shipper', 'Consignee', 'Status'];
   userId: string;
   displayedColumns: string [] = ['provider', 'trackingNumber', 'shipper-name', 'consignee-name', 'status', 'invoice', 'actions'];
   dataSource: any;
+  private shipmentSub: Subscription;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -38,29 +42,25 @@ export class ShipmentComponent implements OnInit {
               private router: Router,
               private invoiceService: InvoiceService,
               private authService: AuthService) {
-    this.userId = authService.getLoggedInUserName();
+    this.userId = authService.getUser().userId;
   }
 
   ngOnInit(): void {
-    console.log('Inside shipment component');
     this.getShipmentList();
     console.log('Headers = ' + this.headers);
-    console.log('Shipments = ' + this.shipments);
-  }
-
-  ngAfterViewInit() {
-    this.dataSource.sort = this.sort;
+    console.log('Shipments = ' + this.shipments$);
   }
 
   getShipmentList(): void {
-    this.shipmentService
-      .getShipments()
-    .subscribe(value => {
-      value.forEach(val => {
-        this.shipments.push(val);
-      });
-      this.dataSource = new MatTableDataSource(this.shipments);
-    });
+    this.shipments$ = this.shipmentService
+      .getShipments();
+    /*
+      .subscribe((data: any) => {
+          console.log(data);
+          console.log(data.toggleData);
+          this.shipments = data;
+        }
+      );*/
   }
 
   onTableDataChange(event) {
@@ -69,8 +69,9 @@ export class ShipmentComponent implements OnInit {
   }
 
   onTableSizeChange(event) {
+    console.log('Table size change = ' + event.target.value);
     this.tableSize = event.target.value;
-    this.page = 1;
+    this.page = event;
     this.getShipmentList();
   }
 
