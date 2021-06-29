@@ -1,16 +1,27 @@
 package com.shipment.shipmentapiateway.controller.rest.impl;
 
-import com.logistics.domain.*;
-import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
-
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.List;
+
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import org.springframework.web.client.RestTemplate;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.logistics.domain.ChargeDto;
+import com.logistics.domain.DSRDto;
+import com.logistics.domain.InvoiceDto;
+import com.logistics.domain.ItemTypeDto;
+import com.logistics.domain.ShipmentDto;
+import com.logistics.domain.UserDto;
+import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
 
 @Service
 public class WebServiceConsumer implements WebServiceInterface {
@@ -146,5 +157,30 @@ public class WebServiceConsumer implements WebServiceInterface {
         URI uri = new URI(invoiceEndPoint + "dsrs/file/" + id);
         return restTemplate.getForEntity(uri, DSRDto.class).getBody();
     }
+
+	@Override
+	public void uploadDocument(MultipartFile file, String shipmentId, String type) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(shipmentEndPoint + "uploadFile");
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.MULTIPART_FORM_DATA);
+		MultiValueMap<String, Object> body = new LinkedMultiValueMap<>();
+		try {
+			body.add("file", file.getBytes());
+			body.add("contentType", file.getContentType());
+			body.add("fileName", file.getOriginalFilename());
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
+		body.add("shipmentId", shipmentId);
+		body.add("type", type);
+		
+		HttpEntity<MultiValueMap<String, Object>> requestEntity
+		 = new HttpEntity<>(body, headers);
+		
+		restTemplate.postForObject(uri, requestEntity, String.class);
+	}
+    
 
 }

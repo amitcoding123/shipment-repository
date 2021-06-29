@@ -21,5 +21,7 @@ public interface ShipmentService {
     public Shipment updateShipment(Shipment shipment);
 
     public List<Shipment> getTodaysShipmentsForUser(String userId);
+    
+    public Shipment saveAadharDocument(Long id, String contentType, String fileName, byte[] content, String type);
 
 }

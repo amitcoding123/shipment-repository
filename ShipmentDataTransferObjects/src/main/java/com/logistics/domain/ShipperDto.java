@@ -9,6 +9,12 @@ public class ShipperDto extends BaseDto {
     private String aadharNumber;
     private String panNumber;
     private String gstin;
+    private String aadharFileName;
+    private String aadharContentType;
+    private byte[] aadharDocument;
+    private String panFileName;
+    private String panContentType;
+    private byte[] panDocument;
     private AddressDto address;
 
 
@@ -75,6 +81,54 @@ public class ShipperDto extends BaseDto {
 	public void setGstin(String gstin) {
 		this.gstin = gstin;
 	}
+
+	public String getAadharFileName() {
+		return aadharFileName;
+	}
+
+	public void setAadharFileName(String aadharFileName) {
+		this.aadharFileName = aadharFileName;
+	}
+
+	public String getAadharContentType() {
+		return aadharContentType;
+	}
+
+	public void setAadharContentType(String aadharContentType) {
+		this.aadharContentType = aadharContentType;
+	}
+
+	public byte[] getAadharDocument() {
+		return aadharDocument;
+	}
+
+	public void setAadharDocument(byte[] aadharDocument) {
+		this.aadharDocument = aadharDocument;
+	}
+
+	public String getPanFileName() {
+		return panFileName;
+	}
+
+	public void setPanFileName(String panFileName) {
+		this.panFileName = panFileName;
+	}
+
+	public String getPanContentType() {
+		return panContentType;
+	}
+
+	public void setPanContentType(String panContentType) {
+		this.panContentType = panContentType;
+	}
+
+	public byte[] getPanDocument() {
+		return panDocument;
+	}
+
+	public void setPanDocument(byte[] panDocument) {
+		this.panDocument = panDocument;
+	}
     
-    
+	
 }

@@ -16,6 +16,17 @@ public class Shipper extends BaseEntity {
     private String aadharNumber;
     private String panNumber;
     private String gstin;
+    private String aadharFileName;
+    private String aadharContentType;
+    
+    @Lob
+    private byte[] aadharDocument;
+    
+    private String panFileName;
+    private String panContentType;
+    
+    @Lob
+    private byte[] panDocument;
 
     @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "shipper_address_id")
@@ -85,6 +96,54 @@ public class Shipper extends BaseEntity {
 	public void setGstin(String gstin) {
 		this.gstin = gstin;
 	}
+
+	public String getAadharFileName() {
+		return aadharFileName;
+	}
+
+	public void setAadharFileName(String aadharFileName) {
+		this.aadharFileName = aadharFileName;
+	}
+
+	public String getAadharContentType() {
+		return aadharContentType;
+	}
+
+	public void setAadharContentType(String aadharContentType) {
+		this.aadharContentType = aadharContentType;
+	}
+
+	public byte[] getAadharDocument() {
+		return aadharDocument;
+	}
+
+	public void setAadharDocument(byte[] aadharDocument) {
+		this.aadharDocument = aadharDocument;
+	}
+
+	public String getPanFileName() {
+		return panFileName;
+	}
+
+	public void setPanFileName(String panFileName) {
+		this.panFileName = panFileName;
+	}
+
+	public String getPanContentType() {
+		return panContentType;
+	}
+
+	public void setPanContentType(String panContentType) {
+		this.panContentType = panContentType;
+	}
+
+	public byte[] getPanDocument() {
+		return panDocument;
+	}
+
+	public void setPanDocument(byte[] panDocument) {
+		this.panDocument = panDocument;
+	}
     
-    
+	
 }

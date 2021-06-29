@@ -7,6 +7,7 @@ import {AuthService} from "../login/auth.service";
 import {Router} from "@angular/router";
 import {Charge} from "../model/charge";
 import {environment} from "../../environments/environment";
+import { ShipmentDocument } from '../model/shipment-document';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,7 @@ export class ShipmentService {
   private updateShipmentUrl = '/shipments';
   private deleteShipmentUrl = '/shipments/';
   private calculateChargeUrl = '/shipments/charge/';
+  private uploadDocumentUrl = '/uploadFile';
   private shipmentId: string;
   public shipments: Shipment[];
   public maxPosts: string;
@@ -78,6 +80,17 @@ export class ShipmentService {
           console.log(data);
         }
       );
+  }
+
+  persistDocument(shipmentDocument: ShipmentDocument) {
+    const postData = new FormData();
+    postData.append("file", shipmentDocument.file, "aadhar");
+    postData.append("shipmentId", shipmentDocument.shipmentId);
+    postData.append("type", shipmentDocument.type);
+    console.log(postData);
+    this.http.post(this.apiUrl + this.uploadDocumentUrl, postData).subscribe( () => {
+      console.log('Document Uploaded');
+    })
   }
 
   calculateCharge(country: string, category: string, weight: number, provider: string) {

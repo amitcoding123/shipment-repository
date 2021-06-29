@@ -4,11 +4,13 @@ import com.logistics.domain.*;
 import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
+import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.ByteArrayInputStream;
 import java.net.URISyntaxException;
@@ -115,6 +117,44 @@ public class ApiGatewayController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Content-Disposition", "attachment; filename=" + name);
         return ResponseEntity.ok().headers(headers).body(new InputStreamResource(stream));
+    }
+    
+    @PostMapping("/uploadFile")
+    public void uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("shipmentId") String shipmentId
+    		, @RequestParam("type") String type) {
+    	try {
+	    	System.out.println(file);
+	    	System.out.println(file.getContentType());
+	    	System.out.println(file.getName());
+	    	System.out.println(file.getBytes());
+	    	System.out.println(file.getOriginalFilename());
+	    	webServiceInterface.uploadDocument(file, shipmentId, type);
+//	    	Shipment shipment = shipmentService.saveAadharDocument(shipmentId, file.getContentType(), file.getOriginalFilename(), 
+//	    			file.getBytes(), type);
+//	    	System.out.println(shipment);
+    	} catch (Exception ex) {
+    		System.out.println(ex);
+    	}
+    }
+    
+    @GetMapping("/downloadFile/{shipmentId}/{type}") 
+    public ResponseEntity<Resource> downloadFile(@PathVariable Long shipmentId, @PathVariable String type) 
+    throws URISyntaxException {
+    	ShipmentDto shipment = webServiceInterface.getShipmentDetails(shipmentId);
+    	Resource resource = null;    	
+    	if(type.equals("A")) {
+    		resource = new ByteArrayResource(shipment.getShipper().getAadharDocument());
+	    	return ResponseEntity.ok()
+	    			.contentType(MediaType.parseMediaType(shipment.getShipper().getAadharContentType()))
+	    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+	    			shipment.getShipper().getAadharFileName() + "\"").body(resource);
+    	} else {
+    		resource = new ByteArrayResource(shipment.getShipper().getPanDocument());
+    		return ResponseEntity.ok()
+	    			.contentType(MediaType.parseMediaType(shipment.getShipper().getPanContentType()))
+	    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+	    			shipment.getShipper().getPanFileName() + "\"").body(resource);
+    	}
     }
 
 }

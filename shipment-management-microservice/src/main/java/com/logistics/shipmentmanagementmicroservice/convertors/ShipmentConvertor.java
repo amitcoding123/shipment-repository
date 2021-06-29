@@ -54,6 +54,12 @@ public class ShipmentConvertor {
         shipperDto.setName(shipment.getShipper().getName());
         shipperDto.setPhoneNumber(shipment.getShipper().getPhoneNumber());
         shipperDto.setPanNumber(shipment.getShipper().getPanNumber());
+        shipperDto.setAadharContentType(shipment.getShipper().getAadharContentType());
+        shipperDto.setAadharDocument(shipment.getShipper().getAadharDocument());
+        shipperDto.setAadharFileName(shipment.getShipper().getAadharFileName());
+        shipperDto.setPanContentType(shipment.getShipper().getPanContentType());
+        shipperDto.setPanDocument(shipment.getShipper().getPanDocument());
+        shipperDto.setPanFileName(shipment.getShipper().getPanFileName());
         shipperDto.setGstin(shipment.getShipper().getGstin());
         shipperDto.setPlace(shipment.getShipper().getPlace());
         AddressDto shipperAddress = new AddressDto();
@@ -173,6 +179,12 @@ public class ShipmentConvertor {
         shipperDto.setName(shipment.getShipper().getName());
         shipperDto.setPhoneNumber(shipment.getShipper().getPhoneNumber());
         shipperDto.setPlace(shipment.getShipper().getPlace());
+        shipperDto.setAadharContentType(shipment.getShipper().getAadharContentType());
+        shipperDto.setAadharDocument(shipment.getShipper().getAadharDocument());
+        shipperDto.setAadharFileName(shipment.getShipper().getAadharFileName());
+        shipperDto.setPanContentType(shipment.getShipper().getPanContentType());
+        shipperDto.setPanDocument(shipment.getShipper().getPanDocument());
+        shipperDto.setPanFileName(shipment.getShipper().getPanFileName());
         Address shipperAddress = new Address();
         shipperAddress.setId(shipment.getShipper().getAddress().getId());
         shipperAddress.setCreatedBy(shipment.getShipper().getAddress().getCreatedBy());

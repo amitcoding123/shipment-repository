@@ -15,6 +15,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {Charge} from "../../model/charge";
 import { MatGridListModule } from "@angular/material/grid-list";
+import { ShipmentDocument } from 'src/app/model/shipment-document';
 
 
 @Component({
@@ -37,6 +38,8 @@ export class ShipmentCreateComponent implements OnInit {
   cCities: ICity[];
   create: boolean;
   shipmentId: string;
+  aadharFile: ShipmentDocument;
+  panFile: ShipmentDocument;
 
   @ViewChild("itemTypeList") itemTypeList: ElementRef;
 
@@ -351,6 +354,11 @@ export class ShipmentCreateComponent implements OnInit {
         console.log(data);
         this.shipment = data;
         this.submitted = true;
+        this.aadharFile.shipmentId = this.shipment.id;
+        //Create documents
+        if(this.aadharFile != null) {
+          this.shipmentService.persistDocument(this.aadharFile);
+        }
       }
     );
   }
@@ -552,4 +560,17 @@ export class ShipmentCreateComponent implements OnInit {
   cancel() {
     this.router.navigate(['/shipment']);
   }
+
+  uploadAadhar(event: Event) {
+    this.aadharFile = new ShipmentDocument();
+    this.aadharFile.file = (event.target as HTMLInputElement).files[0];
+    this.aadharFile.type = 'A';
+  }
+
+  uploadPan(event: Event) {
+    this.panFile = new ShipmentDocument();
+    this.panFile.file = (event.target as HTMLInputElement).files[0];
+    this.panFile.type = 'P';
+  }
+
 }

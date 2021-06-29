@@ -4,6 +4,8 @@ import com.logistics.domain.*;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.net.URISyntaxException;
 import java.util.List;
@@ -25,4 +27,5 @@ public interface WebServiceInterface {
     InvoiceDto retrieveInvoice(Long shipmentId) throws URISyntaxException;
     List<DSRDto> getDSRs(@PathVariable String userId) throws URISyntaxException;
     DSRDto retrieveDSR(@PathVariable Long id) throws URISyntaxException;
+    void uploadDocument(MultipartFile file, String shipmentId, String type) throws URISyntaxException;
 }

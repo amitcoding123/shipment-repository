@@ -93,4 +93,23 @@ public class ShipmentServiceImpl implements ShipmentService {
     public Integer findUserShipmentsCount(String userId) {
     	return shipmentRepository.findByUserId(userId) != null ? shipmentRepository.findByUserId(userId).size() : 0;
     }
+
+	@Override
+	public Shipment saveAadharDocument(Long id, String contentType, String fileName, byte[] content, String type) {
+		Shipment shipment = shipmentRepository.findById(id).get();
+		if(type.equals("A")) {
+			shipment.getShipper().setAadharContentType(contentType);
+			shipment.getShipper().setAadharFileName(fileName);
+			shipment.getShipper().setAadharDocument(content);
+		} else {
+			shipment.getShipper().setPanContentType(contentType);
+			shipment.getShipper().setPanFileName(fileName);
+			shipment.getShipper().setPanDocument(content);
+		}
+		shipmentRepository.save(shipment);
+		return shipment;
+	}
+    
+    
+    
 }

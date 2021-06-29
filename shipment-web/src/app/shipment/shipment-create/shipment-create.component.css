@@ -48,3 +48,7 @@ mat-divider {
 mat-expansion-panel {
   margin-top: 1rem;
 }
+
+div input [type="file"] {
+  visibility: hidden;
+}

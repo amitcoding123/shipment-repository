@@ -186,7 +186,6 @@ public class ShipmentDto extends BaseDto {
 	public void setTotalShipments(Integer totalShipments) {
 		this.totalShipments = totalShipments;
 	}
-    
 	
 
 }

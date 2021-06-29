@@ -44,6 +44,7 @@ public class ShipmentApiAtewayApplication {
                 registry.addMapping("/invoice/{shipmentId}").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/dsrs/{userId}").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/dsrs/file/{id}").allowedOrigins("http://localhost:4200");
+                registry.addMapping("/uploadFile").allowedOrigins("http://localhost:4200").allowedMethods("POST");
             }
         };
     }
