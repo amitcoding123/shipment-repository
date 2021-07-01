@@ -468,7 +468,10 @@
                           </mat-select>
                         </mat-form-field>
                       </div>
-                      <div fxLayout="column" fxFlex="20%">
+                      <div fxLayout="column" fxFlex="5%">
+                        <mat-icon color="accent" matTooltip="Create new content type." matTooltipPosition="below" (click)="captureNewContentType()">library_add</mat-icon>
+                      </div>
+                      <div fxLayout="column" fxFlex="15%">
                         <button type="button" mat-raised-button color="primary" (click)="addItem()">Add Item</button>
                       </div>
                     </div>

@@ -190,6 +190,13 @@ public class WebServiceConsumer implements WebServiceInterface {
 		
 		restTemplate.postForObject(uri, trackingList, ResponseEntity.class);		
 	}
+
+	@Override
+	public ItemTypeDto createItemType(ItemTypeDto dto) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+        URI uri = new URI(shipmentEndPoint + "shipments/itemtypes");
+        return restTemplate.postForObject(uri, dto, ItemTypeDto.class);
+	}
 	
 	
     

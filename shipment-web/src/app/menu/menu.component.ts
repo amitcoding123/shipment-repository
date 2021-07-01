@@ -34,8 +34,8 @@ export class MenuComponent implements OnInit {
 
   openLogin() {
     const dialogConfig = new MatDialogConfig();
-    dialogConfig.height = '400px';
-    dialogConfig.width = '500px';
+    // dialogConfig.height = '400px';
+    // dialogConfig.width = '500px';
     let dialogRef = this.dialog.open(LoginComponent, dialogConfig);
     console.log('Opened login pop-up');
     const sub = this.authService.loginEvent.subscribe(data => {

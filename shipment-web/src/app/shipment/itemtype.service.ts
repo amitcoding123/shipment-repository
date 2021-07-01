@@ -29,4 +29,10 @@ export class ItemtypeService {
     );
   }
 
+  createItemType(itemType: ItemType): Observable<ItemType> {
+    return this.http.post(this.api_url + this.itemTypeUrl, itemType).pipe(map((data: ItemType) => {
+      return data;
+    }));
+  }
+
 }

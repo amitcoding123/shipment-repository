@@ -197,5 +197,10 @@ public class ApiGatewayController {
 	    			shipment.getShipper().getPanFileName() + "\"").body(resource);
     	}
     }
+    
+    @PostMapping("/shipments/itemtypes")
+    public ItemTypeDto createItemType(@RequestBody ItemTypeDto itemType) throws URISyntaxException {
+    	return webServiceInterface.createItemType(itemType);
+    }
 
 }

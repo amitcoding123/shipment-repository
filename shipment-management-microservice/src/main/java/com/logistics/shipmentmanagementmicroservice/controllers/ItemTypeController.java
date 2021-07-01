@@ -1,13 +1,15 @@
 package com.logistics.shipmentmanagementmicroservice.controllers;
 
-import com.logistics.domain.ItemTypeDto;
-import com.logistics.shipmentmanagementmicroservice.convertors.ItemTypeConvertor;
-import com.logistics.shipmentmanagementmicroservice.domain.ItemType;
-import com.logistics.shipmentmanagementmicroservice.services.ItemTypeService;
+import java.util.List;
+
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.logistics.domain.ItemTypeDto;
+import com.logistics.shipmentmanagementmicroservice.convertors.ItemTypeConvertor;
+import com.logistics.shipmentmanagementmicroservice.services.ItemTypeService;
 
 @RestController
 public class ItemTypeController {
@@ -21,6 +23,11 @@ public class ItemTypeController {
     @GetMapping("/shipments/itemtypes")
     public List<ItemTypeDto> getAllItemType() {
         return ItemTypeConvertor.getInstance().convertList(itemTypeService.findAll());
+    }
+    
+    @PostMapping("/shipments/itemtypes")
+    public ItemTypeDto createItemType(@RequestBody ItemTypeDto itemType) {
+    	return itemTypeService.createItemType(itemType);
     }
 
 }

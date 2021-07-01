@@ -16,6 +16,8 @@ import {Observable} from "rxjs";
 import {Charge} from "../../model/charge";
 import { MatGridListModule } from "@angular/material/grid-list";
 import { ShipmentDocument } from 'src/app/model/shipment-document';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { ContenttypeComponent } from 'src/app/contenttype/contenttype.component';
 
 
 @Component({
@@ -124,7 +126,8 @@ export class ShipmentCreateComponent implements OnInit {
               private itemTypeService: ItemtypeService,
               private authService: AuthService,
               private routerA: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -574,6 +577,24 @@ export class ShipmentCreateComponent implements OnInit {
     this.panFile = new ShipmentDocument();
     this.panFile.file = (event.target as HTMLInputElement).files[0];
     this.panFile.type = 'P';
+  }
+
+  captureNewContentType() {
+    const dialogConfig = new MatDialogConfig();
+    let dialogRef = this.dialog.open(ContenttypeComponent, dialogConfig);
+    const sub = dialogRef.componentInstance.contentType.subscribe(data => {
+      const itemType = new ItemType();
+      itemType.description = data;
+      itemType.createdBy = this.authService.getUser().userId;
+      itemType.modifiedBy = this.authService.getUser().userId;
+      this.itemTypeService.createItemType(itemType).subscribe(data => {
+        this.itemTypes.push(itemType);
+        dialogRef.close();
+      });
+    });
+    dialogRef.afterClosed().subscribe(() => {
+       sub.unsubscribe();
+    });
   }
 
 }

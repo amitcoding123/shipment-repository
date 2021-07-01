@@ -42,6 +42,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatRadioModule } from '@angular/material/radio';
 import { TrackingComponent } from './tracking/tracking.component';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatTooltipModule } from '@angular/material/tooltip';
+import { ContenttypeComponent } from './contenttype/contenttype.component';
 
 @NgModule({
   declarations: [
@@ -58,7 +60,8 @@ import { MatMenuModule } from '@angular/material/menu';
     DsrComponent,
     HomePageComponent,
     ShipmentContentComponent,
-    TrackingComponent
+    TrackingComponent,
+    ContenttypeComponent
   ],
   imports: [
     BrowserModule,
@@ -84,6 +87,7 @@ import { MatMenuModule } from '@angular/material/menu';
     MatExpansionModule,
     MatRadioModule,
     MatMenuModule,
+    MatTooltipModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: HomePageComponent},
