@@ -1,21 +1,38 @@
 package com.shipment.shipmentapiateway.controller;
 
-import com.logistics.domain.*;
-import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
+import java.net.URISyntaxException;
+import java.util.List;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.ByteArrayInputStream;
-import java.net.URISyntaxException;
-import java.util.Collections;
-import java.util.List;
+import com.logistics.domain.ChargeDto;
+import com.logistics.domain.DSRDto;
+import com.logistics.domain.InvoiceDto;
+import com.logistics.domain.ItemTypeDto;
+import com.logistics.domain.ShipmentDto;
+import com.logistics.domain.TrackingCSV;
+import com.logistics.domain.UserDto;
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
+import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
 
 @RestController
 public class ApiGatewayController {
@@ -93,15 +110,21 @@ public class ApiGatewayController {
     }
 
     @GetMapping("/invoice/{shipmentId}")
-    public ResponseEntity<ByteArrayResource> retrieveInvoice(@PathVariable Long shipmentId) throws URISyntaxException {
+    public ResponseEntity<Resource> retrieveInvoice(@PathVariable Long shipmentId) throws URISyntaxException {
         String name = "invoice_" + shipmentId + ".xslx";
         InvoiceDto invoice = webServiceInterface.retrieveInvoice(shipmentId);
-        ByteArrayInputStream stream = new ByteArrayInputStream(invoice.getInvoice());
-        HttpHeaders headers = new HttpHeaders();
-        headers.setContentType(new MediaType("vnd.ms-excel", "force-download"));
-        headers.add("Content-Disposition", "attachment; filename=" + name);
-        return new ResponseEntity<>(new ByteArrayResource(invoice.getInvoice()), headers
-        , HttpStatus.CREATED);
+        String contentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+//        ByteArrayInputStream stream = new ByteArrayInputStream(invoice.getInvoice());
+//        HttpHeaders headers = new HttpHeaders();
+//        headers.setContentType(new MediaType("vnd.ms-excel", "force-download"));
+//        headers.add("Content-Disposition", "attachment; filename=" + name);
+//        return new ResponseEntity<>(new ByteArrayResource(invoice.getInvoice()), headers
+//        , HttpStatus.CREATED);
+        Resource resource = new ByteArrayResource(invoice.getInvoice());
+    	return ResponseEntity.ok()
+    			.contentType(MediaType.parseMediaType(contentType))
+    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+    			name + "\"").body(resource);
     }
 
     @GetMapping("/dsrs/{userId}")
@@ -132,6 +155,24 @@ public class ApiGatewayController {
 //	    	Shipment shipment = shipmentService.saveAadharDocument(shipmentId, file.getContentType(), file.getOriginalFilename(), 
 //	    			file.getBytes(), type);
 //	    	System.out.println(shipment);
+    	} catch (Exception ex) {
+    		System.out.println(ex);
+    	} 	
+    	
+    }
+    
+    @PostMapping("/bulkUpdate")
+    public void bulkUpdate(@RequestParam("file") MultipartFile file, @RequestParam("userId") String userId) {
+    	try (Reader reader = new BufferedReader(new InputStreamReader(file.getInputStream()))) {
+    		
+    		CsvToBean<TrackingCSV> csvToBean = new CsvToBeanBuilder(reader)
+    				.withType(TrackingCSV.class)
+    				.withIgnoreLeadingWhiteSpace(true)
+    				.build();
+    		List<TrackingCSV> entries = csvToBean.parse();
+    		System.out.println("Size = " + entries.size());
+    		webServiceInterface.bulkUpdate(entries, userId);
+	    	
     	} catch (Exception ex) {
     		System.out.println(ex);
     	}

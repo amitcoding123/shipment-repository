@@ -13,7 +13,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -21,13 +20,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.multipart.MultipartFile;
 
 import com.logistics.domain.ChargeDto;
 import com.logistics.domain.CourierServiceProvider;
 import com.logistics.domain.ItemDto;
 import com.logistics.domain.ShipementCategory;
 import com.logistics.domain.ShipmentDto;
+import com.logistics.domain.TrackingCSV;
 import com.logistics.shipmentmanagementmicroservice.convertors.ChargeConvertor;
 import com.logistics.shipmentmanagementmicroservice.convertors.ShipmentConvertor;
 import com.logistics.shipmentmanagementmicroservice.convertors.ShipmentDtoConvertor;
@@ -64,7 +63,7 @@ public class ShipmentManagementController {
     
     @PostMapping("/shipments")
     public com.logistics.domain.ShipmentDto saveShipment(@RequestBody com.logistics.domain.ShipmentDto shipment) {
-        shipment.setTrackingNumber(trackingNumberGenerator.generateTrackingNumber(12));
+//        shipment.setTrackingNumber(trackingNumberGenerator.generateTrackingNumber(12));
         setAuditDetails(shipment, true);
         System.out.println("Payment Mode : " + shipment.getPaymentMode());
         shipment = ShipmentConvertor.getInstance().convert(shipmentService.saveShipment(ShipmentConvertor.getInstance().reverseConvert(shipment)));
@@ -176,6 +175,16 @@ public class ShipmentManagementController {
 	    	System.out.println(fileName);
 	    	Shipment shipment = shipmentService.saveAadharDocument(shipmentId, contentType, fileName, file, type);
 	    	System.out.println(shipment);
+    	} catch (Exception ex) {
+    		System.out.println(ex);
+    	}
+    }
+    
+    @PostMapping("/bulkUpdate")
+    public void bulkUpdate(@RequestBody List<TrackingCSV> trackingList) {
+    	try {
+	    	System.out.println(trackingList);	    	
+	    	shipmentService.bulkUpdate(trackingList);
     	} catch (Exception ex) {
     		System.out.println(ex);
     	}

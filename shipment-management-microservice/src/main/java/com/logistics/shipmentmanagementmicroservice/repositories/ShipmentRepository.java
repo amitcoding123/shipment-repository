@@ -12,5 +12,7 @@ public interface ShipmentRepository extends JpaRepository<Shipment, Long> {
     public List<Shipment> findByUserId(String userId);
 
     public Shipment findByTrackingNumber(Long trackingNumber);
+    
+    public Shipment findByInvoiceNumber(String invoiceNumber);
 
 }

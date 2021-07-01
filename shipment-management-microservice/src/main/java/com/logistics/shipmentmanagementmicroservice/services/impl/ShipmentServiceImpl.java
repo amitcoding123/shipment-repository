@@ -1,16 +1,21 @@
 package com.logistics.shipmentmanagementmicroservice.services.impl;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.springframework.stereotype.Service;
+
+import com.logistics.domain.TrackingCSV;
 import com.logistics.shipmentmanagementmicroservice.domain.Item;
 import com.logistics.shipmentmanagementmicroservice.domain.ItemType;
 import com.logistics.shipmentmanagementmicroservice.domain.Shipment;
 import com.logistics.shipmentmanagementmicroservice.repositories.ItemTypeRepository;
 import com.logistics.shipmentmanagementmicroservice.repositories.ShipmentRepository;
 import com.logistics.shipmentmanagementmicroservice.services.ShipmentService;
-import org.springframework.stereotype.Service;
-
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.*;
 
 @Service
 public class ShipmentServiceImpl implements ShipmentService {
@@ -108,6 +113,18 @@ public class ShipmentServiceImpl implements ShipmentService {
 		}
 		shipmentRepository.save(shipment);
 		return shipment;
+	}
+
+	@Override
+	public void bulkUpdate(List<TrackingCSV> trackingList) {
+		LocalDateTime currentDate = LocalDateTime.now();
+		for(int i = 0; i < trackingList.size(); i++) {
+			TrackingCSV item = trackingList.get(i);
+			Shipment shipment = shipmentRepository.findByInvoiceNumber(item.getInvoiceNumber());
+			shipment.setTrackingNumber(item.getTrackingNumber());
+			shipment.setModifiedOn(currentDate);
+			shipmentRepository.save(shipment);
+		}
 	}
     
     

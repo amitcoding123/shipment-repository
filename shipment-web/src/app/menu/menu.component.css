@@ -20,3 +20,11 @@ mat-toolbar {
 ul {
   display: flex;
 }
+
+mat-menu-item {
+  background-color: red;
+}
+
+.mat-menu-content {
+  background-color: 'red' !important;
+}

@@ -28,4 +28,5 @@ public interface WebServiceInterface {
     List<DSRDto> getDSRs(@PathVariable String userId) throws URISyntaxException;
     DSRDto retrieveDSR(@PathVariable Long id) throws URISyntaxException;
     void uploadDocument(MultipartFile file, String shipmentId, String type) throws URISyntaxException;
+    void bulkUpdate(List<TrackingCSV> trackingList, String userId) throws URISyntaxException;
 }

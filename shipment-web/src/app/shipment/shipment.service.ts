@@ -23,6 +23,7 @@ export class ShipmentService {
   private deleteShipmentUrl = '/shipments/';
   private calculateChargeUrl = '/shipments/charge/';
   private uploadDocumentUrl = '/uploadFile';
+  private bulkUpdateUrl = '/bulkUpdate';
   private shipmentId: string;
   public shipments: Shipment[];
   public maxPosts: string;
@@ -43,7 +44,7 @@ export class ShipmentService {
     );
   }
 
-  getShipment(shipmentId: string): Observable<Shipment> {
+  getShipment(shipmentId: any): Observable<Shipment> {
     this.shipmentId = shipmentId;
     return this.http.get(this.apiUrl + this.shipmentDetailUrl + '/' + this.shipmentId).pipe(
       map((data: Shipment) => {
@@ -90,6 +91,16 @@ export class ShipmentService {
     console.log(postData);
     this.http.post(this.apiUrl + this.uploadDocumentUrl, postData).subscribe( () => {
       console.log('Document Uploaded');
+    })
+  }
+
+  bulkUpdate(shipmentDocument: ShipmentDocument) {
+    const postData = new FormData();
+    postData.append("file", shipmentDocument.file, "tracking");
+    postData.append("userId", this.authService.getUser().userId);
+    console.log(postData);
+    this.http.post(this.apiUrl + this.bulkUpdateUrl, postData).subscribe( () => {
+      console.log('Bulk update completed');
     })
   }
 

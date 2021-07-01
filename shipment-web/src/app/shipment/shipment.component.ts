@@ -10,6 +10,9 @@ import {AuthService} from "../login/auth.service";
 import {MatTableDataSource} from "@angular/material/table";
 import {MatSort} from "@angular/material/sort";
 import { PageEvent } from '@angular/material/paginator';
+import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
+import { TrackingComponent } from '../tracking/tracking.component';
+import { ShipmentDocument } from '../model/shipment-document';
 
 @Component({
   selector: 'app-shipment',
@@ -34,6 +37,8 @@ export class ShipmentComponent implements OnInit {
   displayedColumns: string [] = ['provider', 'trackingNumber', 'shipper-name', 'consignee-name', 'status', 'invoice', 'actions'];
   dataSource: any;
   private shipmentSub: Subscription;
+  shipmentUpdated = false;
+  bulkFile: ShipmentDocument;
 
   @ViewChild(MatSort) sort: MatSort;
 
@@ -41,7 +46,8 @@ export class ShipmentComponent implements OnInit {
               private shipmentService: ShipmentService,
               private router: Router,
               private invoiceService: InvoiceService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private dialog: MatDialog) {
     this.userId = authService.getUser().userId;
   }
 
@@ -54,6 +60,7 @@ export class ShipmentComponent implements OnInit {
   getShipmentList(): void {
     this.shipments$ = this.shipmentService
       .getShipments();
+      this.shipmentUpdated = false;
     /*
       .subscribe((data: any) => {
           console.log(data);
@@ -124,6 +131,42 @@ export class ShipmentComponent implements OnInit {
 
   onRowClicked(row) {
     console.log('Selected Row = ' + row.trackingNumber);
+  }
+
+  isTrackingNumberPresent(shipment: Shipment) {
+    if(shipment.trackingNumber > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  updateTrackingNumber() {
+    const dialogConfig = new MatDialogConfig();
+    // dialogConfig.height = '400px';
+    // dialogConfig.width = '500px';
+    dialogConfig.disableClose = true;
+    let dialogRef = this.dialog.open(TrackingComponent, dialogConfig);
+    const sub = dialogRef.componentInstance.trackingEvent.subscribe(data => {
+      this.selectedShipment.trackingNumber = data;
+      this.shipmentService.updateShipment(this.selectedShipment)
+      .subscribe(data => {
+        this.selectedShipment = null;
+        this.shipmentUpdated = true;
+        dialogRef.close();
+      });
+    });
+    dialogRef.afterClosed().subscribe(() => {
+       sub.unsubscribe();
+    });
+  }
+
+  bulkUpdate(event: Event) {
+    this.bulkFile = new ShipmentDocument();
+    this.bulkFile.file = (event.target as HTMLInputElement).files[0];
+    console.log(this.bulkFile);
+    this.shipmentService.bulkUpdate(this.bulkFile);
+    this.getShipmentList();
   }
 
 }

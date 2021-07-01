@@ -34,6 +34,22 @@
       <a mat-button routerLink="/dsr" routerLinkActive="mat-accent">DSR</a>
     </li>
   </ul>
+  <!-- <button *ngIf="isLoggedIn" mat-button color="accent" [matMenuTriggerFor]="shipments">Shipment Menu</button>
+  <mat-menu #shipments="matMenu">
+    <button mat-menu-item color="accent">Shipments</button>
+    <button mat-menu-item color="accent" [matMenuTriggerFor]="persons">Reports</button>
+  </mat-menu>
+  <mat-menu #persons="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="userreports"> User Reports</button>
+    <button mat-menu-item [matMenuTriggerFor]="customerreports">Customer Reports</button>
+  </mat-menu>
+  <mat-menu #userreports="matMenu">
+    <button mat-menu-item>Daily Status Reports</button>
+    <button mat-menu-item>User Tax Invoice</button>
+  </mat-menu>
+  <mat-menu #customerreports="matMenu">
+    <button mat-menu-item>Customer Tax Invoice</button>
+  </mat-menu> -->
   <span class="spacer"></span>
   <ul>
     <li *ngIf="!isLoggedIn">

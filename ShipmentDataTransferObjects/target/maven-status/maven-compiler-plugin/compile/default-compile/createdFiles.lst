@@ -1,6 +1,7 @@
 com\logistics\domain\UserDto.class
 com\logistics\domain\ItemTypeDto.class
 com\logistics\domain\ShipmentStatus.class
+com\logistics\domain\TrackingCSV.class
 com\logistics\domain\CurrencyDto.class
 com\logistics\domain\ZoneDto.class
 com\logistics\domain\ItemDto.class

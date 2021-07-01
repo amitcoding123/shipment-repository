@@ -39,6 +39,9 @@ import { MatIconModule } from "@angular/material/icon";
 import { HomePageComponent } from './home-page/home-page.component';
 import { ShipmentContentComponent } from './shipment-content/shipment-content.component';
 import { MatExpansionModule } from '@angular/material/expansion';
+import { MatRadioModule } from '@angular/material/radio';
+import { TrackingComponent } from './tracking/tracking.component';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [
@@ -54,7 +57,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     CreateNewPasswordComponent,
     DsrComponent,
     HomePageComponent,
-    ShipmentContentComponent
+    ShipmentContentComponent,
+    TrackingComponent
   ],
   imports: [
     BrowserModule,
@@ -78,6 +82,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
     MatIconModule,
     MatListModule,
     MatExpansionModule,
+    MatRadioModule,
+    MatMenuModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: HomePageComponent},

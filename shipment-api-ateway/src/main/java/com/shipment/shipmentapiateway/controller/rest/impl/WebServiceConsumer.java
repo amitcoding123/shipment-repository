@@ -20,6 +20,7 @@ import com.logistics.domain.DSRDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
 import com.logistics.domain.ShipmentDto;
+import com.logistics.domain.TrackingCSV;
 import com.logistics.domain.UserDto;
 import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
 
@@ -181,6 +182,16 @@ public class WebServiceConsumer implements WebServiceInterface {
 		
 		restTemplate.postForObject(uri, requestEntity, String.class);
 	}
+
+	@Override
+	public void bulkUpdate(List<TrackingCSV> trackingList, String userId) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(shipmentEndPoint + "bulkUpdate");		
+		
+		restTemplate.postForObject(uri, trackingList, ResponseEntity.class);		
+	}
+	
+	
     
 
 }

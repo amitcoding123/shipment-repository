@@ -26,7 +26,7 @@ public class DSRGenerator {
         this.shipmentService = shipmentService;
     }
 
-    @Scheduled(cron = "0/300000 * * * * ?")
+    @Scheduled(cron = "0 0 22 * * *")
     public void generateDSR() throws URISyntaxException{
         List<UserDto> users = getUsers();
         System.out.println(users);
@@ -56,7 +56,7 @@ public class DSRGenerator {
 
     private List<UserDto> getUsers() throws URISyntaxException {
         RestTemplate template = new RestTemplate();
-        URI uri = new URI("https://ec2-65-2-130-228.ap-south-1.compute.amazonaws.com:8081//users");
+        URI uri = new URI("http://localhost:8081//users");
         ResponseEntity<UserDto[]> response = template.getForEntity(uri, UserDto[].class);
         UserDto[] users = response.getBody();
         System.out.println(users);
@@ -65,7 +65,7 @@ public class DSRGenerator {
 
     private void createDSR(List<DSRDto> dsr) throws URISyntaxException {
         RestTemplate template = new RestTemplate();
-        URI uri = new URI("https://ec2-65-2-130-228.ap-south-1.compute.amazonaws.com:8200//dsr");
+        URI uri = new URI("http://localhost:8200//dsr");
         template.postForEntity(uri, dsr, String.class);
     }
 

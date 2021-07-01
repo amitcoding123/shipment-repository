@@ -95,7 +95,7 @@
                 </div>
               </div>
               <div fxLayout="row" fxLayoutGap="20px">
-                <div fxLayout="column" fxFlex="40%">
+                <div fxLayout="column" fxFlex="50%">
                   <mat-form-field appearance="outline" color="primary">
                     <mat-label>Email Address</mat-label>
                     <mat-icon matPrefix>email</mat-icon>
@@ -110,11 +110,11 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div fxLayout="column" fxFlex="40%">
+                <div fxLayout="column" fxFlex="50%">
                   <mat-form-field appearance="outline" color="primary">
                     <mat-label>Aadhar Number</mat-label>
                     <input type="text" matInput formControlName="aadharNumber">
-                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-icon matSuffix type="button" (click)="aadharDoc.click()">attachment</mat-icon>
                     <mat-hint>Enter Shipper's Aadhar Number</mat-hint>
                     <mat-error *ngIf="aadharNumber.hasError('required')">
                       Shipper's Aadhar Number is mandatory.
@@ -124,9 +124,6 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div fxLayout="column" fxFlex="20%">
-                  <button mat-raised-button color="primary" type="button" (click)="aadharDoc.click()">Upload Aadhar Card</button>
-                </div>
               </div>
               <div fxLayout="row" fxLayoutGap="20px">
                 <div fxLayout="column" fxFlex="40%">
@@ -134,12 +131,9 @@
                     <mat-label>PAN</mat-label>
                     <mat-icon matPrefix>add_comment</mat-icon>
                     <input type="text" matInput formControlName="panNumber">
-                    <mat-icon matSuffix>mode_edit</mat-icon>
+                    <mat-icon matSuffix type="button" (click)="panDoc.click()">attachment</mat-icon>
                     <mat-hint>Enter Shipper's Permanent Account Number</mat-hint>
                   </mat-form-field>
-                </div>
-                <div fxLayout="column" fxFlex="20%">
-                  <button mat-raised-button color="primary" type="button" (click)="panDoc.click()">Upload PAN Card</button>
                 </div>
                 <div fxLayout="column" fxFlex="40%">
                   <mat-form-field appearance="outline" color="primary">

@@ -359,6 +359,9 @@ export class ShipmentCreateComponent implements OnInit {
         if(this.aadharFile != null) {
           this.shipmentService.persistDocument(this.aadharFile);
         }
+        if(this.panFile != null) {
+          this.shipmentService.persistDocument(this.panFile);
+        }
       }
     );
   }

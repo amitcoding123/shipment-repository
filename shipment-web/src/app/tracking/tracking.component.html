@@ -1,0 +1,22 @@
+<form [formGroup]="trackingNumberForm" *ngIf='!updateDone'>
+  <mat-card>
+    <mat-card-title>Update Tracking Number</mat-card-title>
+    <mat-card-content>
+      <mat-form-field appearance="outline" color="primary">
+        <mat-label>Tracking Number</mat-label>
+        <input type="text" matInput formControlName="trackingNumber">
+        <mat-hint>Enter tracking number</mat-hint>
+        <mat-error *ngIf="trackingNumber.hasError('required')">
+          Tracking number is mandatory.
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="updateTrackingNumber()" [disabled]="!trackingNumberForm.valid">Update</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
+<div *ngIf='updateDone'>
+  <div class="alert alert-success">Tracking Number updated successfully.</div>
+  <button mat-raised-button color="primary" (click)="onClose()" >Ok</button>
+</div>

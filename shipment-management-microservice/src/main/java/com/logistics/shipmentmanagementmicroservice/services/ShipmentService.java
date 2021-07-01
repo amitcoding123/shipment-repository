@@ -1,8 +1,9 @@
 package com.logistics.shipmentmanagementmicroservice.services;
 
-import com.logistics.shipmentmanagementmicroservice.domain.Shipment;
-
 import java.util.List;
+
+import com.logistics.domain.TrackingCSV;
+import com.logistics.shipmentmanagementmicroservice.domain.Shipment;
 
 public interface ShipmentService {
 
@@ -23,5 +24,7 @@ public interface ShipmentService {
     public List<Shipment> getTodaysShipmentsForUser(String userId);
     
     public Shipment saveAadharDocument(Long id, String contentType, String fileName, byte[] content, String type);
+    
+    public void bulkUpdate(List<TrackingCSV> trackingList);
 
 }
