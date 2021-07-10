@@ -1,4 +1,5 @@
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\TrackingCSV.java
+E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CompanyDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ShipmentListDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ConsigneeDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CountryDto.java
@@ -7,6 +8,7 @@ E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\d
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ShipementCategory.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ShipmentDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CovidSurchargeDto.java
+E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CustomerTaxInvoiceDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\InvoiceDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ZoneDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ChargeDto.java

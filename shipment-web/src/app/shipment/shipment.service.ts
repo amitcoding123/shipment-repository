@@ -8,6 +8,7 @@ import {Router} from "@angular/router";
 import {Charge} from "../model/charge";
 import {environment} from "../../environments/environment";
 import { ShipmentDocument } from '../model/shipment-document';
+import { Shipper } from '../model/shipper';
 
 @Injectable({
   providedIn: 'root'
@@ -15,6 +16,7 @@ import { ShipmentDocument } from '../model/shipment-document';
 export class ShipmentService {
 
   private apiUrl: string;
+  private shippers: Shipper[] = [];
 
   private shipmentUrl = '/shipments/user/';
   private shipmentDetailUrl = '/shipments';
@@ -24,6 +26,7 @@ export class ShipmentService {
   private calculateChargeUrl = '/shipments/charge/';
   private uploadDocumentUrl = '/uploadFile';
   private bulkUpdateUrl = '/bulkUpdate';
+  private shipperUrl = '/shippers/';
   private shipmentId: string;
   public shipments: Shipment[];
   public maxPosts: string;
@@ -32,6 +35,10 @@ export class ShipmentService {
               private authService: AuthService
   ) {
     this.apiUrl = environment.api_url;
+  }
+
+  getShippers() {
+    return this.shippers;
   }
 
   getShipments(): Observable<Shipment[]> {
@@ -56,18 +63,26 @@ export class ShipmentService {
   }
 
   createShipment(shipment: Shipment): Observable<Shipment> {
+    console.log('Shipment to create = ' + shipment.shipper.dob);
+    console.log('Items size = ' + shipment.items.length);
+    console.log('Shipment Items = ' + shipment.items[1].id);
+    console.log('Shipment Items = ' + shipment.items[1].itemType.id);
+    console.log('Shipment Items = ' + shipment.items[1].itemType.description);
     return this.http.post<Shipment>(this.apiUrl + this.createShipmentUrl, shipment)
       .pipe(
         catchError(error => {
+          console.log('Error occurred = ' + error);
           return throwError('Error occured while creating shipment');
         })
       );
   }
 
   updateShipment(shipment: Shipment): Observable<Shipment> {
+    console.log('Shipment to update = ' + shipment.shipper.dob);
     return this.http.put<Shipment>(this.apiUrl + this.updateShipmentUrl, shipment)
       .pipe(
         catchError(error => {
+
           return throwError("Error occurred while updating the shipment");
         })
       );
@@ -118,4 +133,17 @@ export class ShipmentService {
         })
       );
   }
+
+  getShippersForUser(userId: string): Observable<Shipper[]> {
+    console.log('getShippersForUser: userId = ' + userId);
+    return this.http.get(this.apiUrl + this.shipperUrl + userId).pipe(
+      map((data: Shipper[]) => {
+        console.log('getShippersForUser = ' + data[0]);
+        return data;
+      }), catchError(error => {
+        return throwError('Something went wrong');
+      })
+    );
+  }
+
 }

@@ -14,4 +14,5 @@ export class Shipper {
   modifiedOn: any;
   panNumber: string;
   gstin: string;
+  dob: string;
 }

@@ -1,18 +1,23 @@
 package com.logistics.shipmentmanagementmicroservice.domain;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+
 import com.logistics.domain.CourierServiceProvider;
 import com.logistics.domain.ShipementCategory;
 import com.logistics.domain.ShipmentStatus;
 
-import javax.persistence.*;
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Set;
-
 @Entity
 public class Shipment extends BaseEntity implements Serializable, Comparable<Shipment> {
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne
     private Shipper shipper;
 
     @OneToOne(cascade = CascadeType.PERSIST)
@@ -36,7 +41,8 @@ public class Shipment extends BaseEntity implements Serializable, Comparable<Shi
     private BigDecimal frieghtCharge;
     private Double sellingCost;
     private String paymentMode;
-
+    private String custTaxInvoice;
+    
     public ShipmentStatus getStatus() {
         return status;
     }
@@ -197,6 +203,14 @@ public class Shipment extends BaseEntity implements Serializable, Comparable<Shi
 	public void setPaymentMode(String paymentMode) {
 		this.paymentMode = paymentMode;
 	}
+
+	public String getCustTaxInvoice() {
+		return custTaxInvoice;
+	}
+
+	public void setCustTaxInvoice(String custTaxInvoice) {
+		this.custTaxInvoice = custTaxInvoice;
+	}
     
-    
+	
 }

@@ -20,6 +20,7 @@ import com.logistics.domain.DSRDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
 import com.logistics.domain.ShipmentDto;
+import com.logistics.domain.ShipperDto;
 import com.logistics.domain.TrackingCSV;
 import com.logistics.domain.UserDto;
 import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
@@ -197,8 +198,14 @@ public class WebServiceConsumer implements WebServiceInterface {
         URI uri = new URI(shipmentEndPoint + "shipments/itemtypes");
         return restTemplate.postForObject(uri, dto, ItemTypeDto.class);
 	}
-	
-	
-    
+
+	@Override
+	public List<ShipperDto> getShippersForUser(String userId) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+        URI uri = new URI(shipmentEndPoint + "shippers/" + userId);
+        ResponseEntity<ShipperDto[]> response = restTemplate.getForEntity(uri, ShipperDto[].class);
+        ShipperDto[] dtos = response.getBody();
+        return Arrays.asList(dtos);
+	}
 
 }

@@ -28,6 +28,7 @@ import com.logistics.domain.DSRDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
 import com.logistics.domain.ShipmentDto;
+import com.logistics.domain.ShipperDto;
 import com.logistics.domain.TrackingCSV;
 import com.logistics.domain.UserDto;
 import com.opencsv.bean.CsvToBean;
@@ -202,5 +203,10 @@ public class ApiGatewayController {
     public ItemTypeDto createItemType(@RequestBody ItemTypeDto itemType) throws URISyntaxException {
     	return webServiceInterface.createItemType(itemType);
     }
+    
+    @GetMapping("/shippers/{userId}")
+	public List<ShipperDto> getShipperForUser(@PathVariable String userId) throws URISyntaxException {
+		return webServiceInterface.getShippersForUser(userId);
+	}
 
 }

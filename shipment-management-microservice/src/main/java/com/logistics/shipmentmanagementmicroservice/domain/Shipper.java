@@ -1,6 +1,12 @@
 package com.logistics.shipmentmanagementmicroservice.domain;
 
-import javax.persistence.*;
+import java.time.LocalDate;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Shipper extends BaseEntity {
@@ -18,6 +24,7 @@ public class Shipper extends BaseEntity {
     private String gstin;
     private String aadharFileName;
     private String aadharContentType;
+    private String dob;
     
     @Lob
     private byte[] aadharDocument;
@@ -143,6 +150,14 @@ public class Shipper extends BaseEntity {
 
 	public void setPanDocument(byte[] panDocument) {
 		this.panDocument = panDocument;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
     
 	

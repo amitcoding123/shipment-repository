@@ -1,10 +1,12 @@
 com\logistics\domain\UserDto.class
+com\logistics\domain\CustomerTaxInvoiceDto.class
 com\logistics\domain\ItemTypeDto.class
 com\logistics\domain\ShipmentStatus.class
 com\logistics\domain\TrackingCSV.class
 com\logistics\domain\CurrencyDto.class
 com\logistics\domain\ZoneDto.class
 com\logistics\domain\ItemDto.class
+com\logistics\domain\CompanyDto.class
 com\logistics\domain\CountryDto.class
 com\logistics\domain\ShipmentListDto.class
 com\logistics\domain\CovidSurchargeDto.class

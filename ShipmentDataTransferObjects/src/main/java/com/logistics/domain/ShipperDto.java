@@ -1,5 +1,7 @@
 package com.logistics.domain;
 
+import java.time.LocalDate;
+
 public class ShipperDto extends BaseDto {
 
     private String place;
@@ -15,6 +17,7 @@ public class ShipperDto extends BaseDto {
     private String panFileName;
     private String panContentType;
     private byte[] panDocument;
+    private String dob;
     private AddressDto address;
 
 
@@ -128,6 +131,14 @@ public class ShipperDto extends BaseDto {
 
 	public void setPanDocument(byte[] panDocument) {
 		this.panDocument = panDocument;
+	}
+
+	public String getDob() {
+		return dob;
+	}
+
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
     
 	

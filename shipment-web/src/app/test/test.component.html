@@ -1,0 +1,11 @@
+<form [formGroup]="testForm">
+  <mat-form-field appearance="outline" color="primary">
+    <mat-label>Name</mat-label>
+    <input type="text" matInput formControlName="selectedShipper" [matAutocomplete]="auto">
+    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="populateShipperDetails()">
+      <mat-option *ngFor="let shipper of filteredShippers | async" [value]="shipper">
+        {{shipper.name.concat(' (' + shipper.email + ')')}}
+      </mat-option>
+    </mat-autocomplete>
+  </mat-form-field>
+</form>

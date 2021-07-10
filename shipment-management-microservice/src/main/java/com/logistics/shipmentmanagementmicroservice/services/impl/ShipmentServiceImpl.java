@@ -13,19 +13,24 @@ import com.logistics.domain.TrackingCSV;
 import com.logistics.shipmentmanagementmicroservice.domain.Item;
 import com.logistics.shipmentmanagementmicroservice.domain.ItemType;
 import com.logistics.shipmentmanagementmicroservice.domain.Shipment;
+import com.logistics.shipmentmanagementmicroservice.domain.Shipper;
 import com.logistics.shipmentmanagementmicroservice.repositories.ItemTypeRepository;
 import com.logistics.shipmentmanagementmicroservice.repositories.ShipmentRepository;
 import com.logistics.shipmentmanagementmicroservice.services.ShipmentService;
+import com.logistics.shipmentmanagementmicroservice.services.ShipperService;
 
 @Service
 public class ShipmentServiceImpl implements ShipmentService {
 
     private final ShipmentRepository shipmentRepository;
     private final ItemTypeRepository itemTypeRepository;
+    private final ShipperService shipperService;
 
-    public ShipmentServiceImpl(ShipmentRepository shipmentRepository, ItemTypeRepository itemTypeRepository) {
+    public ShipmentServiceImpl(ShipmentRepository shipmentRepository, ItemTypeRepository itemTypeRepository,
+    		ShipperService shipperService) {
         this.shipmentRepository = shipmentRepository;
         this.itemTypeRepository = itemTypeRepository;
+        this.shipperService = shipperService;
     }
 
     @Override
@@ -52,6 +57,8 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public Shipment saveShipment(Shipment shipment) {
         //Set the ItemType returned from database
+    	Shipper shipper = shipperService.saveShipper(shipment.getShipper());
+    	shipment.setShipper(shipper);
         removeNullItems(shipment);
         return shipmentRepository.save(shipment);
     }
@@ -77,7 +84,9 @@ public class ShipmentServiceImpl implements ShipmentService {
 
     @Override
     public Shipment updateShipment(Shipment shipment) {
-        removeNullItems(shipment);
+    	Shipper shipper = shipperService.saveShipper(shipment.getShipper());
+    	shipment.setShipper(shipper);
+        removeNullItems(shipment);        
         return shipmentRepository.save(shipment);
     }
 

@@ -1,6 +1,6 @@
 export class ItemType {
   id: number;
-  description: number;
+  description: string;
   createdBy: string;
   modifiedBy: string;
 }

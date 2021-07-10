@@ -18,7 +18,10 @@ import { MatGridListModule } from "@angular/material/grid-list";
 import { ShipmentDocument } from 'src/app/model/shipment-document';
 import {MatDialog, MatDialogConfig} from "@angular/material/dialog";
 import { ContenttypeComponent } from 'src/app/contenttype/contenttype.component';
-
+import {MatDatepickerInputEvent} from '@angular/material/datepicker';
+import {map, startWith} from 'rxjs/operators';
+import * as _moment from 'moment';
+const moment = _moment;
 
 @Component({
   selector: 'app-shipment-create',
@@ -42,6 +45,8 @@ export class ShipmentCreateComponent implements OnInit {
   shipmentId: string;
   aadharFile: ShipmentDocument;
   panFile: ShipmentDocument;
+  shippers: Shipper[] = [];
+  filteredShippers: Observable<Shipper[]>;
 
   @ViewChild("itemTypeList") itemTypeList: ElementRef;
 
@@ -61,6 +66,7 @@ export class ShipmentCreateComponent implements OnInit {
     sellingCost: [''],
     paymentMode: ['', [Validators.required]],
     shipper: this.formBuilder.group({
+      selectedShipper: [],
       id: [''],
       name: ['', [Validators.required, Validators.minLength(6)]],
       phoneNumber: ['', [Validators.required, Validators.pattern(new RegExp("[0-9]{10}"))]],
@@ -72,6 +78,7 @@ export class ShipmentCreateComponent implements OnInit {
       modifiedOn: [''],
       panNumber: [''],
       gstin: [''],
+      dob: [''],
       address: this.formBuilder.group ({
           id: [''],
           addressLine1: ['', [Validators.required]],
@@ -151,6 +158,29 @@ export class ShipmentCreateComponent implements OnInit {
         });
       }
     });
+
+
+    this.shipmentService.getShippersForUser(this.authService.getUser().userId).subscribe((data: any) => {
+      this.shippers = data;
+      console.log('CustomertaxinvoiceComponent: Email = ' + data[0].email);
+      this.filteredShippers = this.createShipmentForm.get('shipper.name').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.shippers.slice())
+      );
+    });
+
+  }
+
+  displayFn(shipper: Shipper): string {
+    return shipper && shipper.name ? shipper.name : '';
+  }
+
+  private _filter(name: string): Shipper[] {
+    const filterValue = name.toLowerCase();
+
+    return this.shippers.filter(Shipper => Shipper.name.toLowerCase().includes(filterValue));
   }
 
   getItemTypes(): void {
@@ -158,6 +188,8 @@ export class ShipmentCreateComponent implements OnInit {
       .getItemTypes()
       .subscribe((data: any) => {
           this.itemTypes = data;
+          console.log('getItemTypes ' + data);
+          console.log('getItemTypes: desciption = ' + data[0].description);
         }
       );
   }
@@ -285,6 +317,10 @@ export class ShipmentCreateComponent implements OnInit {
     return this.createShipmentForm.get('items') as FormArray;
   }
 
+  get dob(): any {
+    return this.createShipmentForm.get('shipper.dob');
+  }
+
   newItem(): FormGroup {
     return this.formBuilder.group({
         id: '',
@@ -302,6 +338,7 @@ export class ShipmentCreateComponent implements OnInit {
   }
 
   addItem() {
+    console.log(this.selectedItemTypeId);
     const description = this.itemTypes.find(itemType => itemType.id == this.selectedItemTypeId).description;
     this.items.push(this.newItem());
     this.items.at(this.items.length - 1).patchValue({
@@ -353,16 +390,18 @@ export class ShipmentCreateComponent implements OnInit {
 
   createShipment() {
     this.populateShipmentFromFormData();
+    console.log('In the create shipment');
     this.shipmentService.createShipment(this.shipment).subscribe((data: any) => {
         console.log(data);
         this.shipment = data;
         this.submitted = true;
-        this.aadharFile.shipmentId = this.shipment.id;
         //Create documents
         if(this.aadharFile != null) {
+          this.aadharFile.shipmentId = this.shipment.id;
           this.shipmentService.persistDocument(this.aadharFile);
         }
         if(this.panFile != null) {
+          this.panFile.shipmentId = this.shipment.id;
           this.shipmentService.persistDocument(this.panFile);
         }
       }
@@ -384,6 +423,7 @@ export class ShipmentCreateComponent implements OnInit {
     this.createShipmentForm.get('shipper.name').setValue(this.shipment.shipper.name);
     this.createShipmentForm.get('shipper.phoneNumber').setValue(this.shipment.shipper.phoneNumber);
     this.createShipmentForm.get('shipper.email').setValue(this.shipment.shipper.email);
+    this.createShipmentForm.get('shipper.dob').setValue(this.shipment.shipper.dob);
     this.createShipmentForm.get('shipper.aadharNumber').setValue(this.shipment.shipper.aadharNumber);
     this.createShipmentForm.get('shipper.panNumber').setValue(this.shipment.shipper.panNumber);
     this.createShipmentForm.get('shipper.gstin').setValue(this.shipment.shipper.gstin);
@@ -472,6 +512,8 @@ export class ShipmentCreateComponent implements OnInit {
     shipper.aadharNumber = this.createShipmentForm.get('shipper.aadharNumber').value;
     shipper.panNumber = this.createShipmentForm.get('shipper.panNumber').value;
     shipper.gstin = this.createShipmentForm.get('shipper.gstin').value;
+    console.log('Date of borth selected is = ' + this.createShipmentForm.get('shipper.dob').value);
+    shipper.dob = this.createShipmentForm.get('shipper.dob').value;
     shipper.createdBy = this.createShipmentForm.get('shipper.createdBy').value;
     shipper.createdOn = this.createShipmentForm.get('shipper.createdOn').value;
     let shipperAddress: Address;
@@ -588,12 +630,92 @@ export class ShipmentCreateComponent implements OnInit {
       itemType.createdBy = this.authService.getUser().userId;
       itemType.modifiedBy = this.authService.getUser().userId;
       this.itemTypeService.createItemType(itemType).subscribe(data => {
-        this.itemTypes.push(itemType);
+        this.itemTypes.push(data);
+        console.log('ID of newly created item type = ' + data.id);
         dialogRef.close();
       });
     });
     dialogRef.afterClosed().subscribe(() => {
        sub.unsubscribe();
+    });
+  }
+
+  onDateChange(event: MatDatepickerInputEvent<Date>) {
+    const selectedDate = moment(event.value);
+    const textDate = selectedDate.format('DD') + '-' + selectedDate.format('MMM') + '-' + selectedDate.format('YYYY');
+    this.createShipmentForm.get('shipper.dob').setValue(textDate);
+  }
+
+  populateShipperDetails() {
+    console.log(this.createShipmentForm.get('shipper.selectedShipper').value);
+    if(!(typeof this.createShipmentForm.get('shipper.selectedShipper').value === 'object')) {
+      return;
+    }
+    console.log('Selected shipper' + this.createShipmentForm.get('shipper.selectedShipper'));
+    const shipper = this.createShipmentForm.get('shipper.selectedShipper').value;
+    this.createShipmentForm.get('shipper.id').setValue(shipper.id);
+    this.createShipmentForm.get('shipper.name').setValue(shipper.name);
+    this.createShipmentForm.get('shipper.phoneNumber').setValue(shipper.phoneNumber);
+    this.createShipmentForm.get('shipper.email').setValue(shipper.email);
+    this.createShipmentForm.get('shipper.aadharNumber').setValue(shipper.aadharNumber);
+    this.createShipmentForm.get('shipper.createdBy').setValue(shipper.createdBy);
+    this.createShipmentForm.get('shipper.createdOn').setValue(shipper.createdOn);
+    this.createShipmentForm.get('shipper.modifiedBy').setValue(shipper.modifiedOn);
+    this.createShipmentForm.get('shipper.panNumber').setValue(shipper.panNumber);
+    this.createShipmentForm.get('shipper.gstin').setValue(shipper.gstin);
+    this.createShipmentForm.get('shipper.dob').setValue(shipper.dob);
+    this.createShipmentForm.get('shipper.address.id').setValue(shipper.address.id);
+    this.createShipmentForm.get('shipper.address.addressLine1').setValue(shipper.address.addressLine1);
+    this.createShipmentForm.get('shipper.address.addressLine2').setValue(shipper.address.addressLine2);
+    this.createShipmentForm.get('shipper.address.zipCode').setValue(shipper.address.zipCode);
+    this.createShipmentForm.get('shipper.address.city').setValue(shipper.address.city);
+    this.createShipmentForm.get('shipper.address.state').setValue(shipper.address.state);
+    this.createShipmentForm.get('shipper.address.country').setValue(shipper.address.country);
+    this.createShipmentForm.get('shipper.address.createdBy').setValue(shipper.address.createdBy);
+    this.createShipmentForm.get('shipper.address.createdOn').setValue(shipper.address.createdOn);
+    this.createShipmentForm.get('shipper.address.modifiedBy').setValue(shipper.address.modifiedOn);
+  }
+
+  isShipperSelected() {
+    if(this.createShipmentForm.get('shipper.selectedShipper').value != null) {
+      return true;
+    }
+    return false;
+  }
+
+  clearShipper() {
+    console.log('Clearing shipper');
+    this.createShipmentForm.get('shipper.selectedShipper').setValue('');
+    this.shipmentService.getShippersForUser(this.authService.getUser().userId).subscribe((data: any) => {
+      this.shippers = data;
+      console.log('CustomertaxinvoiceComponent: Email = ' + data[0].email);
+      this.filteredShippers = this.createShipmentForm.get('shipper.name').valueChanges
+      .pipe(
+        startWith(''),
+        map(value => typeof value === 'string' ? value : value.name),
+        map(name => name ? this._filter(name) : this.shippers.slice())
+      );
+      this.createShipmentForm.get('shipper.id').setValue('');
+    this.createShipmentForm.get('shipper.name').setValue('');
+    this.createShipmentForm.get('shipper.phoneNumber').setValue('');
+    this.createShipmentForm.get('shipper.email').setValue('');
+    this.createShipmentForm.get('shipper.aadharNumber').setValue('');
+    this.createShipmentForm.get('shipper.createdBy').setValue('');
+    this.createShipmentForm.get('shipper.createdOn').setValue('');
+    this.createShipmentForm.get('shipper.modifiedBy').setValue('');
+    this.createShipmentForm.get('shipper.panNumber').setValue('');
+    this.createShipmentForm.get('shipper.gstin').setValue('');
+    this.createShipmentForm.get('shipper.dob').setValue('');
+    this.createShipmentForm.get('shipper.address.id').setValue('');
+    this.createShipmentForm.get('shipper.address.addressLine1').setValue('');
+    this.createShipmentForm.get('shipper.address.addressLine2').setValue('');
+    this.createShipmentForm.get('shipper.address.zipCode').setValue('');
+    this.createShipmentForm.get('shipper.address.city').setValue('');
+    this.createShipmentForm.get('shipper.address.state').setValue('');
+    this.createShipmentForm.get('shipper.address.country').setValue('');
+    this.createShipmentForm.get('shipper.address.createdBy').setValue('');
+    this.createShipmentForm.get('shipper.address.createdOn').setValue('');
+    this.createShipmentForm.get('shipper.address.modifiedBy').setValue('');
     });
   }
 

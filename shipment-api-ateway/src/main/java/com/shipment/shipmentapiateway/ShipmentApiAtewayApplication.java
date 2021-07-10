@@ -46,6 +46,7 @@ public class ShipmentApiAtewayApplication {
                 registry.addMapping("/dsrs/file/{id}").allowedOrigins("http://localhost:4200");
                 registry.addMapping("/uploadFile").allowedOrigins("http://localhost:4200").allowedMethods("POST");
                 registry.addMapping("/bulkUpdate").allowedOrigins("http://localhost:4200").allowedMethods("POST");
+                registry.addMapping("/shippers/{userId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
             }
         };
     }

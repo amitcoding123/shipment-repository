@@ -40,7 +40,7 @@
                   currentPage: page,
                   totalItems: count };
                 let i = index">
-              <td><mat-radio-button (change)="selectShipment(shipment, $event)" [disabled]="isTrackingNumberPresent(shipment)" [checked]="selectedShipment != null"></mat-radio-button></td>
+              <td><mat-radio-button (change)="selectShipment(shipment, $event)"></mat-radio-button></td>
               <td>{{shipment.provider}}</td>
               <td>{{shipment.trackingNumber}}</td>
               <td>{{shipment.shipper.name}}</td>

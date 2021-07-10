@@ -62,6 +62,7 @@ public class ShipmentConvertor {
         shipperDto.setPanFileName(shipment.getShipper().getPanFileName());
         shipperDto.setGstin(shipment.getShipper().getGstin());
         shipperDto.setPlace(shipment.getShipper().getPlace());
+        shipperDto.setDob(shipment.getShipper().getDob());
         AddressDto shipperAddress = new AddressDto();
         shipperAddress.setId(shipment.getShipper().getAddress().getId());
         shipperAddress.setCreatedBy(shipment.getShipper().getAddress().getCreatedBy());
@@ -185,6 +186,7 @@ public class ShipmentConvertor {
         shipperDto.setPanContentType(shipment.getShipper().getPanContentType());
         shipperDto.setPanDocument(shipment.getShipper().getPanDocument());
         shipperDto.setPanFileName(shipment.getShipper().getPanFileName());
+        shipperDto.setDob(shipment.getShipper().getDob());
         Address shipperAddress = new Address();
         shipperAddress.setId(shipment.getShipper().getAddress().getId());
         shipperAddress.setCreatedBy(shipment.getShipper().getAddress().getCreatedBy());

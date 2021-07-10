@@ -33,6 +33,9 @@
     <li *ngIf="isLoggedIn">
       <a mat-button routerLink="/dsr" routerLinkActive="mat-accent">DSR</a>
     </li>
+    <li *ngIf="isLoggedIn">
+      <a mat-button routerLink="/customertaxinvoice" routerLinkActive="mat-accent">Customer Tax Invoice</a>
+    </li>
   </ul>
   <!-- <button *ngIf="isLoggedIn" mat-button color="accent" [matMenuTriggerFor]="shipments">Shipment Menu</button>
   <mat-menu #shipments="matMenu">
@@ -56,7 +59,9 @@
       <a mat-button (click)="openLogin()" routerLinkActive="mat-accent">Login</a>
     </li>
     <li *ngIf="isLoggedIn">
-      <i class="fa fa-user" aria-hidden="true"></i>
+      <a mat-button>
+      <mat-icon matSuffix type="button" color="accent">person</mat-icon>
+      </a>
     </li>
     <li *ngIf="isLoggedIn">
       <a mat-button (click)="handleLogout()" routerLinkActive="mat-accent">Logout</a>

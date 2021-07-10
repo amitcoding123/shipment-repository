@@ -16,7 +16,7 @@ public class DSR implements Comparable<DSR> {
     @JsonIgnore
     private byte[] dsr;
     private String userId;
-    private LocalDate createdOn;
+    private LocalDate createdOn;    
 
     public DSR() {
     }

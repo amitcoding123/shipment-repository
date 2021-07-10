@@ -44,6 +44,12 @@ import { TrackingComponent } from './tracking/tracking.component';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ContenttypeComponent } from './contenttype/contenttype.component';
+import { CustomertaxinvoiceComponent } from './customertaxinvoice/customertaxinvoice.component';
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { TestComponent } from './test/test.component';
 
 @NgModule({
   declarations: [
@@ -61,7 +67,9 @@ import { ContenttypeComponent } from './contenttype/contenttype.component';
     HomePageComponent,
     ShipmentContentComponent,
     TrackingComponent,
-    ContenttypeComponent
+    ContenttypeComponent,
+    CustomertaxinvoiceComponent,
+    TestComponent
   ],
   imports: [
     BrowserModule,
@@ -88,6 +96,10 @@ import { ContenttypeComponent } from './contenttype/contenttype.component';
     MatRadioModule,
     MatMenuModule,
     MatTooltipModule,
+    MatAutocompleteModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: HomePageComponent},
@@ -100,7 +112,9 @@ import { ContenttypeComponent } from './contenttype/contenttype.component';
       {path: 'createnewpassword/:user', component: CreateNewPasswordComponent},
       {path: 'shipment-create/:create/:shipmentId', component: ShipmentCreateComponent},
       {path: 'dsr', component: DsrComponent},
-      {path: 'shipment-content', component: ShipmentContentComponent}
+      {path: 'shipment-content', component: ShipmentContentComponent},
+      {path: 'customertaxinvoice', component: CustomertaxinvoiceComponent},
+      {path: 'test', component: TestComponent}
     ]),
     ReactiveFormsModule,
     MatSelectModule,

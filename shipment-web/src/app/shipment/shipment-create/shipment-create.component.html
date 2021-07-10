@@ -65,17 +65,22 @@
               <mat-panel-description>Select shipper and address details.</mat-panel-description>
               <mat-icon color="accent">person</mat-icon>
             </mat-expansion-panel-header>
-            <div formGroupName="shipper">
+            <div formGroupName='shipper'>
               <div fxLayout="row" fxLayoutGap="20px">
                 <div fxLayout="column" fxFlex="50%">
                   <mat-form-field appearance="outline" color="primary">
                     <mat-label>Name</mat-label>
-                    <input type="text" matInput formControlName="name">
+                    <input type="text" matInput formControlName="selectedShipper" [matAutocomplete]="auto" (change)="clearShipper()">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn" (optionSelected)="populateShipperDetails()">
+                      <mat-option *ngFor="let shipper of filteredShippers | async" [value]="shipper">
+                        {{shipper.name.concat(' (' + shipper.email + ')')}}
+                      </mat-option>
+                    </mat-autocomplete>
                     <mat-icon matSuffix>mode_edit</mat-icon>
                     <mat-hint>Enter Shipper's Name</mat-hint>
-                    <mat-error *ngIf="shipperName.hasError('required')">
+                    <!-- <mat-error *ngIf="shipperName.hasError('required')">
                       Shipper's Name is mandatory.
-                    </mat-error>
+                    </mat-error> -->
                   </mat-form-field>
                 </div>
                 <div fxLayout="column" fxFlex="50%">
@@ -85,12 +90,12 @@
                     <input type="tel" matInput formControlName="phoneNumber">
                     <mat-icon matSuffix>mode_edit</mat-icon>
                     <mat-hint>Enter Shipper's Mobile Number</mat-hint>
-                    <mat-error *ngIf="shipperMobile.hasError('required')">
+                    <!-- <mat-error *ngIf="shipperMobile.hasError('required')">
                       Shipper's Mobile number is mandatory.
                     </mat-error>
                     <mat-error *ngIf="shipperMobile.hasError('pattern')">
                       Shipper's Mobile number is incorrect.
-                    </mat-error>
+                    </mat-error> -->
                   </mat-form-field>
                 </div>
               </div>
@@ -102,12 +107,12 @@
                     <input type="text" matInput formControlName="email">
                     <mat-icon matSuffix>mode_edit</mat-icon>
                     <mat-hint>Enter Shipper's Email Address</mat-hint>
-                    <mat-error *ngIf="shipperEmail.hasError('required')">
+                    <!-- <mat-error *ngIf="shipperEmail.hasError('required')">
                       Shipper's Email is mandatory.
                     </mat-error>
                     <mat-error *ngIf="shipperEmail.hasError('email')">
                       Shipper's Email is incorrect.
-                    </mat-error>
+                    </mat-error> -->
                   </mat-form-field>
                 </div>
                 <div fxLayout="column" fxFlex="50%">
@@ -116,12 +121,12 @@
                     <input type="text" matInput formControlName="aadharNumber">
                     <mat-icon matSuffix type="button" (click)="aadharDoc.click()">attachment</mat-icon>
                     <mat-hint>Enter Shipper's Aadhar Number</mat-hint>
-                    <mat-error *ngIf="aadharNumber.hasError('required')">
+                    <!-- <mat-error *ngIf="aadharNumber.hasError('required')">
                       Shipper's Aadhar Number is mandatory.
                     </mat-error>
                     <mat-error *ngIf="aadharNumber.hasError('pattern')">
                       Shipper's Aadhar Number is incorrect.
-                    </mat-error>
+                    </mat-error> -->
                   </mat-form-field>
                 </div>
               </div>
@@ -144,6 +149,18 @@
                   </mat-form-field>
                 </div>
               </div>
+              <div fxLayout="row">
+                <div fxLayout="column" fxFlex="50%">
+                  <mat-form-field appearance="outline" color="primary">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [matDatepicker]="dobpicker" (dateChange)="onDateChange($event)">
+                    <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                    <mat-datepicker color="accent" #dobpicker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxFlex="50%">
+                </div>
+              </div>
               <div formGroupName="address">
                 <mat-expansion-panel>
                   <mat-expansion-panel-header>
@@ -158,9 +175,9 @@
                         <input type="text" matInput formControlName="addressLine1">
                         <mat-icon matSuffix>mode_edit</mat-icon>
                         <mat-hint>Enter Shipper's Address Line 1</mat-hint>
-                        <mat-error *ngIf="sAddressLine1.hasError('required')">
+                        <!-- <mat-error *ngIf="sAddressLine1.hasError('required')">
                           Address Line 1 is mandatory.
-                        </mat-error>
+                        </mat-error> -->
                       </mat-form-field>
                     </div>
                     <div fxLayout="column" fxFlex="50%">
@@ -177,25 +194,25 @@
                     <div fxLayout="column" fxFlex="40%">
                       <mat-form-field appearance="outline" color="primary">
                         <mat-label>Country</mat-label>
-                        <mat-select formControlName="country" (ngModelChange)="getStatesForCountry()">
+                        <mat-select (ngModelChange)="getStatesForCountry()" formControlName="country">
                           <mat-option *ngFor="let country of sCountries" value="{{country.isoCode}}">{{country.name}}</mat-option>
                         </mat-select>
                         <mat-hint>Select Shipper's country</mat-hint>
-                        <mat-error *ngIf="sCountry.hasError('required')">
+                        <!-- <mat-error *ngIf="sCountry.hasError('required')">
                           Country is mandatory.
-                        </mat-error>
+                        </mat-error> -->
                       </mat-form-field>
                     </div>
                     <div fxLayout="column" fxFlex="30%">
                       <mat-form-field appearance="outline" color="primary">
                         <mat-label>State</mat-label>
-                        <mat-select formControlName="state" (ngModelChange)="getCitiesForState()">
+                        <mat-select (ngModelChange)="getCitiesForState()" formControlName="state">
                           <mat-option *ngFor="let state of sStates" value="{{state.isoCode}}">{{state.name}}</mat-option>
                         </mat-select>
                         <mat-hint>Enter Shipper's State</mat-hint>
-                        <mat-error *ngIf="sState.hasError('required')">
+                        <!-- <mat-error *ngIf="sState.hasError('required')">
                           State is mandatory.
-                        </mat-error>
+                        </mat-error> -->
                       </mat-form-field>
                     </div>
                     <div fxLayout="column" fxFlex="30%">
@@ -205,9 +222,9 @@
                           <mat-option *ngFor="let city of sCities" value="{{city.name}}">{{city.name}}</mat-option>
                         </mat-select>
                         <mat-hint>Enter Shipper's City</mat-hint>
-                        <mat-error *ngIf="sCity.hasError('required')">
+                        <!-- <mat-error *ngIf="sCity.hasError('required')">
                           City is mandatory.
-                        </mat-error>
+                        </mat-error> -->
                       </mat-form-field>
                     </div>
                   </div>
@@ -219,9 +236,9 @@
                         <input type="text" matInput formControlName="zipCode">
                         <mat-icon matSuffix>mode_edit</mat-icon>
                         <mat-hint>Enter Shipper's Zipcode</mat-hint>
-                        <mat-error *ngIf="sZipCode.hasError('required')">
+                        <!-- <mat-error *ngIf="sZipCode.hasError('required')">
                           Zipcode is mandatory.
-                        </mat-error>
+                        </mat-error> -->
                       </mat-form-field>
                     </div>
                   </div>
@@ -469,7 +486,9 @@
                         </mat-form-field>
                       </div>
                       <div fxLayout="column" fxFlex="5%">
+                        <a mat-button>
                         <mat-icon color="accent" matTooltip="Create new content type." matTooltipPosition="below" (click)="captureNewContentType()">library_add</mat-icon>
+                        </a>
                       </div>
                       <div fxLayout="column" fxFlex="15%">
                         <button type="button" mat-raised-button color="primary" (click)="addItem()">Add Item</button>

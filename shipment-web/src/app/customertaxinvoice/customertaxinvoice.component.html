@@ -1,0 +1,25 @@
+<form [formGroup]="customerTaxInvoiceForm">
+  <div class="alert alert-warning" *ngIf='!validSelection'>Please choose a valid shipper.</div>
+  <mat-card>
+    <mat-card-title>Choose the Shipper</mat-card-title>
+    <mat-card-content>
+      <mat-form-field class="cutomer-tax-full-width" appearance="standard" color="primary" appearance="fill">
+        <mat-label>Select Shipper</mat-label>
+        <input type="text"
+              placeholder="Enter Shipper Name"
+              matInput
+              formControlName="selectedShipper"
+              [matAutocomplete]="auto"
+              >
+          <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn">
+            <mat-option *ngFor="let shipper of filteredShippers | async" [value]="shipper">
+              {{shipper.name.concat(' (' + shipper.email + ')')}}
+            </mat-option>
+          </mat-autocomplete>
+      </mat-form-field>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="getTaxInvoices()" [disabled]="!customerTaxInvoiceForm.valid">Get Tax Invoices</button>
+    </mat-card-actions>
+  </mat-card>
+</form>
