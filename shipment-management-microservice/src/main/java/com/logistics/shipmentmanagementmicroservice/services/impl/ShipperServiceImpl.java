@@ -24,7 +24,13 @@ public class ShipperServiceImpl implements ShipperService {
 
 	@Override
 	public List<Shipper> getAllShippersForUser(String userId) {
-		return shipperRepository.findByCreatedBy(userId);		
+		List<Shipper> shippers = null;
+		if(userId.equals("all")) {
+			shippers = shipperRepository.findAll();
+		} else {			
+			shippers = shipperRepository.findByCreatedBy(userId);
+		}
+		return shippers;		
 	}
 
 

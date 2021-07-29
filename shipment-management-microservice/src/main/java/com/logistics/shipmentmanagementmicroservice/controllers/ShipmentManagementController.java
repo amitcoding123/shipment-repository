@@ -206,6 +206,11 @@ public class ShipmentManagementController {
 	    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
 	    			shipment.getShipper().getPanFileName() + "\"").body(resource);
     	}
+    }  
+    
+    @GetMapping("/shipments/taxInvoices/{userId}/{shipperId}")
+    public List<ShipmentDto> getEligibleShipments(@PathVariable String userId, @PathVariable Long shipperId) {
+    	return ShipmentConvertor.getInstance().convertList(shipmentService.getEligibleShipmentsForTaxInvoice(userId, shipperId));
     }
 
 }

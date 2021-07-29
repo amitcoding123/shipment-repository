@@ -7,11 +7,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.logistics.domain.ChargeDto;
+import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.DSRDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
 import com.logistics.domain.ShipmentDto;
 import com.logistics.domain.ShipperDto;
+import com.logistics.domain.TaxInvoiceDto;
 import com.logistics.domain.TrackingCSV;
 import com.logistics.domain.UserDto;
 
@@ -36,4 +38,8 @@ public interface WebServiceInterface {
     void bulkUpdate(List<TrackingCSV> trackingList, String userId) throws URISyntaxException;
     ItemTypeDto createItemType(ItemTypeDto dto) throws URISyntaxException;
     List<ShipperDto> getShippersForUser(String userId) throws URISyntaxException;
+    CustomerTaxInvoiceDto generateCustomerTaxInvoice(TaxInvoiceDto taxInvoiceDto) throws URISyntaxException;
+    List<CustomerTaxInvoiceDto> getTaxInvoicesForShipper(Long shipperId) throws URISyntaxException;
+    List<ShipmentDto> getEligibleShipments(String userId, Long shipperId) throws URISyntaxException;
+    
 }

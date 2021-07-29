@@ -27,6 +27,10 @@ public class User extends BaseEntity {
     @JoinColumn(name = "parent_id")
     @JsonIgnore
     private User parent;
+    
+    @ManyToOne
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     public User() {
     }
@@ -110,4 +114,14 @@ public class User extends BaseEntity {
     public void setParent(User parent) {
         this.parent = parent;
     }
+
+	public Organization getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(Organization organization) {
+		this.organization = organization;
+	}
+    
+    
 }

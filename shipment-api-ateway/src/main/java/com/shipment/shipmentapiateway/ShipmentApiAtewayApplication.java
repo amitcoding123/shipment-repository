@@ -47,6 +47,9 @@ public class ShipmentApiAtewayApplication {
                 registry.addMapping("/uploadFile").allowedOrigins("http://localhost:4200").allowedMethods("POST");
                 registry.addMapping("/bulkUpdate").allowedOrigins("http://localhost:4200").allowedMethods("POST");
                 registry.addMapping("/shippers/{userId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+                registry.addMapping("/taxInvoices/{shipperId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+                registry.addMapping("/shipments/taxInvoices/{userId}/{shipperId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+                registry.addMapping("/customerTaxInvoices").allowedOrigins("http://localhost:4200").allowedMethods("POST");
             }
         };
     }

@@ -1,10 +1,13 @@
 package com.logistics.usermanagementmicroservice.convertors;
 
-import com.logistics.domain.UserDto;
-import com.logistics.usermanagementmicroservice.domain.User;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import com.logistics.domain.BankDetailsDto;
+import com.logistics.domain.OrganizationDto;
+import com.logistics.domain.UserDto;
+import com.logistics.usermanagementmicroservice.domain.BankDetails;
+import com.logistics.usermanagementmicroservice.domain.User;
 
 public class UserConvertor {
 
@@ -34,6 +37,30 @@ public class UserConvertor {
         dto.setMobileNumber(user.getMobileNumber());
         dto.setRole(user.getRole());
         dto.setUserId(user.getUserId());
+        
+        OrganizationDto organization = new OrganizationDto();
+        organization.setId(user.getOrganization().getId());
+        organization.setEmail(user.getOrganization().getEmail());
+        organization.setGstin(user.getOrganization().getGstin());
+        organization.setName(user.getOrganization().getName());
+        organization.setTelephoneNumber(user.getOrganization().getTelephoneNumber());
+        organization.setAddress(user.getOrganization().getAddress());
+        
+        List<BankDetailsDto> bankDetails = new ArrayList<>(1);
+        
+        for(BankDetails bankDetailsL: user.getOrganization().getBankDetails()) {
+        	BankDetailsDto detailsDto = new BankDetailsDto();
+        	detailsDto.setId(bankDetailsL.getId());
+        	detailsDto.setAccountNumber(bankDetailsL.getAccountNumber());
+        	detailsDto.setBankName(bankDetailsL.getBankName());
+        	detailsDto.setIfscCode(bankDetailsL.getIfscCode());
+        	detailsDto.setMicrCode(bankDetailsL.getMicrCode());
+        	bankDetails.add(detailsDto);
+        }
+        
+        organization.setBankDetails(bankDetails);
+        
+        dto.setOrganization(organization);
 
         return dto;
     }

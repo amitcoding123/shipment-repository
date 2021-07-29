@@ -16,6 +16,9 @@ public class CustomerTaxInvoice {
 	private Long id;
 	private String userId;
 	private LocalDate createdOn;
+	private String fileName;
+	private String contentType;
+	private Long shipperId;
 	
 	@Lob
 	private byte[] taxInvoice;
@@ -54,6 +57,30 @@ public class CustomerTaxInvoice {
 
 	public void setTaxInvoice(byte[] taxInvoice) {
 		this.taxInvoice = taxInvoice;
+	}
+
+	public String getFileName() {
+		return fileName;
+	}
+
+	public void setFileName(String fileName) {
+		this.fileName = fileName;
+	}
+
+	public String getContentType() {
+		return contentType;
+	}
+
+	public void setContentType(String contentType) {
+		this.contentType = contentType;
+	}
+
+	public Long getShipperId() {
+		return shipperId;
+	}
+
+	public void setShipperId(Long shipperId) {
+		this.shipperId = shipperId;
 	}
 	
 	

@@ -24,11 +24,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.logistics.domain.ChargeDto;
+import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.DSRDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
 import com.logistics.domain.ShipmentDto;
 import com.logistics.domain.ShipperDto;
+import com.logistics.domain.TaxInvoiceDto;
 import com.logistics.domain.TrackingCSV;
 import com.logistics.domain.UserDto;
 import com.opencsv.bean.CsvToBean;
@@ -208,5 +210,31 @@ public class ApiGatewayController {
 	public List<ShipperDto> getShipperForUser(@PathVariable String userId) throws URISyntaxException {
 		return webServiceInterface.getShippersForUser(userId);
 	}
+    
+    @PostMapping("/customerTaxInvoices") 
+    public ResponseEntity<Resource> generateCustomerInvoice(@RequestBody TaxInvoiceDto taxInvoiceDto) 
+    throws URISyntaxException {
+    	CustomerTaxInvoiceDto dto = webServiceInterface.generateCustomerTaxInvoice(taxInvoiceDto);
+    	Resource resource = null;    	
+    	
+		resource = new ByteArrayResource(dto.getTaxInvoice());
+    	return ResponseEntity.ok()
+    			.contentType(MediaType.parseMediaType(dto.getContentType()))
+    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+    			dto.getFileName() + "\"").body(resource);    	
+    }
+    
+    @GetMapping("/taxInvoices/{shipperId}")
+	public List<CustomerTaxInvoiceDto> getCustomerTaxInvoices(@PathVariable Long shipperId) throws URISyntaxException {
+		List<CustomerTaxInvoiceDto> taxInvoices = 
+				webServiceInterface.getTaxInvoicesForShipper(shipperId);
+		return taxInvoices;
+	}
+    
+    @GetMapping("/shipments/taxInvoices/{userId}/{shipperId}")
+    public List<ShipmentDto> getEligibleShipments(@PathVariable String userId, @PathVariable Long shipperId) 
+    	throws URISyntaxException{
+    	return webServiceInterface.getEligibleShipments(userId, shipperId);
+    }
 
 }

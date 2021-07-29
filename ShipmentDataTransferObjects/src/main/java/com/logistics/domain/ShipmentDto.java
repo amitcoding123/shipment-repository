@@ -22,6 +22,9 @@ public class ShipmentDto extends BaseDto {
     private String invoiceNumber;
     private ShipementCategory category;
     private BigDecimal frieghtCharge;
+    private Double covidSurcharge;
+    private Double fuelSurcharge;
+    private Double fuelChargePercentage;
     private Double sellingCost;
     private String paymentMode;
     
@@ -186,6 +189,30 @@ public class ShipmentDto extends BaseDto {
 	public void setTotalShipments(Integer totalShipments) {
 		this.totalShipments = totalShipments;
 	}
-	
 
+	public Double getCovidSurcharge() {
+		return covidSurcharge;
+	}
+
+	public void setCovidSurcharge(Double covidSurcharge) {
+		this.covidSurcharge = covidSurcharge;
+	}
+
+	public Double getFuelSurcharge() {
+		return fuelSurcharge;
+	}
+
+	public void setFuelSurcharge(Double fuelSurcharge) {
+		this.fuelSurcharge = fuelSurcharge;
+	}
+
+	public Double getFuelChargePercentage() {
+		return fuelChargePercentage;
+	}
+
+	public void setFuelChargePercentage(Double fuelChargePercentage) {
+		this.fuelChargePercentage = fuelChargePercentage;
+	}
+	
+	
 }

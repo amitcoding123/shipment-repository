@@ -9,6 +9,8 @@ import {Charge} from "../model/charge";
 import {environment} from "../../environments/environment";
 import { ShipmentDocument } from '../model/shipment-document';
 import { Shipper } from '../model/shipper';
+import { TaxInvoice } from '../model/tax-invoice';
+import { CustomerTaxInvoice } from '../model/customer-tax-invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +29,9 @@ export class ShipmentService {
   private uploadDocumentUrl = '/uploadFile';
   private bulkUpdateUrl = '/bulkUpdate';
   private shipperUrl = '/shippers/';
+  private taxInvoicesUrl = '/taxInvoices/';
+  private eligibleShipmentsUrl = '/shipments/taxInvoices/';
+  private generateTaxInvoiceUrl = '/customerTaxInvoices';
   private shipmentId: string;
   public shipments: Shipment[];
   public maxPosts: string;
@@ -144,6 +149,39 @@ export class ShipmentService {
         return throwError('Something went wrong');
       })
     );
+  }
+
+  getTaxInvoicesForShipper(shipperId: number): Observable<TaxInvoice[]> {
+    console.log('getTaxInvoicesForShipper: shipperId = ' + shipperId);
+    return this.http.get(this.apiUrl + this.taxInvoicesUrl + shipperId).pipe(
+      map((data: TaxInvoice[]) => {
+        console.log('getTaxInvoicesForShipper = ' + data);
+        return data;
+      }), catchError(error => {
+        return throwError('Something went wrong');
+      })
+    );
+  }
+
+  getEligibleShipmentsForTaxInvoice(userId: string, shipperId: number): Observable<Shipment[]> {
+    console.log('getEligibleShipmentsForTaxInvoice: shipperId = ' + shipperId);
+    return this.http.get(this.apiUrl + this.eligibleShipmentsUrl + userId + '/' + shipperId).pipe(
+      map((data: Shipment[]) => {
+        console.log('getEligibleShipmentsForTaxInvoice = ' + data);
+        return data;
+      }), catchError(error => {
+        return throwError('Something went wrong');
+      })
+    );
+  }
+
+  generateTaxInvoice(taxInvoice: TaxInvoice) {
+    console.log('In shipment service: generateTaxInvoice method');
+    console.log('URL to invoke = ' + (this.apiUrl + this.generateTaxInvoiceUrl));
+    return this.http.post<CustomerTaxInvoice>(this.apiUrl + this.generateTaxInvoiceUrl, taxInvoice)
+      .subscribe((data: CustomerTaxInvoice) => {
+        console.log('Generated tax invoice');
+      });
   }
 
 }

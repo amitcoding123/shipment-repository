@@ -42,6 +42,10 @@ public class Shipment extends BaseEntity implements Serializable, Comparable<Shi
     private Double sellingCost;
     private String paymentMode;
     private String custTaxInvoice;
+    private Double covidSurcharge;
+    private Double fuelSurcharge;
+    private Double fuelChargePercentage;
+    private String taxInvoiceGenerated;
     
     public ShipmentStatus getStatus() {
         return status;
@@ -210,6 +214,38 @@ public class Shipment extends BaseEntity implements Serializable, Comparable<Shi
 
 	public void setCustTaxInvoice(String custTaxInvoice) {
 		this.custTaxInvoice = custTaxInvoice;
+	}
+
+	public Double getCovidSurcharge() {
+		return covidSurcharge;
+	}
+
+	public void setCovidSurcharge(Double covidSurcharge) {
+		this.covidSurcharge = covidSurcharge;
+	}
+
+	public Double getFuelSurcharge() {
+		return fuelSurcharge;
+	}
+
+	public void setFuelSurcharge(Double fuelSurcharge) {
+		this.fuelSurcharge = fuelSurcharge;
+	}
+
+	public Double getFuelChargePercentage() {
+		return fuelChargePercentage;
+	}
+
+	public void setFuelChargePercentage(Double fuelChargePercentage) {
+		this.fuelChargePercentage = fuelChargePercentage;
+	}
+
+	public String getTaxInvoiceGenerated() {
+		return taxInvoiceGenerated;
+	}
+
+	public void setTaxInvoiceGenerated(String taxInvoiceGenerated) {
+		this.taxInvoiceGenerated = taxInvoiceGenerated;
 	}
     
 	

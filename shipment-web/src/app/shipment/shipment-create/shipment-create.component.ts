@@ -160,7 +160,7 @@ export class ShipmentCreateComponent implements OnInit {
     });
 
 
-    this.shipmentService.getShippersForUser(this.authService.getUser().userId).subscribe((data: any) => {
+    this.shipmentService.getShippersForUser("all").subscribe((data: any) => {
       this.shippers = data;
       console.log('CustomertaxinvoiceComponent: Email = ' + data[0].email);
       this.filteredShippers = this.createShipmentForm.get('shipper.name').valueChanges
@@ -419,11 +419,13 @@ export class ShipmentCreateComponent implements OnInit {
     this.createShipmentForm.get('modifiedBy').setValue(this.shipment.modifiedBy);
     this.createShipmentForm.get('modifiedOn').setValue(this.shipment.modifiedOn);
     this.createShipmentForm.get('paymentMode').setValue(this.shipment.paymentMode);
+    this.createShipmentForm.get('shipper.selectedShipper').setValue(this.shipment.shipper);
     this.createShipmentForm.get('shipper.id').setValue(this.shipment.shipper.id);
     this.createShipmentForm.get('shipper.name').setValue(this.shipment.shipper.name);
     this.createShipmentForm.get('shipper.phoneNumber').setValue(this.shipment.shipper.phoneNumber);
     this.createShipmentForm.get('shipper.email').setValue(this.shipment.shipper.email);
-    this.createShipmentForm.get('shipper.dob').setValue(this.shipment.shipper.dob);
+    console.log('Date of birth got from database = ' + this.shipment.shipper.dob);
+    this.createShipmentForm.get('shipper.dob').setValue(new Date(this.shipment.shipper.dob));
     this.createShipmentForm.get('shipper.aadharNumber').setValue(this.shipment.shipper.aadharNumber);
     this.createShipmentForm.get('shipper.panNumber').setValue(this.shipment.shipper.panNumber);
     this.createShipmentForm.get('shipper.gstin').setValue(this.shipment.shipper.gstin);
@@ -683,10 +685,10 @@ export class ShipmentCreateComponent implements OnInit {
     return false;
   }
 
-  clearShipper() {
+  clearShipper(event: Event) {
     console.log('Clearing shipper');
     this.createShipmentForm.get('shipper.selectedShipper').setValue('');
-    this.shipmentService.getShippersForUser(this.authService.getUser().userId).subscribe((data: any) => {
+    this.shipmentService.getShippersForUser("all").subscribe((data: any) => {
       this.shippers = data;
       console.log('CustomertaxinvoiceComponent: Email = ' + data[0].email);
       this.filteredShippers = this.createShipmentForm.get('shipper.name').valueChanges

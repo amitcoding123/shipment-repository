@@ -26,5 +26,7 @@ public interface ShipmentService {
     public Shipment saveAadharDocument(Long id, String contentType, String fileName, byte[] content, String type);
     
     public void bulkUpdate(List<TrackingCSV> trackingList);
+    
+    List<Shipment> getEligibleShipmentsForTaxInvoice(String userId, Long shipperId);
 
 }

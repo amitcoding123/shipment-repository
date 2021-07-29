@@ -79,5 +79,11 @@ public class UserController {
         List<User> users = userService.getUsersByParent(user);
         return users;
     }
+    
+    @GetMapping("/user/{userId}")
+    public UserDto getUser(@PathVariable String userId) {
+    	UserDto user = UserConvertor.getInstance().convert(userService.retrieveUser(userId));
+    	return user;
+    }
 
 }

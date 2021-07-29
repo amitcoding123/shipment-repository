@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -59,6 +60,7 @@ public class ShipmentServiceImpl implements ShipmentService {
         //Set the ItemType returned from database
     	Shipper shipper = shipperService.saveShipper(shipment.getShipper());
     	shipment.setShipper(shipper);
+    	shipment.setTaxInvoiceGenerated("N");
         removeNullItems(shipment);
         return shipmentRepository.save(shipment);
     }
@@ -86,6 +88,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     public Shipment updateShipment(Shipment shipment) {
     	Shipper shipper = shipperService.saveShipper(shipment.getShipper());
     	shipment.setShipper(shipper);
+    	shipment.setTaxInvoiceGenerated("N");
         removeNullItems(shipment);        
         return shipmentRepository.save(shipment);
     }
@@ -135,7 +138,18 @@ public class ShipmentServiceImpl implements ShipmentService {
 			shipmentRepository.save(shipment);
 		}
 	}
+
+	@Override
+	public List<Shipment> getEligibleShipmentsForTaxInvoice(String userId, Long shipperId) {
+		
+		List<Shipment> shipments = shipmentRepository.findByUserId(userId);
+		List<Shipment> filteredShipments = shipments.stream().filter(shipment -> 
+			shipment.getShipper().getId().equals(shipperId) && shipment.getTaxInvoiceGenerated().equals("N")).collect(
+				Collectors.toList());
+		return filteredShipments;
+	}
     
+	
     
     
 }

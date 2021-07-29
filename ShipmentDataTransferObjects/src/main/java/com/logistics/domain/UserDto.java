@@ -10,6 +10,8 @@ public class UserDto extends BaseDto {
     private String mobileNumber;
     private String role;
     private String passLocal;
+    
+    private OrganizationDto organization;
 
     public String getUserId() {
         return userId;
@@ -74,4 +76,14 @@ public class UserDto extends BaseDto {
     public void setPassLocal(String passLocal) {
         this.passLocal = passLocal;
     }
+
+	public OrganizationDto getOrganization() {
+		return organization;
+	}
+
+	public void setOrganization(OrganizationDto organization) {
+		this.organization = organization;
+	}
+    
+    
 }

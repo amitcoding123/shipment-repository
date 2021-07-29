@@ -49,6 +49,7 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TestComponent } from './test/test.component';
 
 @NgModule({
@@ -100,6 +101,7 @@ import { TestComponent } from './test/test.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatMomentDateModule,
+    MatCheckboxModule,
     MDBBootstrapModule.forRoot(),
     RouterModule.forRoot([
       {path: '', component: HomePageComponent},

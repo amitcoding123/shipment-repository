@@ -16,11 +16,13 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.logistics.domain.ChargeDto;
+import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.DSRDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
 import com.logistics.domain.ShipmentDto;
 import com.logistics.domain.ShipperDto;
+import com.logistics.domain.TaxInvoiceDto;
 import com.logistics.domain.TrackingCSV;
 import com.logistics.domain.UserDto;
 import com.shipment.shipmentapiateway.controller.rest.WebServiceInterface;
@@ -207,5 +209,38 @@ public class WebServiceConsumer implements WebServiceInterface {
         ShipperDto[] dtos = response.getBody();
         return Arrays.asList(dtos);
 	}
+
+	@Override
+	public CustomerTaxInvoiceDto generateCustomerTaxInvoice(TaxInvoiceDto taxInvoiceDto) throws URISyntaxException {
+		// TODO Auto-generated method stub
+		RestTemplate restTemplate = new RestTemplate();
+		URI uriUser = new URI(userEndPoint + "/user/" + taxInvoiceDto.getUser().getUserId());
+		UserDto user = restTemplate.getForEntity(uriUser, UserDto.class).getBody();
+		taxInvoiceDto.setUser(user);
+        URI uri = new URI(invoiceEndPoint + "taxInvoices");
+        return restTemplate.postForObject(uri, taxInvoiceDto, CustomerTaxInvoiceDto.class);
+	}
+
+	@Override
+	public List<CustomerTaxInvoiceDto> getTaxInvoicesForShipper(Long shipperId) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();		
+        URI uri = new URI(invoiceEndPoint + "taxInvoices/" + shipperId);
+        ResponseEntity<CustomerTaxInvoiceDto[]> response = restTemplate.getForEntity(uri, CustomerTaxInvoiceDto[].class);
+        CustomerTaxInvoiceDto[] dtos = response.getBody();
+        return Arrays.asList(dtos);
+	}
+
+	@Override
+	public List<ShipmentDto> getEligibleShipments(String userId, Long shipperId) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+        URI uri = new URI(shipmentEndPoint + "shipments/taxInvoices/" + userId + "/" + shipperId);
+        ResponseEntity<ShipmentDto[]> response = restTemplate.getForEntity(uri, ShipmentDto[].class);
+        ShipmentDto[] dtos = response.getBody();
+        return Arrays.asList(dtos);
+	}
+	
+	
+	
+	
 
 }
