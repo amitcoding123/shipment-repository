@@ -28,3 +28,7 @@ mat-menu-item {
 .mat-menu-content {
   background-color: 'red' !important;
 }
+
+button {
+  color: red;
+}

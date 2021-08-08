@@ -3,4 +3,7 @@ export class Charge {
   rate: number;
   frieghtCharge: number;
   finalCharge: number;
+  covidSurcharge: number;
+  fuelSurcharge: number;
+  fuelChargePercentage: number;
 }

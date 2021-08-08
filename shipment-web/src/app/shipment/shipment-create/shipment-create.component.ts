@@ -62,6 +62,9 @@ export class ShipmentCreateComponent implements OnInit {
     trackingNumber: [''],
     category: [''],
     frieghtCharge: [''],
+    covidSurcharge: [''],
+    fuelSurcharge: [''],
+    fuelChargePercentage: [''],
     selectedItemTypeId: [''],
     sellingCost: [''],
     paymentMode: ['', [Validators.required]],
@@ -472,6 +475,9 @@ export class ShipmentCreateComponent implements OnInit {
     this.createShipmentForm.get('category').setValue(this.shipment.category);
     this.createShipmentForm.get('frieghtCharge').setValue(this.shipment.frieghtCharge);
     this.createShipmentForm.get('sellingCost').setValue(this.shipment.sellingCost);
+    this.createShipmentForm.get('covidSurcharge').setValue(this.shipment.covidSurcharge);
+    this.createShipmentForm.get('fuelSurcharge').setValue(this.shipment.fuelSurcharge);
+    this.createShipmentForm.get('fuelChargePercentage').setValue(this.shipment.fuelChargePercentage);
     for(let i = 0; i < this.shipment.items.length; i++) {
       this.items.push(this.newItem());
       this.items.at(i).patchValue({
@@ -504,6 +510,9 @@ export class ShipmentCreateComponent implements OnInit {
     this.shipment.frieghtCharge = this.createShipmentForm.get('frieghtCharge').value;
     this.shipment.sellingCost = this.createShipmentForm.get('sellingCost').value;
     this.shipment.paymentMode = this.createShipmentForm.get('paymentMode').value;
+    this.shipment.covidSurcharge = this.createShipmentForm.get('covidSurcharge').value;
+    this.shipment.fuelChargePercentage = this.createShipmentForm.get('fuelChargePercentage').value;
+    this.shipment.fuelSurcharge = this.createShipmentForm.get('fuelSurcharge').value;
 
     let shipper: Shipper;
     shipper = new Shipper();
@@ -603,6 +612,9 @@ export class ShipmentCreateComponent implements OnInit {
       this.createShipmentForm.get('category').value, weight, this.createShipmentForm.get('provider').value).subscribe((data: any) => {
         this.createShipmentForm.get('frieghtCharge').setValue(data.frieghtCharge);
         this.createShipmentForm.get('sellingCost').setValue(data.finalCharge);
+        this.createShipmentForm.get('covidSurcharge').setValue(data.covidSurcharge);
+        this.createShipmentForm.get('fuelSurcharge').setValue(data.fuelSurcharge);
+        this.createShipmentForm.get('fuelChargePercentage').setValue(data.fuelChargePercentage);
       }
     );
   }

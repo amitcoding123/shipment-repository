@@ -27,4 +27,7 @@ export class Shipment {
   frieghtCharge: number;
   sellingCost: number;
   paymentMode: string;
+  covidSurcharge: number;
+  fuelSurcharge: number;
+  fuelChargePercentage: number
 }

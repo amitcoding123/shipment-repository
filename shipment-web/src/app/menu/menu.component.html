@@ -26,7 +26,7 @@
 </nav> -->
 <mat-toolbar>
   <a mat-button (click)="openLogin()"  routerLink="/"><img src="assets/img/logo.png"></a>
-  <ul>
+  <!-- <ul>
     <li *ngIf="isLoggedIn">
       <a mat-button routerLink="/shipment" routerLinkActive="mat-accent">Shipments</a>
     </li>
@@ -36,23 +36,30 @@
     <li *ngIf="isLoggedIn">
       <a mat-button routerLink="/customertaxinvoice" routerLinkActive="mat-accent">Customer Tax Invoice</a>
     </li>
-  </ul>
-  <!-- <button *ngIf="isLoggedIn" mat-button color="accent" [matMenuTriggerFor]="shipments">Shipment Menu</button>
+  </ul> -->
+  <button mat-button [matMenuTriggerFor]="shipments" *ngIf="isLoggedIn">Shipments</button>
   <mat-menu #shipments="matMenu">
-    <button mat-menu-item color="accent">Shipments</button>
-    <button mat-menu-item color="accent" [matMenuTriggerFor]="persons">Reports</button>
+    <button mat-menu-item routerLink="/shipment">My Shipments</button>
+    <button mat-menu-item routerLink="/shipment-create">Book Shipment</button>
   </mat-menu>
-  <mat-menu #persons="matMenu">
-    <button mat-menu-item [matMenuTriggerFor]="userreports"> User Reports</button>
-    <button mat-menu-item [matMenuTriggerFor]="customerreports">Customer Reports</button>
+  <button mat-button [matMenuTriggerFor]="reports" *ngIf="isLoggedIn">Reports</button>
+  <mat-menu #reports="matMenu">
+    <button mat-menu-item routerLink="/dsr">DSR</button>
+    <button mat-menu-item [matMenuTriggerFor]="taxinvoices">Tax Invoice</button>
   </mat-menu>
-  <mat-menu #userreports="matMenu">
-    <button mat-menu-item>Daily Status Reports</button>
-    <button mat-menu-item>User Tax Invoice</button>
+  <mat-menu #taxinvoices="matMenu">
+    <button mat-menu-item routerLink="/customertaxinvoice">Customer Tax Invoices</button>
+    <button mat-menu-item>My Tax Invoices</button>
   </mat-menu>
-  <mat-menu #customerreports="matMenu">
-    <button mat-menu-item>Customer Tax Invoice</button>
-  </mat-menu> -->
+  <button mat-button [matMenuTriggerFor]="admin" *ngIf="isLoggedIn">Admin Tools</button>
+  <mat-menu #admin="matMenu">
+    <button mat-menu-item [matMenuTriggerFor]="historicalcustomers">Historical Customers</button>
+  </mat-menu>
+  <mat-menu #historicalcustomers="matMenu">
+    <button mat-menu-item>Customer List</button>
+    <button mat-menu-item>Generate Leads Report</button>
+  </mat-menu>
+
   <span class="spacer"></span>
   <ul>
     <li *ngIf="!isLoggedIn">

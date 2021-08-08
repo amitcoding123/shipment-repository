@@ -12,6 +12,9 @@ public class ChargeDto implements Serializable {
     private CurrencyDto currency;
     private double frieghtCharge;
     private long finalCharge;
+    private double covidSurcharge;
+    private double fuelSurcharge;
+    private double fuelChargePercentage;
 
     public Long getId() {
         return id;
@@ -76,5 +79,31 @@ public class ChargeDto implements Serializable {
     public void setFrieghtCharge(double frieghtCharge) {
         this.frieghtCharge = frieghtCharge;
     }
+
+	public double getCovidSurcharge() {
+		return covidSurcharge;
+	}
+
+	public void setCovidSurcharge(double covidSurcharge) {
+		this.covidSurcharge = covidSurcharge;
+	}
+
+	public double getFuelSurcharge() {
+		return fuelSurcharge;
+	}
+
+	public void setFuelSurcharge(double fuelSurcharge) {
+		this.fuelSurcharge = fuelSurcharge;
+	}
+
+	public double getFuelChargePercentage() {
+		return fuelChargePercentage;
+	}
+
+	public void setFuelChargePercentage(double fuelChargePercentage) {
+		this.fuelChargePercentage = fuelChargePercentage;
+	}
+    
+    
 
 }

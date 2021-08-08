@@ -32,6 +32,7 @@ export class ShipmentService {
   private taxInvoicesUrl = '/taxInvoices/';
   private eligibleShipmentsUrl = '/shipments/taxInvoices/';
   private generateTaxInvoiceUrl = '/customerTaxInvoices';
+  private downloadTaxInvoice = '/customerTaxInvoices/';
   private shipmentId: string;
   public shipments: Shipment[];
   public maxPosts: string;
@@ -178,10 +179,12 @@ export class ShipmentService {
   generateTaxInvoice(taxInvoice: TaxInvoice) {
     console.log('In shipment service: generateTaxInvoice method');
     console.log('URL to invoke = ' + (this.apiUrl + this.generateTaxInvoiceUrl));
-    return this.http.post<CustomerTaxInvoice>(this.apiUrl + this.generateTaxInvoiceUrl, taxInvoice)
-      .subscribe((data: CustomerTaxInvoice) => {
-        console.log('Generated tax invoice');
-      });
+    return this.http.post<CustomerTaxInvoice>(this.apiUrl + this.generateTaxInvoiceUrl, taxInvoice);
   }
 
+  downloadTaxInvoiceFile(id: number): any {
+    console.log('Downloading tax invoice id ' + id);
+    console.log(this.http.get(this.apiUrl + this.downloadTaxInvoice + id));
+    return this.http.get(this.apiUrl + this.downloadTaxInvoice + id, {responseType: 'blob'});
+  }
 }

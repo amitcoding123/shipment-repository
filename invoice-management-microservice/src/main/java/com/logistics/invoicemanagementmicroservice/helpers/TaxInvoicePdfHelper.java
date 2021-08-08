@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.time.LocalDate;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.math3.util.Precision;
 import org.springframework.stereotype.Component;
 
 import com.itextpdf.io.font.FontConstants;
@@ -38,6 +39,16 @@ public class TaxInvoicePdfHelper {
 		String path = "C:/amit/temp/" + fileName;
 		
 		CustomerTaxInvoice taxInvoice = new CustomerTaxInvoice();
+		
+//		try {
+//			PDDocument document = new PDDocument();
+//			PDPage page = new PDPage();
+//			document.addPage(page);
+//			document.save(path);
+//			document.close();
+//		} catch (Exception ex) {
+//			ex.printStackTrace();
+//		}
 		
 		try {
 			PdfWriter writer = new PdfWriter(path);
@@ -81,12 +92,11 @@ public class TaxInvoicePdfHelper {
 			text2.setFont(courierBold);
 			Paragraph p2 = new Paragraph();
 			p2.add(text2);
-			c2.add(p2);
-			c2.setBorderLeft(solidBorder);
-			c2.setBorderRight(noBorder);
-			c2.setBorderTop(noBorder);
-			c2.setBorderBottom(noBorder);
+			c2.add(p2);			
+			c2.setBorder(new SolidBorder(1));				
+			c2.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c2);
+			
 			
 			Cell c3 = new Cell();
 			c3.setTextAlignment(TextAlignment.LEFT);
@@ -96,11 +106,9 @@ public class TaxInvoicePdfHelper {
 			Paragraph p3 = new Paragraph();
 			p3.add(text3);
 			c3.add(p3);
-			c3.setBorderLeft(noBorder);
-			c3.setBorderRight(solidBorder);
-			c3.setBorderTop(noBorder);
-			c3.setBorderBottom(noBorder);
-			t2.addCell(c2);
+			c3.setBorder(new SolidBorder(1));
+			c3.setBorderTop(Border.NO_BORDER);
+			t2.addCell(c3);
 			
 			Cell c4 = new Cell();
 			c4.setTextAlignment(TextAlignment.RIGHT);
@@ -110,10 +118,8 @@ public class TaxInvoicePdfHelper {
 			Paragraph p4 = new Paragraph();
 			p4.add(text4);
 			c4.add(p4);
-			c4.setBorderLeft(solidBorder);
-			c4.setBorderRight(noBorder);
-			c4.setBorderTop(noBorder);
-			c4.setBorderBottom(noBorder);
+			c4.setBorder(new SolidBorder(1));
+			c4.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c4);
 			
 			Cell c5 = new Cell();
@@ -124,10 +130,8 @@ public class TaxInvoicePdfHelper {
 			Paragraph p5 = new Paragraph();
 			p5.add(text5);
 			c5.add(p5);
-			c5.setBorderLeft(noBorder);
-			c5.setBorderRight(solidBorder);
-			c5.setBorderTop(noBorder);
-			c5.setBorderBottom(noBorder);
+			c5.setBorder(new SolidBorder(1));
+			c5.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c5);
 			
 			Cell c6 = new Cell();
@@ -138,10 +142,8 @@ public class TaxInvoicePdfHelper {
 			Paragraph p6 = new Paragraph();
 			p6.add(text6);
 			c6.add(p6);
-			c6.setBorderLeft(solidBorder);
-			c6.setBorderRight(noBorder);
-			c6.setBorderTop(noBorder);
-			c6.setBorderBottom(noBorder);
+			c6.setBorder(new SolidBorder(1));
+			c6.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c6);
 			
 			Cell c7 = new Cell();
@@ -152,10 +154,8 @@ public class TaxInvoicePdfHelper {
 			Paragraph p7 = new Paragraph();
 			p7.add(text7);
 			c7.add(p7);
-			c7.setBorderLeft(noBorder);
-			c7.setBorderRight(solidBorder);
-			c7.setBorderTop(noBorder);
-			c7.setBorderBottom(noBorder);
+			c7.setBorder(new SolidBorder(1));
+			c7.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c7);
 			
 			Cell c8 = new Cell();
@@ -166,10 +166,8 @@ public class TaxInvoicePdfHelper {
 			Paragraph p8 = new Paragraph();
 			p8.add(text8);
 			c8.add(p8);
-			c8.setBorderLeft(solidBorder);
-			c8.setBorderRight(noBorder);
-			c8.setBorderTop(noBorder);
-			c8.setBorderBottom(noBorder);
+			c8.setBorder(new SolidBorder(1));
+			c8.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c8);
 			
 			Cell c9 = new Cell();
@@ -180,10 +178,8 @@ public class TaxInvoicePdfHelper {
 			Paragraph p9 = new Paragraph();
 			p9.add(text9);
 			c9.add(p9);
-			c9.setBorderLeft(noBorder);
-			c9.setBorderRight(solidBorder);
-			c9.setBorderTop(noBorder);
-			c9.setBorderBottom(noBorder);
+			c9.setBorder(new SolidBorder(1));
+			c9.setBorderTop(Border.NO_BORDER);
 			t2.addCell(c9);
 			
 			document.add(t2);
@@ -201,6 +197,7 @@ public class TaxInvoicePdfHelper {
 			c10.add(p10);
 			
 			c10.setBorder(solidBorder);
+			c10.setBorderTop(Border.NO_BORDER);
 			
 			t3.addCell(c10);
 			document.add(t3);
@@ -225,31 +222,30 @@ public class TaxInvoicePdfHelper {
 			Text text11 = new Text(shipperDetails.toString()).setFontSize(8);
 			p11.add(text11);
 			c11.add(p11);
-			c11.setBorderLeft(solidBorder);
-			c11.setBorderTop(solidBorder);
-			c11.setBorderRight(noBorder);
-			c11.setBorderBottom(noBorder);
+			c11.setBorder(new SolidBorder(1));
+			c11.setBorderTop(Border.NO_BORDER);
 			t4.addCell(c11);
 			
 			Cell emptyCell = new Cell();
+			emptyCell.setBorder(new SolidBorder(1));
+			emptyCell.setBorderTop(Border.NO_BORDER);
 			t4.addCell(emptyCell);
 			
 			Cell c12 = new Cell();
 			c11.setTextAlignment(TextAlignment.CENTER);
 			StringBuffer orgDetails = new StringBuffer();
 			
-			orgDetails.append("PAN NO.:\t").append(dto.getUser().getOrganization().getPan());
+			orgDetails.append("PAN NO.:\t").append(dto.getUser().getOrganization().getPan() != null ? dto.getUser().getOrganization().getPan() : "");
 			orgDetails.append("\nINVOICE NUMBER:\t").append(dto.getTaxInvoiceNumber());
-			orgDetails.append("\nDATE:\t").append(dto.getInvoiceDate());
+			orgDetails.append("\nDATE:\t").append(dto.getInvoiceDate().getDayOfMonth() + "-" + 
+					dto.getInvoiceDate().getMonth() + "-" + dto.getInvoiceDate().getYear());
 			
 			Paragraph p12 = new Paragraph();
 			Text text12 = new Text(orgDetails.toString()).setFontSize(8);
 			p12.add(text12);
 			c12.add(p12);
-			c12.setBorderLeft(noBorder);
-			c12.setBorderTop(solidBorder);
-			c12.setBorderRight(solidBorder);
-			c12.setBorderBottom(noBorder);
+			c12.setBorder(new SolidBorder(1));
+			c12.setBorderTop(Border.NO_BORDER);
 			t4.addCell(c12);
 			
 			document.add(t4);
@@ -263,7 +259,8 @@ public class TaxInvoicePdfHelper {
 			Text text13 = new Text("SR. No.").setFontSize(8);
 			p13.add(text13);
 			c13.add(p13);
-			c13.setBorder(solidBorder);
+			c13.setBorder(new SolidBorder(1));
+			c13.setBorderTop(Border.NO_BORDER);
 			t5.addCell(c13);
 			
 			Cell c14 = new Cell();
@@ -272,7 +269,8 @@ public class TaxInvoicePdfHelper {
 			Text text14 = new Text("PARTICULARS").setFontSize(8);
 			p14.add(text14);
 			c14.add(p14);
-			c14.setBorder(solidBorder);
+			c14.setBorder(new SolidBorder(1));
+			c14.setBorderTop(Border.NO_BORDER);
 			t5.addCell(c14);
 			
 			Cell c15 = new Cell();
@@ -281,7 +279,8 @@ public class TaxInvoicePdfHelper {
 			Text text15 = new Text("HSN/SAC Code").setFontSize(8);
 			p15.add(text15);
 			c15.add(p15);
-			c15.setBorder(solidBorder);
+			c15.setBorder(new SolidBorder(1));
+			c15.setBorderTop(Border.NO_BORDER);
 			t5.addCell(c15);
 			
 			Cell c16 = new Cell();
@@ -290,7 +289,8 @@ public class TaxInvoicePdfHelper {
 			Text text16 = new Text("RATE (RS)").setFontSize(8);
 			p16.add(text16);
 			c16.add(p16);
-			c16.setBorder(solidBorder);
+			c16.setBorder(new SolidBorder(1));
+			c16.setBorderTop(Border.NO_BORDER);
 			t5.addCell(c16);
 			
 			Cell c17 = new Cell();
@@ -299,7 +299,8 @@ public class TaxInvoicePdfHelper {
 			Text text17 = new Text("UNITS (Kgs)").setFontSize(8);
 			p17.add(text17);
 			c17.add(p17);
-			c17.setBorder(solidBorder);
+			c17.setBorder(new SolidBorder(1));
+			c17.setBorderTop(Border.NO_BORDER);
 			t5.addCell(c17);
 			
 			Cell c18 = new Cell();
@@ -308,7 +309,8 @@ public class TaxInvoicePdfHelper {
 			Text text18 = new Text("AMOUNT (RS)").setFontSize(8);
 			p18.add(text18);
 			c18.add(p18);
-			c18.setBorder(solidBorder);
+			c18.setBorder(new SolidBorder(1));
+			c18.setBorderTop(Border.NO_BORDER);
 			t5.addCell(c18);
 			
 			int serialNumber = 1;
@@ -322,7 +324,7 @@ public class TaxInvoicePdfHelper {
 				Cell cell0 = new Cell();
 				cell0.setTextAlignment(TextAlignment.CENTER);
 				Paragraph para0 = new Paragraph();
-				Text text0 = new Text(String.valueOf(serialNumber));
+				Text text0 = new Text(String.valueOf(serialNumber)).setFontSize(8);
 				para0.add(text0);
 				cell0.add(para0);
 				cell0.setBorderLeft(solidBorder);
@@ -337,7 +339,7 @@ public class TaxInvoicePdfHelper {
 				StringBuffer courier = new StringBuffer("Courier Service");
 				courier.append("\n(Airway Bill No. ").append(shipment.getInvoiceNumber()).append(")");
 				courier.append("\n(FedEx Tracking No. ").append(shipment.getTrackingNumber()).append(")");
-				Text text01 = new Text(String.valueOf(courier.toString()));
+				Text text01 = new Text(String.valueOf(courier.toString())).setFontSize(8);
 				para01.add(text01);
 				cell01.add(para01);
 				cell01.setBorderLeft(solidBorder);
@@ -347,7 +349,7 @@ public class TaxInvoicePdfHelper {
 				Cell cell02 = new Cell();
 				cell02.setTextAlignment(TextAlignment.CENTER);
 				Paragraph para02 = new Paragraph();				
-				Text text02 = new Text("996812");
+				Text text02 = new Text("996812").setFontSize(8);
 				para02.add(text02);
 				cell02.add(para02);
 				cell02.setBorderLeft(solidBorder);
@@ -368,7 +370,7 @@ public class TaxInvoicePdfHelper {
 				cell04.setTextAlignment(TextAlignment.CENTER);
 				Paragraph para04 = new Paragraph();				
 				Text text04 = new Text((shipment.getActualWeight().doubleValue() > shipment.getBoxWeight().doubleValue()) 
-						? String.valueOf(shipment.getActualWeight().doubleValue()) : String.valueOf(shipment.getBoxWeight().doubleValue()));
+						? String.valueOf(shipment.getActualWeight().doubleValue()) : String.valueOf(shipment.getBoxWeight().doubleValue())).setFontSize(8);
 				para04.add(text04);
 				cell04.add(para04);
 				cell04.setBorderLeft(solidBorder);
@@ -378,7 +380,7 @@ public class TaxInvoicePdfHelper {
 				Cell cell05 = new Cell();
 				cell05.setTextAlignment(TextAlignment.CENTER);
 				Paragraph para05 = new Paragraph();				
-				Text text05 = new Text(String.valueOf(shipment.getFrieghtCharge().doubleValue()));
+				Text text05 = new Text(String.valueOf(Precision.round(shipment.getFrieghtCharge().doubleValue(), 2))).setFontSize(8);
 				para05.add(text05);
 				cell05.add(para05);
 				cell05.setBorderLeft(solidBorder);
@@ -391,14 +393,16 @@ public class TaxInvoicePdfHelper {
 						? shipment.getActualWeight().doubleValue() : shipment.getBoxWeight().doubleValue());
 			}
 			
+			totalNetAmount += totalCovidCharge;
+			
 			Cell cell21 = new Cell();
 			cell21.setTextAlignment(TextAlignment.CENTER);
 			Paragraph para21 = new Paragraph();
 			Text text21 = new Text(" ").setFontSize(8);
 			para21.add(text21);
 			cell21.add(para21);
-			cell21.setBorderLeft(solidBorder);
-			cell21.setBorderRight(solidBorder);
+			cell21.setBorder(new SolidBorder(1));
+			cell21.setBorderTop(Border.NO_BORDER);
 			t5.addCell(cell21);
 			
 			Cell cell22 = new Cell();
@@ -407,10 +411,9 @@ public class TaxInvoicePdfHelper {
 			Text text22 = new Text("Covid Surchange").setFontSize(8);
 			para22.add(text22);
 			cell22.add(para22);
-			cell22.setBorderLeft(solidBorder);
-			cell22.setBorderRight(solidBorder);
-			cell22.setBorderBottom(solidBorder);
-			t5.addCell(cell21);
+			cell22.setBorder(new SolidBorder(1));
+			cell22.setBorderTop(Border.NO_BORDER);			
+			t5.addCell(cell22);
 			
 			Cell cell23 = new Cell();
 			cell23.setTextAlignment(TextAlignment.CENTER);
@@ -445,7 +448,7 @@ public class TaxInvoicePdfHelper {
 			Cell cell26 = new Cell();
 			cell26.setTextAlignment(TextAlignment.CENTER);
 			Paragraph para26 = new Paragraph();
-			Text text26 = new Text(String.valueOf(totalCovidCharge)).setFontSize(8);
+			Text text26 = new Text(String.valueOf(Precision.round(totalCovidCharge, 2))).setFontSize(8);
 			para26.add(text26);
 			cell26.add(para26);
 			cell26.setBorderLeft(solidBorder);
@@ -458,8 +461,8 @@ public class TaxInvoicePdfHelper {
 			Text text27 = new Text(" ").setFontSize(8);
 			para27.add(text27);
 			cell27.add(para27);
-			cell27.setBorderLeft(solidBorder);
-			cell27.setBorderRight(solidBorder);
+			cell27.setBorder(solidBorder);
+			cell27.setBorderTop(Border.NO_BORDER);
 			t5.addCell(cell27);
 			
 			Cell cell28 = new Cell();
@@ -503,7 +506,7 @@ public class TaxInvoicePdfHelper {
 			Cell cell32 = new Cell();
 			cell32.setTextAlignment(TextAlignment.CENTER);
 			Paragraph para32 = new Paragraph();
-			Text text32 = new Text(String.valueOf(totalNetAmount)).setFontSize(8);
+			Text text32 = new Text(String.valueOf(Precision.round(totalNetAmount, 2))).setFontSize(8);
 			text32.setFont(courierBold);
 			para32.add(text32);
 			cell32.add(para32);			
@@ -516,8 +519,8 @@ public class TaxInvoicePdfHelper {
 			Text text33 = new Text(String.valueOf(" ")).setFontSize(8);
 			para33.add(text33);
 			cell33.add(para33);			
-			cell33.setBorderLeft(solidBorder);
-			cell33.setBorderRight(solidBorder);
+			cell33.setBorder(solidBorder);
+			cell33.setBorderTop(Border.NO_BORDER);
 			t5.addCell(cell33);
 			
 			Cell cell34 = new Cell();
@@ -555,13 +558,14 @@ public class TaxInvoicePdfHelper {
 			Text text37 = new Text(" ").setFontSize(8);
 			para37.add(text37);
 			cell37.add(para37);			
-			cell37.setBorder(solidBorder);
+			cell37.setBorder(new SolidBorder(1));
+			cell37.setBorderTop(Border.NO_BORDER);
 			t5.addCell(cell37);
 			
 			Cell cell38 = new Cell();
 			cell38.setTextAlignment(TextAlignment.CENTER);
 			Paragraph para38 = new Paragraph();
-			Text text38 = new Text(String.valueOf(totalNetAmount * 0.195)).setFontSize(8);
+			Text text38 = new Text(String.valueOf(Precision.round(totalNetAmount * 0.195, 2))).setFontSize(8);
 			para38.add(text38);
 			cell38.add(para38);			
 			cell38.setBorder(solidBorder);
@@ -569,7 +573,7 @@ public class TaxInvoicePdfHelper {
 			
 			document.add(t5);
 			
-			float[] pcw6 = {200F, 50F, 250F};
+			float[] pcw6 = {200F, 50F, 200F};
 			Table t6 = new Table(pcw6);
 			
 			Cell cell61 = new Cell();
@@ -583,8 +587,8 @@ public class TaxInvoicePdfHelper {
 			Text text61 = new Text(subTotal.toString()).setFontSize(8);
 			para61.add(text61);
 			cell61.add(para61);
-			cell61.setBorderLeft(solidBorder);
-			cell61.setBorderTop(solidBorder);
+			cell61.setBorder(new SolidBorder(1));
+			cell61.setBorderTop(Border.NO_BORDER);
 			cell61.setBorderBottom(solidBorder);
 			cell61.setBorderRight(noBorder);
 			t6.addCell(cell61);
@@ -598,32 +602,28 @@ public class TaxInvoicePdfHelper {
 			Text text62 = new Text(gst.toString()).setFontSize(8);
 			para62.add(text62);
 			cell62.add(para62);
-			cell62.setBorderBottom(solidBorder);
-			cell62.setBorderLeft(noBorder);
-			cell62.setBorderRight(noBorder);
-			cell62.setBorderTop(solidBorder);
+			cell62.setBorder(new SolidBorder(1));			
+			cell62.setBorderTop(Border.NO_BORDER);
 			t6.addCell(cell62);
 			
 			Cell cell63 = new Cell();
 			cell63.setTextAlignment(TextAlignment.RIGHT);
 			Paragraph para63 = new Paragraph();
 			StringBuffer charge = new StringBuffer();
-			charge.append(totalNetAmount * 1.195);
-			charge.append("\n").append(totalNetAmount * 1.195 * 0.09);
-			charge.append("\n").append(totalNetAmount * 1.195 * 0.09);
-			charge.append("\n").append((totalNetAmount * 1.195 * 0.09) * 2 + totalNetAmount * 1.195);
+			charge.append(Precision.round(totalNetAmount * 1.195, 2));
+			charge.append("\n").append(Precision.round(totalNetAmount * 1.195 * 0.09, 2));
+			charge.append("\n").append(Precision.round(totalNetAmount * 1.195 * 0.09, 2));
+			charge.append("\n").append(Precision.round((totalNetAmount * 1.195 * 0.09) * 2 + totalNetAmount * 1.195, 2));
 			Text text63 = new Text(charge.toString()).setFontSize(8);
 			para63.add(text63);
 			cell63.add(para63);
-			cell63.setBorderBottom(solidBorder);
-			cell63.setBorderLeft(noBorder);
-			cell63.setBorderRight(solidBorder);
-			cell63.setBorderTop(solidBorder);
+			cell63.setBorder(new SolidBorder(1));
+			cell63.setBorderTop(Border.NO_BORDER);
 			t6.addCell(cell63);
 			
 			document.add(t6);
 			
-			float[] pcw7 = {200F, 300F};
+			float[] pcw7 = {200F, 250F};
 			Table t7 = new Table(pcw7);
 			
 			Cell cell71 = new Cell();
@@ -631,13 +631,15 @@ public class TaxInvoicePdfHelper {
 			Paragraph para71 = new Paragraph();
 			StringBuffer bankDetails = new StringBuffer();
 			bankDetails.append("BANK DETAILS");
-			bankDetails.append("Bank name: ").append(dto.getUser().getOrganization().getBankDetails().get(0).getAccountNumber());
-			bankDetails.append("IFSC Code: ").append(dto.getUser().getOrganization().getBankDetails().get(0).getIfscCode());
-			bankDetails.append("MICR Code: ").append(dto.getUser().getOrganization().getBankDetails().get(0).getMicrCode());
+			bankDetails.append("\nBank name: ").append(dto.getUser().getOrganization().getBankDetails().get(0).getAccountNumber());
+			bankDetails.append("\nIFSC Code: ").append(dto.getUser().getOrganization().getBankDetails().get(0).getIfscCode());
+			bankDetails.append("\nMICR Code: ").append(dto.getUser().getOrganization().getBankDetails().get(0).getMicrCode() != null ?
+					dto.getUser().getOrganization().getBankDetails().get(0).getMicrCode() : "");
 			Text text71 = new Text(bankDetails.toString()).setFontSize(8);
 			para71.add(text71);
 			cell71.add(para71);
 			cell71.setBorder(solidBorder);
+			cell71.setBorderTop(Border.NO_BORDER);
 			cell71.setFont(courierBold);
 			t7.addCell(cell71);
 			
@@ -648,21 +650,20 @@ public class TaxInvoicePdfHelper {
 			para72.add(text72);
 			cell72.add(para72);
 			cell72.setBorder(solidBorder);
+			cell72.setBorderTop(Border.NO_BORDER);
 			cell72.setFont(courierBold);
 			t7.addCell(cell72);
 			
 			document.add(t7);
-			
-			document.setLeftMargin(80);
-			document.setTopMargin(80);
 			
 			document.close();
 			
 			
 			
 			taxInvoice.setFileName(fileName);
-			taxInvoice.setCreatedOn(LocalDate.now());
+			taxInvoice.setCreatedOn(dto.getInvoiceDate());
 			taxInvoice.setUserId(dto.getUser().getUserId());
+			taxInvoice.setTaxInvoiceNumber(dto.getTaxInvoiceNumber());
 			taxInvoice.setShipperId(dto.getShipper().getId());
 			File file = new File(path);
 			

@@ -41,5 +41,6 @@ public interface WebServiceInterface {
     CustomerTaxInvoiceDto generateCustomerTaxInvoice(TaxInvoiceDto taxInvoiceDto) throws URISyntaxException;
     List<CustomerTaxInvoiceDto> getTaxInvoicesForShipper(Long shipperId) throws URISyntaxException;
     List<ShipmentDto> getEligibleShipments(String userId, Long shipperId) throws URISyntaxException;
+    CustomerTaxInvoiceDto getCustomerTaxInvoice(Long id) throws URISyntaxException;
     
 }

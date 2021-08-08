@@ -37,11 +37,15 @@ public class ShipmentConvertor {
         dto.setInvoiceNumber(shipment.getInvoiceNumber());
         dto.setProvider(shipment.getProvider());
         dto.setSellingCost(shipment.getSellingCost());
+        dto.setCovidSurcharge(shipment.getCovidSurcharge());
+        dto.setFuelChargePercentage(shipment.getFuelChargePercentage());
+        dto.setFuelSurcharge(shipment.getFuelSurcharge());
         dto.setSpecialInstruction(shipment.getSpecialInstruction());
         dto.setStatus(shipment.getStatus());
         dto.setTrackingNumber(shipment.getTrackingNumber());
         dto.setUserId(shipment.getUserId());
         dto.setPaymentMode(shipment.getPaymentMode());
+        dto.setTaxInvoiceGenerated(shipment.getTaxInvoiceGenerated());
         //Set shipper
         ShipperDto shipperDto = new ShipperDto();
         shipperDto.setId(shipment.getShipper().getId());
@@ -166,6 +170,10 @@ public class ShipmentConvertor {
         dto.setTrackingNumber(shipment.getTrackingNumber());
         dto.setUserId(shipment.getUserId());
         dto.setPaymentMode(shipment.getPaymentMode());
+        dto.setCovidSurcharge(shipment.getCovidSurcharge());
+        dto.setFuelChargePercentage(shipment.getFuelChargePercentage());
+        dto.setFuelSurcharge(shipment.getFuelSurcharge());
+        dto.setTaxInvoiceGenerated(shipment.getTaxInvoiceGenerated());
         //Set shipper
         Shipper shipperDto = new Shipper();
         shipperDto.setId(shipment.getShipper().getId());

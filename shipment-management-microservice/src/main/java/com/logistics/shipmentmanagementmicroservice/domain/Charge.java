@@ -25,6 +25,15 @@ public class Charge {
 
     @Transient
     private long finalCharge;
+    
+    @Transient
+    private Double covidSurcharge;
+    
+    @Transient
+    private Double fuelSurcharge;
+    
+    @Transient
+    private Double fuelChargePercentage;
 
     public Charge() {
     }
@@ -92,4 +101,30 @@ public class Charge {
     public void setFrieghtCharge(double frieghtCharge) {
         this.frieghtCharge = frieghtCharge;
     }
+
+	public Double getCovidSurcharge() {
+		return covidSurcharge;
+	}
+
+	public void setCovidSurcharge(Double covidSurcharge) {
+		this.covidSurcharge = covidSurcharge;
+	}
+
+	public Double getFuelSurcharge() {
+		return fuelSurcharge;
+	}
+
+	public void setFuelSurcharge(Double fuelSurcharge) {
+		this.fuelSurcharge = fuelSurcharge;
+	}
+
+	public Double getFuelChargePercentage() {
+		return fuelChargePercentage;
+	}
+
+	public void setFuelChargePercentage(Double fuelChargePercentage) {
+		this.fuelChargePercentage = fuelChargePercentage;
+	}
+    
+    
 }

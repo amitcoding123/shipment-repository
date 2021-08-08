@@ -10,6 +10,9 @@ import {map, startWith} from 'rxjs/operators';
 import {Observable, Subscription} from "rxjs";
 import { TaxInvoice } from '../model/tax-invoice';
 import { Shipment } from '../model/shipment';
+import { CustomerTaxInvoice } from '../model/customer-tax-invoice';
+
+import * as fileSaver from 'file-saver';
 
 @Component({
   selector: 'app-customertaxinvoice',
@@ -26,9 +29,13 @@ export class CustomertaxinvoiceComponent implements OnInit {
   eligibleShipments: Shipment[] = [];
   createTaxInvoiceFlag = false;
   selectedShipmentsForTI: Shipment[] = [];
+  taxInvoiceGenerated = false;
+  customerTaxInvoice: CustomerTaxInvoice;
 
   displayedColumns: string[] = ['select', 'trackingNumber', 'createdOn', 'status'];
   columnsToDisplay: string[] = this.displayedColumns.slice();
+  displayedColumns1: string[] = ['id', 'createdOn', 'download'];
+  columnsToDisplay1: string[] = this.displayedColumns1.slice();
 
   constructor(private formBuilder: FormBuilder, private shipmentService: ShipmentService,
     private authService: AuthService) { }
@@ -130,8 +137,29 @@ export class CustomertaxinvoiceComponent implements OnInit {
     taxInvoice.shipper = this.getSelectedShipper().value;
     taxInvoice.shipments = [...this.selectedShipmentsForTI];
     taxInvoice.user = this.authService.getUser();
-    this.shipmentService.generateTaxInvoice(taxInvoice);
-    console.log('Tax Invoice Dto = ' + taxInvoice);
+    this.shipmentService.generateTaxInvoice(taxInvoice).subscribe(data => {
+      this.customerTaxInvoice = data;
+      console.log('Tax Invoice Dto = ' + taxInvoice);
+      this.taxInvoiceGenerated = true;
+    });
+  }
+
+  downloadTaxInvoice() {
+    this.shipmentService.downloadTaxInvoiceFile(this.customerTaxInvoice.id).subscribe((data : any) => {
+      console.log(data.type);
+      let blob: any = new Blob([data], {type:data.type});
+      const url = window.URL.createObjectURL(blob);
+      fileSaver.saveAs(blob, 'Tax_Invoice.pdf');
+    });
+  }
+
+  downloadTaxInvoiceRow(id: number) {
+    this.shipmentService.downloadTaxInvoiceFile(id).subscribe((data : any) => {
+      console.log(data.type);
+      let blob: any = new Blob([data], {type:data.type});
+      const url = window.URL.createObjectURL(blob);
+      fileSaver.saveAs(blob, 'Tax_Invoice.pdf');
+    });
   }
 
 }

@@ -41,10 +41,13 @@ public class ChargeServiceImpl implements ChargeService {
         //Double totalSurcharge = covidSurcharge.getAmount() * weight;
         CovidChargeCalculator calculator = CovidCalculatorFactory.getCovidCalculatory(provider.equals(CourierServiceProvider.FEDEX) ? 'F' : 'D');
         Double totalSurcharge = calculator.getCovidSurcharge(covidSurcharge, weight);
+        charge.setCovidSurcharge(totalSurcharge);
         Double totalCharge = charge.getRate() + totalSurcharge;
         //Add fuel surchange
         //Make it configurable
         totalCharge = totalCharge + (totalCharge * 15)/100;
+        charge.setFuelSurcharge((totalCharge * 15)/100);
+        charge.setFuelChargePercentage(15d);
         //Add GST
         totalCharge = totalCharge + (totalCharge * 18)/100;//Purchase rate
         charge.setFrieghtCharge(totalCharge);

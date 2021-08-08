@@ -218,7 +218,14 @@ public class WebServiceConsumer implements WebServiceInterface {
 		UserDto user = restTemplate.getForEntity(uriUser, UserDto.class).getBody();
 		taxInvoiceDto.setUser(user);
         URI uri = new URI(invoiceEndPoint + "taxInvoices");
-        return restTemplate.postForObject(uri, taxInvoiceDto, CustomerTaxInvoiceDto.class);
+        CustomerTaxInvoiceDto dto = restTemplate.postForObject(uri, taxInvoiceDto, CustomerTaxInvoiceDto.class);
+        //Update shipments
+        URI uriShipments = new URI(shipmentEndPoint + "shipments");
+        for(ShipmentDto shipment: taxInvoiceDto.getShipments()) {
+        	shipment.setTaxInvoiceGenerated("Y");
+            restTemplate.put(uriShipments, shipment);
+        }
+        return dto;
 	}
 
 	@Override
@@ -238,9 +245,12 @@ public class WebServiceConsumer implements WebServiceInterface {
         ShipmentDto[] dtos = response.getBody();
         return Arrays.asList(dtos);
 	}
-	
-	
-	
-	
+
+	@Override
+	public CustomerTaxInvoiceDto getCustomerTaxInvoice(Long id) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+        URI uri = new URI(invoiceEndPoint + "customertaxinvoices/" + id);
+        return restTemplate.getForEntity(uri, CustomerTaxInvoiceDto.class).getBody();
+	}		
 
 }

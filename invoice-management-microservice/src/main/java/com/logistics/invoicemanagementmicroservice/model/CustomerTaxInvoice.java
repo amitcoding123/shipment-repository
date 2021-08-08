@@ -19,6 +19,7 @@ public class CustomerTaxInvoice {
 	private String fileName;
 	private String contentType;
 	private Long shipperId;
+	private String taxInvoiceNumber;
 	
 	@Lob
 	private byte[] taxInvoice;
@@ -81,6 +82,14 @@ public class CustomerTaxInvoice {
 
 	public void setShipperId(Long shipperId) {
 		this.shipperId = shipperId;
+	}
+
+	public String getTaxInvoiceNumber() {
+		return taxInvoiceNumber;
+	}
+
+	public void setTaxInvoiceNumber(String taxInvoiceNumber) {
+		this.taxInvoiceNumber = taxInvoiceNumber;
 	}
 	
 	

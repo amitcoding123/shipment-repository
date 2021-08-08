@@ -27,6 +27,7 @@ public class ShipmentDto extends BaseDto {
     private Double fuelChargePercentage;
     private Double sellingCost;
     private String paymentMode;
+    private String taxInvoiceGenerated;
     
     private Integer totalShipments;
 
@@ -213,6 +214,13 @@ public class ShipmentDto extends BaseDto {
 	public void setFuelChargePercentage(Double fuelChargePercentage) {
 		this.fuelChargePercentage = fuelChargePercentage;
 	}
-	
+
+	public String getTaxInvoiceGenerated() {
+		return taxInvoiceGenerated;
+	}
+
+	public void setTaxInvoiceGenerated(String taxInvoiceGenerated) {
+		this.taxInvoiceGenerated = taxInvoiceGenerated;
+	}	
 	
 }

@@ -3,14 +3,15 @@ package com.logistics.invoicemanagementmicroservice.controllers;
 import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.TaxInvoiceDto;
 import com.logistics.invoicemanagementmicroservice.convertors.CustomerTaxInvoiceConvertor;
+import com.logistics.invoicemanagementmicroservice.model.CustomerTaxInvoice;
 import com.logistics.invoicemanagementmicroservice.services.CustomerTaxInvoiceService;
 
 @RestController
@@ -36,6 +37,12 @@ public class TaxInvoiceController {
 		List<CustomerTaxInvoiceDto> taxInvoices = 
 				CustomerTaxInvoiceConvertor.getInstance().convertList(taxInvoiceService.getCustomerTaxInvoicesForShipper(shipperId));
 		return taxInvoices;
+	}
+	
+	@GetMapping("/customertaxinvoices/{id}")
+	public CustomerTaxInvoiceDto getCustomerTaxInvoice(@PathVariable Long id) {
+		CustomerTaxInvoice customerTaxInvoice = taxInvoiceService.getCustomerTaxInvoice(id);
+		return CustomerTaxInvoiceConvertor.getInstance().convert(customerTaxInvoice);
 	}
 
 }

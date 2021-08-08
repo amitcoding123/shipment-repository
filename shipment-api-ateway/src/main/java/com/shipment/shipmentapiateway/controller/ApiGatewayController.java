@@ -212,16 +212,10 @@ public class ApiGatewayController {
 	}
     
     @PostMapping("/customerTaxInvoices") 
-    public ResponseEntity<Resource> generateCustomerInvoice(@RequestBody TaxInvoiceDto taxInvoiceDto) 
+    public CustomerTaxInvoiceDto generateCustomerInvoice(@RequestBody TaxInvoiceDto taxInvoiceDto) 
     throws URISyntaxException {
-    	CustomerTaxInvoiceDto dto = webServiceInterface.generateCustomerTaxInvoice(taxInvoiceDto);
-    	Resource resource = null;    	
-    	
-		resource = new ByteArrayResource(dto.getTaxInvoice());
-    	return ResponseEntity.ok()
-    			.contentType(MediaType.parseMediaType(dto.getContentType()))
-    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
-    			dto.getFileName() + "\"").body(resource);    	
+    	CustomerTaxInvoiceDto dto = webServiceInterface.generateCustomerTaxInvoice(taxInvoiceDto);    	
+    	return dto;    	
     }
     
     @GetMapping("/taxInvoices/{shipperId}")
@@ -236,5 +230,35 @@ public class ApiGatewayController {
     	throws URISyntaxException{
     	return webServiceInterface.getEligibleShipments(userId, shipperId);
     }
+    
+    @GetMapping("/customerTaxInvoices/{id}")
+    public ResponseEntity<Resource> downloadTaxInvoice(@PathVariable Long id)
+    	throws URISyntaxException 
+    {
+    	CustomerTaxInvoiceDto dto = webServiceInterface.getCustomerTaxInvoice(id);
+    	Resource resource = null;    	
+    	
+		resource = new ByteArrayResource(dto.getTaxInvoice());
+    	return ResponseEntity.ok()
+    			.contentType(MediaType.parseMediaType(dto.getContentType()))
+    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+    			dto.getFileName() + "\"").body(resource);
+    	
+    }
+    
+//    @GetMapping("historicalCustomers/report")
+//    public ResponseEntity<Resource> generateLostCustomersReport()
+//    	 
+//    {
+////    	CustomerTaxInvoiceDto dto = webServiceInterface.getCustomerTaxInvoice(id);
+////    	Resource resource = null;    	
+////    	
+////		resource = new ByteArrayResource(dto.getTaxInvoice());
+////    	return ResponseEntity.ok()
+////    			.contentType(MediaType.parseMediaType(dto.getContentType()))
+////    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+////    			dto.getFileName() + "\"").body(resource);
+//    	
+//    }
 
 }

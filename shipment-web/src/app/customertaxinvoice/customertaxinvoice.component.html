@@ -1,4 +1,4 @@
-<div>
+<div *ngIf="!taxInvoiceGenerated">
   <form [formGroup]="customerTaxInvoiceForm" *ngIf="!createTaxInvoiceFlag">
     <div class="alert alert-warning" *ngIf='!validSelection'>Please choose a valid shipper.</div>
     <mat-card>
@@ -16,6 +16,28 @@
             </mat-option>
           </mat-autocomplete>
         </mat-form-field>
+        <div *ngIf="taxInvoices.length > 0">
+          <table mat-table [dataSource]="taxInvoices" class="mat-elevation-z8 demo-table">
+            <!-- Position Column -->
+            <ng-container matColumnDef="id">
+              <th mat-header-cell *matHeaderCellDef>Identifier</th>
+              <td mat-cell *matCellDef="let element">{{element.id}}</td>
+            </ng-container>
+            <!-- Name Column -->
+            <ng-container matColumnDef="createdOn">
+              <th mat-header-cell *matHeaderCellDef>Creation Date</th>
+              <td mat-cell *matCellDef="let element">{{element.createdOn}}</td>
+            </ng-container>
+            <ng-container matColumnDef="download">
+              <th mat-header-cell *matHeaderCellDef>Download</th>
+              <td mat-cell *matCellDef="let element">
+                <button mat-raised-button color="primary" (click)="downloadTaxInvoiceRow(element.id)">Download</button>
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="displayedColumns1"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns1;"></tr>
+          </table>
+        </div>
       </mat-card-content>
       <mat-card-actions>
         <button mat-raised-button color="primary" (click)="getTaxInvoices()" [disabled]="!customerTaxInvoiceForm.valid">Get Tax Invoices</button>
@@ -24,7 +46,7 @@
     </mat-card>
   </form>
 </div>
-<div *ngIf="createTaxInvoiceFlag">
+<div *ngIf="createTaxInvoiceFlag && !taxInvoiceGenerated">
   <mat-card>
     <mat-card-title>Choose Shipments for Tax Invoice</mat-card-title>
     <mat-card-content>
@@ -56,6 +78,14 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" (click)="generateTaxInvoice()" [disabled]="selectedShipmentsForTI.length == 0">Generate Tax Invoice</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+<div *ngIf="taxInvoiceGenerated">
+  <mat-card>
+    <mat-card-title>Tax invoice created successfully.</mat-card-title>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="downloadTaxInvoice()">Download</button>
     </mat-card-actions>
   </mat-card>
 </div>

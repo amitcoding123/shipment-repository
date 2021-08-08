@@ -50,6 +50,27 @@ public class ShipmentApiAtewayApplication {
                 registry.addMapping("/taxInvoices/{shipperId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
                 registry.addMapping("/shipments/taxInvoices/{userId}/{shipperId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
                 registry.addMapping("/customerTaxInvoices").allowedOrigins("http://localhost:4200").allowedMethods("POST");
+                registry.addMapping("/customerTaxInvoices/{id}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+                
+//                registry.addMapping("/user/authenticate").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/user/authenticate/{userId}/{password}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/otp/generate/{userId}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/otp/validate/{userId}/{otp}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/saveNewPassword").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/shipments/user/{userId}/{currentPage}/{pageSize}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/shipments/itemtypes").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/shipments").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("POST", "PUT");
+//                registry.addMapping("/shipments/{id}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("GET", "DELETE");
+//                registry.addMapping("/shipments/charge/{country}/{category}/{weight}/{provider}").allowedMethods("GET");
+//                registry.addMapping("/invoice/{shipmentId}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/dsrs/{userId}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/dsrs/file/{id}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
+//                registry.addMapping("/uploadFile").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("POST");
+//                registry.addMapping("/bulkUpdate").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("POST");
+//                registry.addMapping("/shippers/{userId}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("GET");
+//                registry.addMapping("/taxInvoices/{shipperId}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("GET");
+//                registry.addMapping("/shipments/taxInvoices/{userId}/{shipperId}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("GET");
+//                registry.addMapping("/customerTaxInvoices").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com").allowedMethods("POST");
             }
         };
     }

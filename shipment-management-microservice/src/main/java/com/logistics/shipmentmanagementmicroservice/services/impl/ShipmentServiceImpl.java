@@ -87,8 +87,7 @@ public class ShipmentServiceImpl implements ShipmentService {
     @Override
     public Shipment updateShipment(Shipment shipment) {
     	Shipper shipper = shipperService.saveShipper(shipment.getShipper());
-    	shipment.setShipper(shipper);
-    	shipment.setTaxInvoiceGenerated("N");
+    	shipment.setShipper(shipper);    	
         removeNullItems(shipment);        
         return shipmentRepository.save(shipment);
     }
