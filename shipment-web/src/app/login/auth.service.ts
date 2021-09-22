@@ -31,6 +31,8 @@ export class AuthService {
     .subscribe(response => {
       console.log('After authenticaton = ' + response.userId);
       console.log('After authenticaton = ' + response.email);
+      console.log('After authenticaton = ' + response.firstName);
+      console.log('After authenticaton = ' + response.lastName);
       this.user = response;
       this.loggedIn = true;
       this.loginEvent.emit("logged");

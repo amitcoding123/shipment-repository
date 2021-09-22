@@ -1,0 +1,39 @@
+<div>
+  <mat-card>
+    <mat-card-title>User Profile</mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="userForm">
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxLayout="column" fxFlex="100%">
+            <mat-form-field>
+              <mat-label>UserId</mat-label>
+              <input type="text" matInput formControlName="UserId" disabled>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxLayout="column" fxFlex="50%">
+            <mat-form-field>
+              <mat-label>First Name</mat-label>
+              <input type="text" matInput formControlName="firstName">
+              <mat-hint>Enter First Name.</mat-hint>
+              <mat-error *ngIf="firstName.hasError('required')">
+                First Name is mandatory.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxFlex="50%">
+            <mat-form-field>
+              <mat-label>Last Name</mat-label>
+              <input type="text" matInput formControlName="lastName">
+              <mat-hint>Enter Last Name.</mat-hint>
+              <mat-error *ngIf="firstName.hasError('required')">
+                First Name is mandatory.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+    </form>
+    </mat-card-content>
+  </mat-card>
+</div>

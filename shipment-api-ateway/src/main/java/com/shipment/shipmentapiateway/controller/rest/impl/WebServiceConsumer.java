@@ -18,8 +18,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.logistics.domain.ChargeDto;
 import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.DSRDto;
+import com.logistics.domain.HistoricalCustomerDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
+import com.logistics.domain.LostCustomer;
 import com.logistics.domain.ShipmentDto;
 import com.logistics.domain.ShipperDto;
 import com.logistics.domain.TaxInvoiceDto;
@@ -251,6 +253,31 @@ public class WebServiceConsumer implements WebServiceInterface {
 		RestTemplate restTemplate = new RestTemplate();
         URI uri = new URI(invoiceEndPoint + "customertaxinvoices/" + id);
         return restTemplate.getForEntity(uri, CustomerTaxInvoiceDto.class).getBody();
-	}		
+	}
+
+	@Override
+	public LostCustomer generateLostCustomerReport() throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+        URI uri = new URI(shipmentEndPoint + "historicalCustomers/report");
+        return restTemplate.getForEntity(uri, LostCustomer.class).getBody();
+	}
+
+	@Override
+	public List<HistoricalCustomerDto> getAllHistoricalCustomer() throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();		
+        URI uri = new URI(shipmentEndPoint + "historicalCustomers");
+        ResponseEntity<HistoricalCustomerDto[]> response = restTemplate.getForEntity(uri, HistoricalCustomerDto[].class);
+        HistoricalCustomerDto[] dtos = response.getBody();
+        return Arrays.asList(dtos);
+	}
+
+	@Override
+	public HistoricalCustomerDto createHistoricalCustomer(HistoricalCustomerDto customer) throws URISyntaxException {
+		RestTemplate restTemplate = new RestTemplate();
+		URI uri = new URI(shipmentEndPoint + "historicalCustomers");
+        return restTemplate.postForObject(uri, customer, HistoricalCustomerDto.class);
+	}
+	
+		
 
 }

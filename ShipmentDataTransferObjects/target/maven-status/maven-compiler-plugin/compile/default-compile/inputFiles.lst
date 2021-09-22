@@ -7,6 +7,7 @@ E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\d
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\BaseDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CourierServiceProvider.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ShipperDto.java
+E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\WhatsAppMessageDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ItemDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\TrackingCSV.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CompanyDto.java
@@ -14,10 +15,12 @@ E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\d
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CountryDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\AddressDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CurrencyDto.java
+E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\LostCustomer.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\BankDetailsDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CovidSurchargeDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\CustomerTaxInvoiceDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ZoneDto.java
+E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\HistoricalCustomerDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\DSRDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\OrganizationDto.java
 E:\shipment-repository\ShipmentDataTransferObjects\src\main\java\com\logistics\domain\ItemTypeDto.java

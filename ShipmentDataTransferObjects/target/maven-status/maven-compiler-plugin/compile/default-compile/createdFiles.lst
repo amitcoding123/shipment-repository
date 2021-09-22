@@ -11,14 +11,17 @@ com\logistics\domain\ShipementCategory.class
 com\logistics\domain\BaseDto.class
 com\logistics\domain\TrackingCSV.class
 com\logistics\domain\CurrencyDto.class
+com\logistics\domain\HistoricalCustomerDto.class
 com\logistics\domain\ZoneDto.class
 com\logistics\domain\ItemDto.class
+com\logistics\domain\WhatsAppMessageDto.class
 com\logistics\domain\OrganizationDto.class
 com\logistics\domain\CountryDto.class
 com\logistics\domain\BankDetailsDto.class
 com\logistics\domain\ConsigneeDto.class
 com\logistics\domain\InvoiceDto.class
 com\logistics\domain\ChargeDto.class
+com\logistics\domain\LostCustomer.class
 com\logistics\domain\ShipmentDto.class
 com\logistics\domain\CourierServiceProvider.class
 com\logistics\domain\TaxInvoiceDto.class

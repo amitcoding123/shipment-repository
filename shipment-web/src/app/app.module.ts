@@ -51,6 +51,10 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatMomentDateModule } from '@angular/material-moment-adapter';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { TestComponent } from './test/test.component';
+import { HistoricalCustomerComponent } from './historical-customer/historical-customer.component';
+import { CustomerCreateComponent } from './historical-customer/customer-create/customer-create.component';
+import { CustomerReportComponent } from './historical-customer/customer-report/customer-report.component';
+import { UserProfileComponent } from './user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -70,7 +74,11 @@ import { TestComponent } from './test/test.component';
     TrackingComponent,
     ContenttypeComponent,
     CustomertaxinvoiceComponent,
-    TestComponent
+    TestComponent,
+    HistoricalCustomerComponent,
+    CustomerCreateComponent,
+    CustomerReportComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -116,7 +124,9 @@ import { TestComponent } from './test/test.component';
       {path: 'dsr', component: DsrComponent},
       {path: 'shipment-content', component: ShipmentContentComponent},
       {path: 'customertaxinvoice', component: CustomertaxinvoiceComponent},
-      {path: 'test', component: TestComponent}
+      {path: 'test', component: TestComponent},
+      {path: 'historicalcustomer', component: HistoricalCustomerComponent},
+      {path: 'customerreport', component: CustomerReportComponent}
     ]),
     ReactiveFormsModule,
     MatSelectModule,

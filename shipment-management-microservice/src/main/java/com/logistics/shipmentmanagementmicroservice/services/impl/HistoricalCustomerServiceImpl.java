@@ -19,8 +19,8 @@ public class HistoricalCustomerServiceImpl implements HistoricalCustomerService 
 	}
 
 	@Override
-	public void addHistoricalCustomer(HistoricalCustomer historicalCustomer) {		
-		repository.save(historicalCustomer);
+	public HistoricalCustomer addHistoricalCustomer(HistoricalCustomer historicalCustomer) {		
+		return repository.save(historicalCustomer);
 	}
 
 	@Override

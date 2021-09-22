@@ -1,0 +1,59 @@
+<div>
+  <mat-card>
+    <mat-card-title>
+      <div *ngIf="!modify">Create a new customer</div>
+      <div *ngIf="modify">Modify customer</div>
+    </mat-card-title>
+    <mat-card-content>
+      <form [formGroup]="customerForm">
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxLayout="column" fxFlex="50%">
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>Customer Name</mat-label>
+              <input type="text" matInput formControlName="name">
+              <mat-hint>Enter Customer Name.</mat-hint>
+              <mat-error *ngIf="name.hasError('required')">
+                Customer Name is mandatory.
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div fxLayout="column" fxFlex="50%">
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>Mobile Number</mat-label>
+              <input type="text" matInput formControlName="mobileNumber">
+              <mat-hint>Enter Mobile Number.</mat-hint>
+              <mat-error *ngIf="mobileNumber.hasError('required')">
+                Mobile Number is mandatory.
+              </mat-error>
+              <mat-error *ngIf="mobileNumber.hasError('minlength')">
+                Mobile Number should be exactly 10 digits.
+              </mat-error>
+              <mat-error *ngIf="mobileNumber.hasError('maxlength')">
+                Mobile Number should be exactly 10 digits.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="20px">
+          <div fxLayout="column" fxFlex="50%">
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>Last Shipment Year</mat-label>
+              <mat-select formControlName="yearLastBooked">
+                <mat-option value="2017">2017</mat-option>
+                <mat-option value="2018">2018</mat-option>
+                <mat-option value="2019">2019</mat-option>
+              </mat-select>
+              <mat-hint>Select year of last shipment.</mat-hint>
+              <mat-error *ngIf="yearLastBooked.hasError('required')">
+                Last shipment year is mandatory.
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="createCustomer()">Save customer.</button>
+    </mat-card-actions>
+  </mat-card>
+</div>

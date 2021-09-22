@@ -9,8 +9,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.logistics.domain.ChargeDto;
 import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.DSRDto;
+import com.logistics.domain.HistoricalCustomerDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
+import com.logistics.domain.LostCustomer;
 import com.logistics.domain.ShipmentDto;
 import com.logistics.domain.ShipperDto;
 import com.logistics.domain.TaxInvoiceDto;
@@ -42,5 +44,7 @@ public interface WebServiceInterface {
     List<CustomerTaxInvoiceDto> getTaxInvoicesForShipper(Long shipperId) throws URISyntaxException;
     List<ShipmentDto> getEligibleShipments(String userId, Long shipperId) throws URISyntaxException;
     CustomerTaxInvoiceDto getCustomerTaxInvoice(Long id) throws URISyntaxException;
-    
+    LostCustomer generateLostCustomerReport() throws URISyntaxException;
+    List<HistoricalCustomerDto> getAllHistoricalCustomer() throws URISyntaxException;
+    HistoricalCustomerDto createHistoricalCustomer (HistoricalCustomerDto customer) throws URISyntaxException;
 }

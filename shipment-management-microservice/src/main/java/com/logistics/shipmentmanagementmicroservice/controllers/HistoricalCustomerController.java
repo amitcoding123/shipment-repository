@@ -34,8 +34,8 @@ public class HistoricalCustomerController {
 
 
 	@PostMapping("/historicalCustomers")
-	public void createHistoricalCustomer(@RequestBody HistoricalCustomerDto historicalCustomerDto) {
-		service.addHistoricalCustomer(convertor.reverseConvert(historicalCustomerDto));
+	public HistoricalCustomerDto createHistoricalCustomer(@RequestBody HistoricalCustomerDto historicalCustomerDto) {
+		return convertor.convert(service.addHistoricalCustomer(convertor.reverseConvert(historicalCustomerDto)));		
 	}
 	
 	@PutMapping("/historicalCustomers")
@@ -53,7 +53,7 @@ public class HistoricalCustomerController {
 		return convertor.convertList(service.getAllHistoricalCustomers());
 	}
 	
-	@GetMapping("historicalCustomers/report")
+	@GetMapping("/historicalCustomers/report")
 	public LostCustomer generateLostCustomersReport() throws IOException {
 		LostCustomer lostCustomer = reportGenerator.generateHistoricalCustomerReport();
 		return lostCustomer;

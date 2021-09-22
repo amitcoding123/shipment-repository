@@ -14,6 +14,7 @@ import { LoginComponent } from '../login/login.component';
 export class MenuComponent implements OnInit {
 
   isLoggedIn: boolean;
+  name: string;
 
   constructor(private authService: AuthService,
               private router: Router,
@@ -21,8 +22,10 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.isLoggedIn = this.authService.isUserLoggedIn();
     console.log('In menu component, is user logged in: ' + this.isLoggedIn);
+    console.log('In menu component, first name: ' + this.authService.getUser().firstName);
+    this.isLoggedIn = this.authService.isUserLoggedIn();
+    this.name = this.authService.getUser().firstName;
   }
 
   handleLogout() {
@@ -48,6 +51,11 @@ export class MenuComponent implements OnInit {
     dialogRef.afterClosed().subscribe(() => {
        sub.unsubscribe();
     });
+  }
+
+  setUserInformation() {
+    this.isLoggedIn = true;
+    this.name = this.authService.getUser().firstName;
   }
 
 }

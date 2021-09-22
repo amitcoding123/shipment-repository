@@ -26,8 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.logistics.domain.ChargeDto;
 import com.logistics.domain.CustomerTaxInvoiceDto;
 import com.logistics.domain.DSRDto;
+import com.logistics.domain.HistoricalCustomerDto;
 import com.logistics.domain.InvoiceDto;
 import com.logistics.domain.ItemTypeDto;
+import com.logistics.domain.LostCustomer;
 import com.logistics.domain.ShipmentDto;
 import com.logistics.domain.ShipperDto;
 import com.logistics.domain.TaxInvoiceDto;
@@ -246,19 +248,28 @@ public class ApiGatewayController {
     	
     }
     
-//    @GetMapping("historicalCustomers/report")
-//    public ResponseEntity<Resource> generateLostCustomersReport()
-//    	 
-//    {
-////    	CustomerTaxInvoiceDto dto = webServiceInterface.getCustomerTaxInvoice(id);
-////    	Resource resource = null;    	
-////    	
-////		resource = new ByteArrayResource(dto.getTaxInvoice());
-////    	return ResponseEntity.ok()
-////    			.contentType(MediaType.parseMediaType(dto.getContentType()))
-////    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
-////    			dto.getFileName() + "\"").body(resource);
-//    	
-//    }
+    @GetMapping("/historicalCustomers/report")
+    public ResponseEntity<Resource> generateLostCustomersReport() throws URISyntaxException    	 
+    {
+    	LostCustomer dto = webServiceInterface.generateLostCustomerReport();
+    	Resource resource = null;    	
+    	
+		resource = new ByteArrayResource(dto.getFileData());
+    	return ResponseEntity.ok()
+    			.contentType(MediaType.parseMediaType(dto.getContentType()))
+    			.header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + 
+    			dto.getFileName() + "\"").body(resource);
+    	
+    }
+    
+    @GetMapping("/historicalCustomers")
+    public List<HistoricalCustomerDto> getAllHistoricalCustomers() throws URISyntaxException {
+    	return webServiceInterface.getAllHistoricalCustomer();
+    }
+    
+    @PostMapping("/historicalCustomers")
+    public HistoricalCustomerDto createHistoricalCustomer(@RequestBody HistoricalCustomerDto customer) throws URISyntaxException {
+    	return webServiceInterface.createHistoricalCustomer(customer);
+    }
 
 }

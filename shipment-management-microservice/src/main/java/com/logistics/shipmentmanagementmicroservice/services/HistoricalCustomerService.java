@@ -6,7 +6,7 @@ import com.logistics.shipmentmanagementmicroservice.domain.HistoricalCustomer;
 
 public interface HistoricalCustomerService {
 
-	void addHistoricalCustomer(HistoricalCustomer historicalCustomer);
+	HistoricalCustomer addHistoricalCustomer(HistoricalCustomer historicalCustomer);
 	void modifyHistoricalCustomer(HistoricalCustomer historicalCustomer);
 	HistoricalCustomer getHistoricalCustomer(Long id);
 	List<HistoricalCustomer> getAllHistoricalCustomers();

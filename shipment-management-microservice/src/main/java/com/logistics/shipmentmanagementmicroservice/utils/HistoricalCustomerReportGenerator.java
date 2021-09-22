@@ -82,6 +82,7 @@ public class HistoricalCustomerReportGenerator {
 			
 			Cell cell6 = dataRow.createCell(2);
 			cell6.setCellValue(customer.getYearLastBooked());
+			rowIndex++;
 		}
 		
 		

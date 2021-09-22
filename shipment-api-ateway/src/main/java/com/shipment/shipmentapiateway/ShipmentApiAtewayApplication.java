@@ -51,6 +51,8 @@ public class ShipmentApiAtewayApplication {
                 registry.addMapping("/shipments/taxInvoices/{userId}/{shipperId}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
                 registry.addMapping("/customerTaxInvoices").allowedOrigins("http://localhost:4200").allowedMethods("POST");
                 registry.addMapping("/customerTaxInvoices/{id}").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+                registry.addMapping("/historicalCustomers/report").allowedOrigins("http://localhost:4200").allowedMethods("GET");
+                registry.addMapping("/historicalCustomers").allowedOrigins("http://localhost:4200").allowedMethods("GET", "POST");
                 
 //                registry.addMapping("/user/authenticate").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");
 //                registry.addMapping("/user/authenticate/{userId}/{password}").allowedOrigins("https://prod.d3vzwkqxtscvgp.amplifyapp.com");

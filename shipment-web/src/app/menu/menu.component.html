@@ -56,8 +56,8 @@
     <button mat-menu-item [matMenuTriggerFor]="historicalcustomers">Historical Customers</button>
   </mat-menu>
   <mat-menu #historicalcustomers="matMenu">
-    <button mat-menu-item>Customer List</button>
-    <button mat-menu-item>Generate Leads Report</button>
+    <button mat-menu-item routerLink="/historicalcustomer">Customer List</button>
+    <button mat-menu-item routerLink="/customerreport">Generate Leads Report</button>
   </mat-menu>
 
   <span class="spacer"></span>
@@ -67,8 +67,15 @@
     </li>
     <li *ngIf="isLoggedIn">
       <a mat-button>
-      <mat-icon matSuffix type="button" color="accent">person</mat-icon>
+      <mat-icon matSuffix type="button" color="accent" [matMenuTriggerFor]="userMenu" (click)="setUserInformation()">person</mat-icon>
       </a>
+      <mat-menu #userMenu="matMenu" yPosition="below">
+        <button mat-menu-item>
+          <mat-icon>perm_identity</mat-icon>
+          <span>Welcome {{name}}</span>
+        </button>
+        <button mat-menu-item>Update Profile</button>
+      </mat-menu>
     </li>
     <li *ngIf="isLoggedIn">
       <a mat-button (click)="handleLogout()" routerLinkActive="mat-accent">Logout</a>
